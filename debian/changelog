@@ -1,0 +1,6 @@
+org-mode-doc (8.0.6-1) unstable; urgency=low
+
+  * First release
+  * New version of the manual (Closes: #691892)
+
+ -- Sebastien Delafond <seb@debian.org>  Mon, 15 Jul 2013 14:15:22 +0200

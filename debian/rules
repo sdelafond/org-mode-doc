@@ -1,0 +1,48 @@
+#! /usr/bin/make -f
+
+DOC_TMP_FILES := doc/org.aux doc/org.cp doc/org.cps doc/org.fn \
+		 doc/org.fns doc/org.ky doc/org.kys \
+	         doc/org.log doc/org.pg doc/org.toc doc/org.tp \
+
+DOC_FILES := doc/*pdf
+
+clean:
+	dh_testdir
+	dh_testroot
+	dh_clean
+	rm -f $(DOC_FILES) $(DOC_TMP_FILES)
+
+build build-indep build-arch:
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+	make doc
+	rm -f $(DOC_TMP_FILES)
+	# find $(CURDIR)/debian/org-mode-doc/usr/share/org-mode/ -type f -exec chmod 644 "{}" \;
+	# find $(CURDIR)/debian/org-mode-doc/usr/share/emacs/site-lisp/org-mode -type f -exec chmod 644 "{}" \;
+	# find $(CURDIR)/debian/org-mode-doc/usr/share/org-mode/ -name .DS_Store -exec rm -f "{}" \;
+	# find $(CURDIR)/debian/org-mode-doc/usr/share/org-mode/ -name .gitignore -exec rm -f "{}" \;
+
+binary-indep: install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs doc/*
+	rm -f $(CURDIR)/debian/org-mode/usr/share/doc/org-mode/*texi*
+	dh_installemacsen -v
+	dh_fixperms
+	dh_installinfo doc/org
+	dh_compress
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary-arch: build-arch
+
+binary: binary-indep binary-arch
+
+.PHONY: build clean build-indep build-arch binary binary-indep binary-arch

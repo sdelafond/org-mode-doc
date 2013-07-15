@@ -1,0 +1,11 @@
+Document: org-mode
+Title: Org Manual
+Abstract: This manual describes what org-mode is, and how to use it
+Section: Editors
+
+Format: PDF
+Files: /usr/share/doc/org-mode-doc/*.pdf.gz
+
+Format: info
+Index: /usr/share/info/org.gz
+Files: /usr/share/info/org.gz
