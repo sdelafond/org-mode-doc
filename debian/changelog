@@ -1,3 +1,11 @@
+org-mode-doc (8.0.7-1) unstable; urgency=low
+
+  * New upstream release
+  * Explicitely point to GFDL in debian/copyright
+  * Lintian fixes
+
+ -- Sebastien Delafond <seb@debian.org>  Sun, 11 Aug 2013 16:30:18 +0200
+
 org-mode-doc (8.0.6-2) unstable; urgency=low
 
   * Proper copyright notice

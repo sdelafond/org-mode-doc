@@ -2,15 +2,15 @@
 
 DOC_TMP_FILES := doc/org.aux doc/org.cp doc/org.cps doc/org.fn \
 		 doc/org.fns doc/org.ky doc/org.kys \
-	         doc/org.log doc/org.pg doc/org.toc doc/org.tp \
+	         doc/org.log doc/org.pg doc/org.toc doc/org.tp
 
-DOC_FILES := doc/*pdf
+DOC_FILES := doc/*pdf doc/*html
 
 clean:
 	dh_testdir
 	dh_testroot
 	dh_clean
-	rm -f $(DOC_FILES) $(DOC_TMP_FILES)
+	rm -f $(DOC_FILES) $(DOC_TMP_FILES) local.mk
 
 build build-indep build-arch:
 
@@ -31,7 +31,7 @@ binary-indep: install
 	dh_testroot
 	dh_installchangelogs
 	dh_installdocs doc/*
-	rm -f $(CURDIR)/debian/org-mode/usr/share/doc/org-mode/*texi*
+	rm -f $(CURDIR)/debian/org-mode-doc/usr/share/doc/org-mode-doc/*texi*
 	dh_installemacsen -v
 	dh_fixperms
 	dh_installinfo doc/org
