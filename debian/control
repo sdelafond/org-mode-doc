@@ -11,6 +11,7 @@ Package: org-mode-doc
 Architecture: all
 Depends: ${misc:Depends}
 Suggests: org-mode
+Breaks: org-mode (<< 8.0.7-1)
 Description: keep notes, maintain ToDo lists, and do project planning in emacs
  Org-mode is a mode for keeping notes, maintaining ToDo lists, and
  doing project planning with a fast and effective plain-text system.
