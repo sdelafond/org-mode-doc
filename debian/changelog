@@ -1,3 +1,9 @@
+org-mode-doc (8.2.4-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Sebastien Delafond <seb@debian.org>  Sun, 29 Dec 2013 17:50:53 +0100
+
 org-mode-doc (8.2.1-1) unstable; urgency=low
 
   * New upstream release
