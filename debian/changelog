@@ -1,3 +1,10 @@
+org-mode-doc (8.2.5h-1) unstable; urgency=low
+
+  * New upstream release
+  * Bump up Standards-Version
+
+ -- Sebastien Delafond <seb@debian.org>  Wed, 02 Apr 2014 13:13:18 +0200
+
 org-mode-doc (8.2.4-1) unstable; urgency=low
 
   * New upstream release
