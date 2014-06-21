@@ -1,3 +1,9 @@
+org-mode-doc (8.2.7a-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Sebastien Delafond <seb@debian.org>  Sat, 21 Jun 2014 11:09:14 +0200
+
 org-mode-doc (8.2.7-1) unstable; urgency=medium
 
   * New upstream release
