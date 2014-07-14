@@ -1,3 +1,9 @@
+org-mode-doc (8.2.7b-2) unstable; urgency=medium
+
+  * Add Vcs-* information
+
+ -- Sebastien Delafond <seb@debian.org>  Mon, 14 Jul 2014 11:48:11 +0200
+
 org-mode-doc (8.2.7b-1) unstable; urgency=medium
 
   * New upstream release
