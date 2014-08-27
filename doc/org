@@ -1,6 +1,6 @@
 This is org, produced by makeinfo version 4.13 from org.texi.
 
-This manual is for Org version 8.2.7b (release_8.2.7b).
+This manual is for Org version 8.2.7c (release_8.2.7c).
 
    Copyright (C) 2004-2014 Free Software Foundation, Inc.
 
@@ -26,7 +26,7 @@ File: org,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 Org Mode Manual
 ***************
 
-This manual is for Org version 8.2.7b (release_8.2.7b).
+This manual is for Org version 8.2.7c (release_8.2.7c).
 
    Copyright (C) 2004-2014 Free Software Foundation, Inc.
 
@@ -14571,8 +14571,8 @@ context.
 
 `C-c C-c'          `org-babel-execute-src-block'
 `C-c C-o'          `org-babel-open-src-block-result'
-`C-<up>'           `org-babel-load-in-session'
-`M-<down>'         `org-babel-pop-to-session'
+`M-<up>'           `org-babel-load-in-session'
+`M-<down>'         `org-babel-switch-to-session'
 
    In an Org mode buffer, the following key bindings are active:
 
@@ -19093,8 +19093,6 @@ Key index
 * C-u C-u C-u <TAB>:                     Global and local cycling.
                                                               (line  35)
 * C-u C-u C-u C-c C-t:                   TODO dependencies.   (line  34)
-* C-up:                                  Key bindings and useful functions.
-                                                              (line  12)
 * C-v:                                   The date/time prompt.
                                                               (line  82)
 * C-x C-s <1>:                           Agenda commands.     (line 173)
@@ -19199,6 +19197,8 @@ Key index
 * M-S-<up> <2>:                          Built-in table editor.
                                                               (line  94)
 * M-S-<up>:                              Structure editing.   (line  51)
+* M-up:                                  Key bindings and useful functions.
+                                                              (line  12)
 * M-v:                                   The date/time prompt.
                                                               (line  82)
 * M-x org-iswitchb:                      Agenda files.        (line  26)
@@ -20842,69 +20842,69 @@ Node: epilogue599466
 Node: Results of evaluation599721
 Node: Noweb reference syntax603489
 Node: Key bindings and useful functions605140
-Node: Batch execution607882
-Node: Miscellaneous608916
-Node: Completion609745
-Node: Easy Templates611721
-Node: Speed keys613130
-Node: Code evaluation security613957
-Node: Customization616671
-Node: In-buffer settings617266
-Ref: In-buffer settings-Footnote-1627414
-Node: The very busy C-c C-c key627462
-Node: Clean view629446
-Ref: Clean view-Footnote-1633431
-Ref: Clean view-Footnote-2633492
-Ref: Clean view-Footnote-3633676
-Ref: Clean view-Footnote-4633737
-Ref: Clean view-Footnote-5633849
-Ref: Clean view-Footnote-6633904
-Node: TTY keys634029
-Node: Interaction635795
-Node: Cooperation636189
-Node: Conflicts639987
-Node: org-crypt644956
-Node: Hacking646267
-Node: Hooks647255
-Node: Add-on packages647671
-Node: Adding hyperlink types648225
-Node: Adding export back-ends652145
-Node: Context-sensitive commands653590
-Ref: Context-sensitive commands-Footnote-1655167
-Node: Tables in arbitrary syntax655301
-Node: Radio tables656713
-Node: A LaTeX example659473
-Ref: A LaTeX example-Footnote-1663402
-Ref: A LaTeX example-Footnote-2663559
-Node: Translator functions663994
-Ref: Translator functions-Footnote-1667218
-Node: Radio lists667306
-Node: Dynamic blocks668435
-Node: Special agenda views670648
-Ref: x-agenda-skip-entry-regexp674111
-Ref: Special agenda views-Footnote-1674914
-Ref: Special agenda views-Footnote-2675111
-Node: Speeding up your agendas675246
-Node: Extracting agenda information676349
-Node: Using the property API680427
-Node: Using the mapping API683803
-Node: MobileOrg688225
-Node: Setting up the staging area689924
-Ref: Setting up the staging area-Footnote-1691023
-Ref: Setting up the staging area-Footnote-2691324
-Node: Pushing to MobileOrg691586
-Ref: Pushing to MobileOrg-Footnote-1692586
-Ref: Pushing to MobileOrg-Footnote-2692675
-Ref: Pushing to MobileOrg-Footnote-3693091
-Node: Pulling from MobileOrg693162
-Ref: Pulling from MobileOrg-Footnote-1695583
-Ref: Pulling from MobileOrg-Footnote-2695643
-Node: History and Acknowledgments696018
-Node: GNU Free Documentation License710974
-Node: Main Index736164
-Node: Key Index811519
-Node: Command and Function Index863289
-Node: Variable Index897335
+Node: Batch execution607885
+Node: Miscellaneous608919
+Node: Completion609748
+Node: Easy Templates611724
+Node: Speed keys613133
+Node: Code evaluation security613960
+Node: Customization616674
+Node: In-buffer settings617269
+Ref: In-buffer settings-Footnote-1627417
+Node: The very busy C-c C-c key627465
+Node: Clean view629449
+Ref: Clean view-Footnote-1633434
+Ref: Clean view-Footnote-2633495
+Ref: Clean view-Footnote-3633679
+Ref: Clean view-Footnote-4633740
+Ref: Clean view-Footnote-5633852
+Ref: Clean view-Footnote-6633907
+Node: TTY keys634032
+Node: Interaction635798
+Node: Cooperation636192
+Node: Conflicts639990
+Node: org-crypt644959
+Node: Hacking646270
+Node: Hooks647258
+Node: Add-on packages647674
+Node: Adding hyperlink types648228
+Node: Adding export back-ends652148
+Node: Context-sensitive commands653593
+Ref: Context-sensitive commands-Footnote-1655170
+Node: Tables in arbitrary syntax655304
+Node: Radio tables656716
+Node: A LaTeX example659476
+Ref: A LaTeX example-Footnote-1663405
+Ref: A LaTeX example-Footnote-2663562
+Node: Translator functions663997
+Ref: Translator functions-Footnote-1667221
+Node: Radio lists667309
+Node: Dynamic blocks668438
+Node: Special agenda views670651
+Ref: x-agenda-skip-entry-regexp674114
+Ref: Special agenda views-Footnote-1674917
+Ref: Special agenda views-Footnote-2675114
+Node: Speeding up your agendas675249
+Node: Extracting agenda information676352
+Node: Using the property API680430
+Node: Using the mapping API683806
+Node: MobileOrg688228
+Node: Setting up the staging area689927
+Ref: Setting up the staging area-Footnote-1691026
+Ref: Setting up the staging area-Footnote-2691327
+Node: Pushing to MobileOrg691589
+Ref: Pushing to MobileOrg-Footnote-1692589
+Ref: Pushing to MobileOrg-Footnote-2692678
+Ref: Pushing to MobileOrg-Footnote-3693094
+Node: Pulling from MobileOrg693165
+Ref: Pulling from MobileOrg-Footnote-1695586
+Ref: Pulling from MobileOrg-Footnote-2695646
+Node: History and Acknowledgments696021
+Node: GNU Free Documentation License710977
+Node: Main Index736167
+Node: Key Index811522
+Node: Command and Function Index863292
+Node: Variable Index897338
 
 End Tag Table
 
