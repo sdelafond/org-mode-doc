@@ -1,3 +1,9 @@
+org-mode-doc (8.2.7c-2) unstable; urgency=medium
+
+  * Add missing build dependency on texlive-fonts-recommended (Closes: #760506)
+
+ -- Sebastien Delafond <seb@debian.org>  Mon, 08 Sep 2014 10:31:26 +0200
+
 org-mode-doc (8.2.7c-1) unstable; urgency=medium
 
   * New upstream version 8.2.7c
