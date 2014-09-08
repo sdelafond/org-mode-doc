@@ -3,7 +3,7 @@ Section: non-free/doc
 Priority: optional
 Maintainer: Sebastien Delafond <seb@debian.org>
 Build-Depends: debhelper (>= 6)
-Build-Depends-Indep: texinfo, texlive-latex-base
+Build-Depends-Indep: texinfo, texlive-latex-base, texlive-fonts-recommended
 Standards-Version: 3.9.5
 Homepage: http://orgmode.org
 Vcs-Git: git://anonscm.debian.org/collab-maint/org-mode-doc.git
