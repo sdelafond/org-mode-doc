@@ -331,13 +331,17 @@ channel."
 INFO is a plist used as a communication channel.
 
 The value is either the label specified in \"BEAMER_opt\"
-property, or a fallback value built from headline's number.  This
-function assumes HEADLINE will be treated as a frame."
+property, or a unique internal label.  This function assumes
+HEADLINE will be treated as a frame."
   (let ((opt (org-element-property :BEAMER_OPT headline)))
     (if (and (stringp opt)
 	     (string-match "\\(?:^\\|,\\)label=\\(.*?\\)\\(?:$\\|,\\)" opt))
-	(match-string 1 opt)
-      (format "{sec:%s}" (org-export-get-reference headline info)))))
+	(let ((label (match-string 1 opt)))
+	  ;; Strip protective braces, if any.
+	  (if (org-string-match-p "\\`{.*}\\'" label)
+	      (substring label 1 -1)
+	    label))
+      (format "sec:%s" (org-export-get-reference headline info)))))
 
 (defun org-beamer--frame-level (headline info)
   "Return frame level in subtree containing HEADLINE.
@@ -441,8 +445,13 @@ used as a communication channel."
 				  (or (string-match "\\(^\\|,\\)label=" beamer-opt)
 				      (string-match "allowframebreaks" beamer-opt)))
 		       (list
-			(format "label=%s"
-				(org-beamer--get-label headline info)))))))
+			(let ((label (org-beamer--get-label headline info)))
+			  ;; Labels containing colons need to be
+			  ;; wrapped within braces.
+			  (format (if (org-string-match-p ":" label)
+				      "label={%s}"
+				    "label=%s")
+				  label)))))))
 	      ;; Change options list into a string.
 	      (org-beamer--normalize-argument
 	       (mapconcat
@@ -597,28 +606,27 @@ as a communication channel."
 		      (when overlay
 			(org-beamer--normalize-argument
 			 overlay
-			 (if (string-match "^\\[.*\\]$" overlay) 'defaction
+			 (if (string-match "\\`\\[.*\\]\\'" overlay) 'defaction
 			   'action))))
 		    ;; Options.
 		    (let ((options (org-element-property :BEAMER_OPT headline)))
 		      (when options
 			(org-beamer--normalize-argument options 'option)))
 		    ;; Resolve reference provided by "BEAMER_ref"
-		    ;; property.  This is done by building a minimal fake
-		    ;; link and calling the appropriate resolve function,
-		    ;; depending on the reference syntax.
-		    (let* ((type
-			    (progn
-			      (string-match "^\\(id:\\|#\\|\\*\\)?\\(.*\\)" ref)
-			      (cond
-			       ((or (not (match-string 1 ref))
-				    (equal (match-string 1 ref) "*")) 'fuzzy)
-			       ((equal (match-string 1 ref) "id:") 'id)
-			       (t 'custom-id))))
-			   (link (list 'link (list :path (match-string 2 ref))))
-			   (target (if (eq type 'fuzzy)
-				       (org-export-resolve-fuzzy-link link info)
-				     (org-export-resolve-id-link link info))))
+		    ;; property.  This is done by building a minimal
+		    ;; fake link and calling the appropriate resolve
+		    ;; function, depending on the reference syntax.
+		    (let ((target
+			   (if (string-match "\\`\\(id:\\|#\\)" ref)
+			       (org-export-resolve-id-link
+				`(link (:path ,(substring ref (match-end 0))))
+				info)
+			     (org-export-resolve-fuzzy-link
+			      `(link (:path
+				      ;; Look for headlines only.
+				      ,(if (eq (string-to-char ref) ?*) ref
+					 (concat "*" ref))))
+			      info))))
 		      ;; Now use user-defined label provided in TARGET
 		      ;; headline, or fallback to standard one.
 		      (format "{%s}" (org-beamer--get-label target info)))))))

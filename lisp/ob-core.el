@@ -37,7 +37,7 @@
 (defvar org-babel-call-process-region-original nil)
 (defvar org-src-lang-modes)
 (defvar org-babel-library-of-babel)
-(declare-function show-all "outline" ())
+(declare-function outline-show-all "outline" ())
 (declare-function org-every "org" (pred seq))
 (declare-function org-remove-indentation "org" (code &optional n))
 (declare-function org-reduce "org" (CL-FUNC CL-SEQ &rest CL-KEYS))
@@ -1492,7 +1492,7 @@ specified in the properties of the current outline entry."
 ALTS is a cons of two character options where each option may be
 either the numeric code of a single character or a list of
 character alternatives.  For example to split on balanced
-instances of \"[ \t]:\" set ALTS to '((32 9) . 58)."
+instances of \"[ \t]:\" set ALTS to ((32 9) . 58)."
   (let* ((matches (lambda (ch spec) (if (listp spec) (member ch spec) (equal spec ch))))
 	 (matched (lambda (ch last)
 		    (if (consp alts)
@@ -1597,11 +1597,14 @@ shown below.
       (cons :result-type  (cond ((member "output" result-params) 'output)
 				((member "value" result-params) 'value)
 				(t 'value))))
-     (org-babel-get-header params :var 'other))))
+     (org-remove-if
+      (lambda (x) (memq (car x) '(:colname-names :rowname-names :result-params
+						 :result-type :var)))
+      params))))
 
 ;; row and column names
 (defun org-babel-del-hlines (table)
-  "Remove all `hlines' from TABLE."
+  "Remove all `hline's from TABLE."
   (remq 'hline table))
 
 (defun org-babel-get-colnames (table)
@@ -2551,7 +2554,8 @@ parameters when merging lists."
 	       (setq params (cons pair (assq-delete-all (car pair) params)))))
 	    (:exports
 	     (setq exports (funcall e-merge exports-exclusive-groups
-				    exports (split-string (cdr pair)))))
+				    exports
+				    (split-string (or (cdr pair) "")))))
 	    (:tangle ;; take the latest -- always overwrite
 	     (setq tangle (or (list (cdr pair)) tangle)))
 	    (:noweb

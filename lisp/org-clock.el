@@ -1457,7 +1457,7 @@ When FIND-UNCLOSED is non-nil, first check if there is an unclosed clock
 line and position cursor in that line."
   (org-back-to-heading t)
   (catch 'exit
-    (let* ((beg (line-beginning-position 2))
+    (let* ((beg (line-beginning-position))
 	   (end (save-excursion (outline-next-heading) (point)))
 	   (org-clock-into-drawer (org-clock-into-drawer))
 	   (drawer (org-clock-drawer-name)))
@@ -1499,10 +1499,7 @@ line and position cursor in that line."
 	(cond
 	 ((null positions)
 	  ;; Skip planning line and property drawer, if any.
-	  (when (org-looking-at-p org-planning-line-re) (forward-line))
-	  (when (looking-at org-property-drawer-re)
-	    (goto-char (match-end 0))
-	    (forward-line))
+	  (org-end-of-meta-data)
 	  (unless (bolp) (insert "\n"))
 	  ;; Create a new drawer if necessary.
 	  (when (and org-clock-into-drawer
@@ -1515,15 +1512,13 @@ line and position cursor in that line."
 	      (org-flag-drawer t)
 	      (forward-line))))
 	 ;; When a clock drawer needs to be created because of the
-	 ;; number of clock items, collect all clocks in the section
-	 ;; and wrap them within the drawer.
-	 ((and (wholenump org-clock-into-drawer)
-	       (>= (1+ count) org-clock-into-drawer))
+	 ;; number of clock items or simply if it is missing, collect
+	 ;; all clocks in the section and wrap them within the drawer.
+	 ((or drawer
+	      (and (wholenump org-clock-into-drawer)
+		   (>= (1+ count) org-clock-into-drawer)))
 	  ;; Skip planning line and property drawer, if any.
-	  (when (org-looking-at-p org-planning-line-re) (forward-line))
-	  (when (looking-at org-property-drawer-re)
-	    (goto-char (match-end 0))
-	    (forward-line))
+	  (org-end-of-meta-data)
 	  (let ((beg (point)))
 	    (insert
 	     (mapconcat
@@ -1900,10 +1895,14 @@ PROPNAME lets you set a custom text property instead of :org-clock-minutes."
 (defun org-clock-display (&optional arg)
   "Show subtree times in the entire buffer.
 
-With one universal prefix argument, show the total time for
-today.  With two universal prefix arguments, show the total time
-for a custom range, entered at the prompt.  With three universal
-prefix arguments, show the total time in the echo area.
+By default, show the total time for the range defined in
+`org-clock-display-default-range'.  With \\[universal-argument] \
+prefix, show
+the total time for today instead.  With \\[universal-argument] \
+\\[universal-argument] prefix, use
+a custom range, entered at the prompt.  With \\[universal-argument] \
+\\[universal-argument] \\[universal-argument]
+prefix, display the total time in the echo area.
 
 Use \\[org-clock-remove-overlays] to remove the subtree times."
   (interactive "P")
@@ -2179,11 +2178,11 @@ have priority."
 	      key 'week)))
      ((string-match "\\`\\([0-9]+\\)-[qQ]\\([1-4]\\)\\'" skey)
       (require 'cal-iso)
+      (setq q (string-to-number (match-string 2 skey)))
       (let ((date (calendar-gregorian-from-absolute
 		   (calendar-iso-to-absolute
 		    (org-quarter-to-date
-		     (string-to-number (match-string 2 skey))
-		     (string-to-number (match-string 1 skey)))))))
+		     q (string-to-number (match-string 1 skey)))))))
 	(setq d (nth 1 date)
 	      month (car date)
 	      y (nth 2 date)

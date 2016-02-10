@@ -3349,7 +3349,7 @@ the agenda to write."
 	     (rename-buffer org-agenda-write-buffer-name t)
 	     (set-buffer-modified-p nil)
 	     (insert bs)
-	     (org-agenda-remove-marked-text 'org-filtered)
+	     (org-agenda-remove-marked-text 'invisible 'org-filtered)
 	     (run-hooks 'org-agenda-before-write-hook)
 	     (cond
 	      ((org-bound-and-true-p org-mobile-creating-agendas)
@@ -7232,8 +7232,8 @@ agenda."
 (defun org-agenda--quit (&optional bury)
   (if org-agenda-columns-active
       (org-columns-quit)
-    (let ((buf (current-buffer))
-	  (wconf org-agenda-pre-window-conf)
+    (let ((wconf org-agenda-pre-window-conf)
+	  (buf (current-buffer))
 	  (org-agenda-last-indirect-window
 	   (and (eq org-indirect-buffer-display 'other-window)
 		org-agenda-last-indirect-buffer
@@ -7255,7 +7255,11 @@ agenda."
 	     (not (one-window-p))
 	     (delete-window))))
       (if bury
-	  (bury-buffer buf)
+	  ;; Set the agenda buffer as the current buffer instead of
+	  ;; passing it as an argument to `bury-buffer' so that
+	  ;; `bury-buffer' removes it from the window.
+	  (with-current-buffer buf
+	    (bury-buffer))
 	(kill-buffer buf)
 	(setq org-agenda-archives-mode nil
 	      org-agenda-buffer nil)))))
@@ -8408,7 +8412,7 @@ When called with a prefix argument, include all archive files as well."
 	(and (outline-next-heading)
 	     (org-flag-heading nil)))	; show the next heading
       (when (outline-invisible-p)
-	(show-entry))			; display invisible text
+	(outline-show-entry))			; display invisible text
       (recenter (/ (window-height) 2))
       (org-back-to-heading t)
       (if (re-search-forward org-complex-heading-regexp nil t)
@@ -8665,7 +8669,7 @@ folded."
 	  (select-window org-agenda-show-window)
 	  (ignore-errors (scroll-up)))
       (org-agenda-goto t)
-      (if arg (org-show-entry) (show-subtree))
+      (if arg (org-show-entry) (outline-show-subtree))
       (setq org-agenda-show-window (selected-window)))
     (select-window win)))
 
@@ -8697,7 +8701,7 @@ if it was hidden in the outline."
     (set-window-start (selected-window) (point-at-bol))
     (cond
      ((= more 0)
-      (hide-subtree)
+      (outline-hide-subtree)
       (save-excursion
 	(org-back-to-heading)
 	(run-hook-with-args 'org-cycle-hook 'folded))
@@ -8705,26 +8709,26 @@ if it was hidden in the outline."
      ((and (org-called-interactively-p 'any) (= more 1))
       (message "Remote: show with default settings"))
      ((= more 2)
-      (show-entry)
-      (show-children)
+      (outline-show-entry)
+      (outline-show-children)
       (save-excursion
 	(org-back-to-heading)
 	(run-hook-with-args 'org-cycle-hook 'children))
       (message "Remote: CHILDREN"))
      ((= more 3)
-      (show-subtree)
+      (outline-show-subtree)
       (save-excursion
 	(org-back-to-heading)
 	(run-hook-with-args 'org-cycle-hook 'subtree))
       (message "Remote: SUBTREE"))
      ((= more 4)
-      (show-subtree)
+      (outline-show-subtree)
       (save-excursion
 	(org-back-to-heading)
 	(org-cycle-hide-drawers 'subtree '("LOGBOOK")))
       (message "Remote: SUBTREE AND LOGBOOK"))
      ((> more 4)
-      (show-subtree)
+      (outline-show-subtree)
       (message "Remote: SUBTREE AND ALL DRAWERS")))
     (select-window win)))
 

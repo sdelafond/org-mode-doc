@@ -77,7 +77,7 @@ for timed events.  If non-zero, alarms are created.
 (defcustom org-icalendar-exclude-tags nil
   "Tags that exclude a tree from export.
 This variable allows to specify different exclude tags from other
-back-ends.  It can also be set with the ICAL_EXCLUDE_TAGS
+back-ends.  It can also be set with the ICALENDAR_EXCLUDE_TAGS
 keyword."
   :group 'org-export-icalendar
   :type '(repeat (string :tag "Tag")))
@@ -901,7 +901,9 @@ This function assumes major mode for current buffer is
 			    (buffer-substring
 			     (point) (progn (outline-next-heading) (point)))))))))
 		   (forward-line)))))
-	   'icalendar t '(:ascii-charset utf-8 :ascii-links-to-notes nil))))
+	   'icalendar t
+	   '(:ascii-charset utf-8 :ascii-links-to-notes nil
+			    :icalendar-include-todo all))))
     (with-temp-file file
       (insert
        (org-icalendar--vcalendar
