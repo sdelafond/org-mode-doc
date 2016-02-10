@@ -406,8 +406,8 @@ it can be a list structured like an entry in `org-feed-alist'."
 
 	  ;; Normalize the visibility of the inbox tree
 	  (goto-char inbox-pos)
-	  (hide-subtree)
-	  (show-children)
+	  (outline-hide-subtree)
+	  (outline-show-children)
 	  (org-cycle-hide-drawers 'children)
 
 	  ;; Hooks and messages
@@ -604,6 +604,7 @@ Assumes headers are indeed present!"
   "Parse BUFFER for RSS feed entries.
 Returns a list of entries, with each entry a property list,
 containing the properties `:guid' and `:item-full-text'."
+  (require 'xml)
   (let ((case-fold-search t)
 	entries beg end item guid entry)
     (with-current-buffer buffer
@@ -615,7 +616,7 @@ containing the properties `:guid' and `:item-full-text'."
 		       (match-beginning 0)))
 	(setq item (buffer-substring beg end)
 	      guid (if (string-match "<guid\\>.*?>\\(.*?\\)</guid>" item)
-		       (org-match-string-no-properties 1 item)))
+		       (xml-substitute-special (org-match-string-no-properties 1 item))))
 	(setq entry (list :guid guid :item-full-text item))
 	(push entry entries)
 	(widen)

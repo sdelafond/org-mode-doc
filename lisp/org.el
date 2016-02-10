@@ -6748,7 +6748,7 @@ show the entire buffer, including any drawers.
 	(org-unlogged-message "Startup visibility, plus VISIBILITY properties"))
 
        ((equal arg '(64))
-	(show-all)
+	(outline-show-all)
 	(org-unlogged-message "Entire buffer visible, including drawers"))
 
        ;; Try cdlatex TAB completion
@@ -6847,7 +6847,7 @@ Use \\[org-edit-special] to edit table.el tables"))
 	   (eq org-cycle-global-status 'contents))
       ;; We just showed the table of contents - now show everything
       (run-hook-with-args 'org-pre-cycle-hook 'all)
-      (show-all)
+      (outline-show-all)
       (unless ga (org-unlogged-message "SHOW ALL"))
       (setq org-cycle-global-status 'all)
       (run-hook-with-args 'org-cycle-hook 'all))
@@ -6923,7 +6923,7 @@ Use \\[org-edit-special] to edit table.el tables"))
       (if (org-at-item-p)
 	  (org-list-set-item-visibility (point-at-bol) struct 'children)
 	(org-show-entry)
-	(org-with-limited-levels (show-children))
+	(org-with-limited-levels (outline-show-children))
 	;; FIXME: This slows down the func way too much.
 	;; How keep drawers hidden in subtree anyway?
 	;; (when (memq 'org-cycle-hide-drawers org-cycle-hook)
@@ -6981,8 +6981,8 @@ With a numeric prefix, show all headlines up to that level."
 	 (if (derived-mode-p 'org-mode) org-cycle-include-plain-lists nil)))
     (cond
      ((integerp arg)
-      (show-all)
-      (hide-sublevels arg)
+      (outline-show-all)
+      (outline-hide-sublevels arg)
       (setq org-cycle-global-status 'contents))
      ((equal arg '(4))
       (org-set-startup-visibility)
@@ -6999,7 +6999,7 @@ With a numeric prefix, show all headlines up to that level."
     (org-content))
    ((or (eq org-startup-folded 'showeverything)
 	(eq org-startup-folded nil))
-    (show-all)))
+    (outline-show-all)))
   (unless (eq org-startup-folded 'showeverything)
     (if org-hide-block-startup (org-hide-block-all))
     (org-set-visibility-according-to-property 'no-cleanup)
@@ -7018,21 +7018,21 @@ With a numeric prefix, show all headlines up to that level."
 	 (let ((state (match-string 3)))
 	   (save-excursion
 	     (org-back-to-heading t)
-	     (hide-subtree)
+	     (outline-hide-subtree)
 	     (org-reveal)
 	     (cond
 	      ((equal state "folded")
-	       (hide-subtree))
+	       (outline-hide-subtree))
 	      ((equal state "children")
 	       (org-show-hidden-entry)
-	       (show-children))
+	       (outline-show-children))
 	      ((equal state "content")
 	       (save-excursion
 		 (save-restriction
 		   (org-narrow-to-subtree)
 		   (org-content))))
 	      ((member state '("all" "showall"))
-	       (show-subtree)))))))
+	       (outline-show-subtree)))))))
      (unless no-cleanup
        (org-cycle-hide-archived-subtrees 'all)
        (org-cycle-hide-drawers 'all)
@@ -7056,7 +7056,7 @@ results."
 		 (progn
 		   (goto-char (match-beginning 0))
 		   (funcall outline-level))))))
-      (and level (hide-sublevels level)))))
+      (and level (outline-hide-sublevels level)))))
 
 (defun org-content (&optional arg)
   "Show all headlines in the buffer, like a table of contents.
@@ -7074,8 +7074,8 @@ With numerical argument N, show content up to level N."
 			 t)
 		  (looking-at org-outline-regexp))
 	(if (integerp arg)
-	    (show-children (1- arg))
-	  (show-branches))
+	    (outline-show-children (1- arg))
+	  (outline-show-branches))
 	(if (bobp) (throw 'exit nil))))))
 
 (defun org-optimize-window-after-visibility-change (state)
@@ -7126,7 +7126,7 @@ This function is the default value of the hook `org-cycle-hook'."
 	    (if (and (not (outline-invisible-p))
 		     (save-excursion
 		       (goto-char (point-at-eol)) (outline-invisible-p)))
-		(hide-entry))))
+		(outline-hide-entry))))
 	(org-cycle-show-empty-lines 'overview)
 	(org-cycle-hide-drawers 'overview)))))
 
@@ -7290,7 +7290,7 @@ DATA should have been made by `org-outline-overlay-data'."
     (save-excursion
       (save-restriction
 	(widen)
-	(show-all)
+	(outline-show-all)
 	(mapc (lambda (c)
 		(outline-flag-region (car c) (cdr c) t))
 	      data)))))
@@ -7463,8 +7463,8 @@ returns to the original buffer in which the visibility is still
 unchanged.  After RET it will also jump to the location selected
 in the indirect buffer and expose the headline hierarchy above.
 
-With a prefix argument, use the alternative interface: e.g. if
-`org-goto-interface' is 'outline use 'outline-path-completion."
+With a prefix argument, use the alternative interface: e.g., if
+`org-goto-interface' is `outline' use `outline-path-completion'."
   (interactive "P")
   (org-goto-map)
   (let* ((org-refile-targets `((nil . (:maxlevel . ,org-goto-max-level))))
@@ -7675,7 +7675,7 @@ frame is not changed."
     (if (featurep 'xemacs)
         (save-excursion (org-mode) (turn-on-font-lock)))
     (narrow-to-region beg end)
-    (show-all)
+    (outline-show-all)
     (goto-char pos)
     (run-hook-with-args 'org-cycle-hook 'all)
     (and (window-live-p cwin) (select-window cwin))))
@@ -7844,7 +7844,7 @@ heading, unconditionally."
 	      (re-search-forward org-outline-regexp-bol)
 	      (beginning-of-line 0))
 	    (skip-chars-backward " \r\t\n")
-	    (and (not (looking-back "^\\*+" (line-beginning-position)))
+	    (and (not (org-looking-back "^\\*+" (line-beginning-position)))
 		 (looking-at "[ \t]+") (replace-match ""))
 	    (unless (eobp) (forward-char 1))
 	    (when (looking-at "^\\*")
@@ -8475,9 +8475,9 @@ case."
       (insert (make-string (- ne-ins ne-beg) ?\n)))
     (move-marker ins-point nil)
     (if folded
-	(hide-subtree)
+	(outline-hide-subtree)
       (org-show-entry)
-      (show-children)
+      (outline-show-children)
       (org-cycle-hide-drawers 'children))
     (org-clean-visibility-after-subtree-move)
     ;; move back to the initial column we were at
@@ -8646,7 +8646,7 @@ When REMOVE is non-nil, remove the subtree from the clipboard."
 	      (eq org-subtree-clip (current-kill 0))
 	      org-subtree-clip-folded)
 	 ;; The tree was folded before it was killed/copied
-	 (hide-subtree))
+	 (outline-hide-subtree))
      (and for-yank (goto-char newend))
      (and remove (setq kill-ring (cdr kill-ring))))))
 
@@ -8945,7 +8945,7 @@ When sorting is done, call `org-after-sorting-entries-or-items-hook'."
 		       (point))
 	    what "children")
       (goto-char start)
-      (show-subtree)
+      (outline-show-subtree)
       (outline-next-heading))
      (t
       ;; we will sort the top-level entries in this file
@@ -8961,7 +8961,7 @@ When sorting is done, call `org-after-sorting-entries-or-items-hook'."
       (setq end (point-max))
       (setq what "top-level")
       (goto-char start)
-      (show-all)))
+      (outline-show-all)))
 
     (setq beg (point))
     (when (>= beg end) (goto-char start) (user-error "Nothing to sort"))
@@ -9242,7 +9242,7 @@ buffer.  It will also recognize item context in multiline items."
 		  outline-previous-visible-heading
 		  outline-promote
 		  outline-up-heading
-		  show-children))
+		  outline-show-children))
     (let ((f (or (car-safe cell) cell))
 	  (disable-when-heading-prefix (cdr-safe cell)))
       (when (fboundp f)
@@ -10443,7 +10443,9 @@ Use TAB to complete link prefixes, then RET for type-specific completion support
 
     (unless (string-match "\\S-" desc) (setq desc nil))
     (if remove (apply 'delete-region remove))
-    (insert (org-make-link-string link desc))))
+    (insert (org-make-link-string link desc))
+    ;; Redisplay so as the new link has proper invisible characters.
+    (sit-for 0)))
 
 (defun org-link-try-special-completion (type)
   "If there is completion support for link type TYPE, offer it."
@@ -11751,38 +11753,28 @@ such as the file name.
 SEPARATOR is inserted between the different parts of the path,
 the default is \"/\"."
   (setq width (or width 79))
-  (if prefix (setq width (- width (length prefix))))
-  (if (not path)
-      (or prefix "")
-    (let* ((nsteps (length path))
-	   (total-width (+ nsteps (apply '+ (mapcar 'length path))))
-	   (maxwidth (if (<= total-width width)
-			 10000  ;; everything fits
-		       ;; we need to shorten the level headings
-		       (/ (- width nsteps) nsteps)))
-	   (org-odd-levels-only nil)
-	   (n 0)
-	   (total (1+ (length prefix))))
-      (setq maxwidth (max maxwidth 10))
-      (concat prefix
-	      (if prefix (or separator "/"))
-	      (mapconcat
-	       (lambda (h)
-		 (setq n (1+ n))
-		 (if (and (= n nsteps) (< maxwidth 10000))
-		     (setq maxwidth (- total-width total)))
-		 (if (< (length h) maxwidth)
-		     (progn (setq total (+ total (length h) 1)) h)
-		   (setq h (substring h 0 (- maxwidth 2))
-			 total (+ total maxwidth 1))
-		   (if (string-match "[ \t]+\\'" h)
-		       (setq h (substring h 0 (match-beginning 0))))
-		   (setq h (concat  h "..")))
-		 (org-add-props h nil 'face
-				(nth (% (1- n) org-n-level-faces)
-				     org-level-faces))
-		 h)
-	       path (or separator "/"))))))
+  (setq path (delq nil path))
+  (unless (> width 0)
+    (user-error "Argument `width' must be positive"))
+  (setq separator (or separator "/"))
+  (let* ((org-odd-levels-only nil)
+	 (fpath (concat
+		 prefix (and prefix path separator)
+		 (mapconcat
+		  (lambda (s) (replace-regexp-in-string "[ \t]+\\'" "" s))
+		  (loop for head in path
+			for n from 0
+			collect (org-add-props
+				    head nil 'face
+				    (nth (% n org-n-level-faces) org-level-faces)))
+		  separator))))
+    (when (> (length fpath) width)
+      (if (< width 7)
+	  ;; It's unlikely that `width' will be this small, but don't
+	  ;; waste characters by adding ".." if it is.
+	  (setq fpath (substring fpath 0 width))
+	(setf (substring fpath (- width 2)) "..")))
+    fpath))
 
 (defun org-display-outline-path (&optional file current separator just-return-string)
   "Display the current outline path in the echo area.
@@ -12970,7 +12962,7 @@ statistics everywhere."
 	    		(and (listp org-provide-todo-statistics)
 			     (stringp (car org-provide-todo-statistics))
 	    		     (or (member kwd org-provide-todo-statistics)
-	    			 (member kwd org-done-keywords)))
+				 (member kwd org-done-keywords)))
 			(and (listp org-provide-todo-statistics)
 			     (listp (car org-provide-todo-statistics))
 			     (or (member kwd (car org-provide-todo-statistics))
@@ -12979,7 +12971,7 @@ statistics everywhere."
 	    	    (setq cnt-all (1+ cnt-all))
 	    	  (if (eq org-provide-todo-statistics t)
 	    	      (and kwd (setq cnt-all (1+ cnt-all)))))
-	    	(when (or (and (member org-provide-todo-statistics '(t all-headlines))
+		(when (or (and (member org-provide-todo-statistics '(t all-headlines))
 			       (member kwd org-done-keywords))
 			  (and (listp org-provide-todo-statistics)
 			       (listp (car org-provide-todo-statistics))
@@ -14012,7 +14004,7 @@ information."
       (org-show-entry)
       (org-with-limited-levels
        (case detail
-	 ((tree canonical t) (show-children))
+	 ((tree canonical t) (outline-show-children))
 	 ((nil minimal ancestors))
 	 (t (save-excursion
 	      (outline-next-heading)
@@ -14025,7 +14017,7 @@ information."
 	(while (org-up-heading-safe)
 	  (org-flag-heading nil)
 	  (when (memq detail '(canonical t)) (org-show-entry))
-	  (when (memq detail '(tree canonical t)) (show-children)))))))
+	  (when (memq detail '(tree canonical t)) (outline-show-children)))))))
 
 (defvar org-reveal-start-hook nil
   "Hook run before revealing a location.")
@@ -15567,6 +15559,12 @@ but in some other way.")
   "Some properties that are used by Org mode for various purposes.
 Being in this list makes sure that they are offered for completion.")
 
+(defun org--valid-property-p (property)
+  "Non nil when string PROPERTY is a valid property name."
+  (not
+   (or (equal property "")
+       (org-string-match-p "\\s-" property))))
+
 (defun org--update-property-plist (key val props)
   "Associate KEY to VAL in alist PROPS.
 Modifications are made by side-effect.  Return new alist."
@@ -16087,8 +16085,9 @@ and the new value.")
 (defun org-entry-put (pom property value)
   "Set PROPERTY to VALUE for entry at point-or-marker POM.
 
-If the value is nil, it is converted to the empty string.  If
-it is not a string, an error is raised.
+If the value is nil, it is converted to the empty string.  If it
+is not a string, an error is raised.  Also raise an error on
+invalid property names.
 
 PROPERTY can be any regular property (see
 `org-special-properties').  It can also be \"TODO\",
@@ -16098,7 +16097,9 @@ For the last two properties, VALUE may have any of the special
 values \"earlier\" and \"later\".  The function then increases or
 decreases scheduled or deadline date by one day."
   (cond ((null value) (setq value ""))
-	((not (stringp value)) (error "Properties values should be strings")))
+	((not (stringp value)) (error "Properties values should be strings"))
+	((not (org--valid-property-p property))
+	 (user-error "Invalid property name: \"%s\"" property)))
   (org-with-point-at pom
     (if (or (not (featurep 'org-inlinetask)) (org-inlinetask-in-task-p))
 	(org-back-to-heading t)
@@ -16381,21 +16382,29 @@ When use-default, don't even ask, just use the last
 
 (defun org-set-property (property value)
   "In the current entry, set PROPERTY to VALUE.
+
 When called interactively, this will prompt for a property name, offering
 completion on existing and default properties.  And then it will prompt
 for a value, offering completion either on allowed values (via an inherited
 xxx_ALL property) or on existing values in other instances of this property
-in the current file."
+in the current file.
+
+Throw an error when trying to set a property with an invalid name."
   (interactive (list nil nil))
-  (let* ((property (or property (org-read-property-name)))
-	 (value (or value (org-read-property-value property)))
-	 (fn (cdr (assoc property org-properties-postprocess-alist))))
-    (setq org-last-set-property property)
-    (setq org-last-set-property-value (concat property ": " value))
-    ;; Possibly postprocess the inserted value:
-    (when fn (setq value (funcall fn value)))
-    (unless (equal (org-entry-get nil property) value)
-      (org-entry-put nil property value))))
+  (let ((property (or property (org-read-property-name))))
+    ;; `org-entry-put' also makes the following check, but this one
+    ;; avoids polluting `org-last-set-property' and
+    ;; `org-last-set-property-value' needlessly.
+    (unless (org--valid-property-p property)
+      (user-error "Invalid property name: \"%s\"" property))
+    (let ((value (or value (org-read-property-value property)))
+	  (fn (cdr (assoc-string property org-properties-postprocess-alist t))))
+      (setq org-last-set-property property)
+      (setq org-last-set-property-value (concat property ": " value))
+      ;; Possibly postprocess the inserted value:
+      (when fn (setq value (funcall fn value)))
+      (unless (equal (org-entry-get nil property) value)
+	(org-entry-put nil property value)))))
 
 (defun org-find-property (property &optional value)
   "Find first entry in buffer that sets PROPERTY.
@@ -16770,7 +16779,9 @@ So these are more for recording a certain time/date."
     (org-defkey map (kbd ".")
                 (lambda () (interactive)
 		  ;; Are we at the beginning of the prompt?
-		  (if (looking-back "^[^:]+: ")
+		  (if (org-looking-back "^[^:]+: "
+					(let ((inhibit-field-text-motion t))
+					  (line-beginning-position)))
 		      (org-eval-in-calendar '(calendar-goto-today))
 		    (insert "."))))
     (org-defkey map (kbd "C-.")
@@ -18063,7 +18074,8 @@ When SUPPRESS-TMP-DELAY is non-nil, suppress delays like \"--2d\"."
 	    (message "No clock to adjust")
 	  (cond ((save-excursion ; fix previous clock?
 		   (re-search-backward org-ts-regexp0 nil t)
-		   (org-looking-back (concat org-clock-string " \\[")))
+		   (org-looking-back (concat org-clock-string " \\[")
+				     (line-beginning-position)))
 		 (setq fixnext 1 clrgx (concat org-ts-regexp0 "\\] =>.*$")))
 		((save-excursion ; fix next clock?
 		   (re-search-backward org-ts-regexp0 nil t)
@@ -18980,10 +18992,12 @@ removed, nil otherwise."
 		(end (or end (point-max))))
 	    (org-remove-if
 	     (lambda (o)
-	       (and (>= (overlay-start o) beg)
-		    (<= (overlay-end o) end)
-		    (progn (delete-overlay o)
-			   (or removedp (setq removedp t)))))
+	       (cond ((not (overlay-buffer o)) (delete-overlay o) t)
+		     ((and (>= (overlay-start o) beg)
+			   (<= (overlay-end o) end))
+		      (delete-overlay o)
+		      (unless removedp (setq removedp t)))
+		     (t nil)))
 	     org-latex-fragment-image-overlays)))
     removedp))
 
@@ -19731,12 +19745,12 @@ boundaries."
 ;; Outline functions from `outline-mode-prefix-map'
 ;; that can be remapped in Org:
 (define-key org-mode-map [remap outline-mark-subtree] 'org-mark-subtree)
-(define-key org-mode-map [remap show-subtree] 'org-show-subtree)
+(define-key org-mode-map [remap outline-show-subtree] 'org-show-subtree)
 (define-key org-mode-map [remap outline-forward-same-level]
   'org-forward-heading-same-level)
 (define-key org-mode-map [remap outline-backward-same-level]
   'org-backward-heading-same-level)
-(define-key org-mode-map [remap show-branches]
+(define-key org-mode-map [remap outline-show-branches]
   'org-kill-note-or-show-branches)
 (define-key org-mode-map [remap outline-promote] 'org-promote-subtree)
 (define-key org-mode-map [remap outline-demote] 'org-demote-subtree)
@@ -19859,7 +19873,7 @@ boundaries."
 
 ;; All the other keys
 
-(org-defkey org-mode-map "\C-c\C-a" 'show-all)  ; in case allout messed up.
+(org-defkey org-mode-map "\C-c\C-a" 'outline-show-all)  ; in case allout messed up.
 (org-defkey org-mode-map "\C-c\C-r" 'org-reveal)
 (if (boundp 'narrow-map)
     (org-defkey narrow-map "s" 'org-narrow-to-subtree)
@@ -20177,23 +20191,23 @@ overwritten, and the table is not marked as requiring realignment."
    ((and
      (org-table-p)
      (progn
-       ;; check if we blank the field, and if that triggers align
+       ;; Check if we blank the field, and if that triggers align.
        (and (featurep 'org-table) org-table-auto-blank-field
 	    (memq last-command
 		  '(org-cycle org-return org-shifttab org-ctrl-c-ctrl-c))
-	    (if (or (equal (char-after) ?\ ) (looking-at "[^|\n]*  |"))
-		;; got extra space, this field does not determine column width
+	    (if (or (eq (char-after) ?\s) (looking-at "[^|\n]*  |"))
+		;; Got extra space, this field does not determine
+		;; column width.
 		(let (org-table-may-need-update) (org-table-blank-field))
-	      ;; no extra space, this field may determine column width
+	      ;; No extra space, this field may determine column
+	      ;; width.
 	      (org-table-blank-field)))
        t)
      (eq N 1)
-     (looking-at "[^|\n]*  |"))
-    (let (org-table-may-need-update)
-      (goto-char (1- (match-end 0)))
-      (backward-delete-char 1)
-      (goto-char (match-beginning 0))
-      (self-insert-command N)))
+     (looking-at "[^|\n]* \\( \\)|"))
+    ;; There is room for insertion without re-aligning the table.
+    (delete-region (match-beginning 1) (match-end 1))
+    (self-insert-command N))
    (t
     (setq org-table-may-need-update t)
     (self-insert-command N)
@@ -20245,7 +20259,7 @@ The detailed reaction depends on the user option `org-catch-invisible-edits'."
 	      (if invisible-before-point
 		  (goto-char (previous-single-char-property-change
 			      (point) 'invisible)))
-	      (show-subtree))
+	      (outline-show-subtree))
 	    (cond
 	     ((eq org-catch-invisible-edits 'show)
 	      ;; That's it, we do the edit after showing
@@ -21258,8 +21272,8 @@ Use \\[org-edit-special] to edit table.el tables"))
   (interactive)
   (if (not org-finish-function)
       (progn
-	(hide-subtree)
-	(call-interactively 'show-branches))
+	(outline-hide-subtree)
+	(call-interactively 'outline-show-branches))
     (let ((org-note-abort t))
       (funcall org-finish-function))))
 
@@ -21322,25 +21336,23 @@ will not happen if point is in a table or on a \"dead\"
 object (e.g., within a comment).  In these case, you need to use
 `org-open-at-point' directly."
   (interactive)
-  (let* ((context (if org-return-follows-link (org-element-context)
-		    (org-element-at-point)))
-	 (type (org-element-type context)))
+  (let ((context (if org-return-follows-link (org-element-context)
+		   (org-element-at-point))))
     (cond
      ;; In a table, call `org-table-next-row'.
-     ((or (and (eq type 'table)
+     ((or (and (eq (org-element-type context) 'table)
 	       (>= (point) (org-element-property :contents-begin context))
 	       (< (point) (org-element-property :contents-end context)))
 	  (org-element-lineage context '(table-row table-cell) t))
       (org-table-justify-field-maybe)
       (call-interactively #'org-table-next-row))
-     ;; On a link or a timestamp but not on white spaces after it,
-     ;; call `org-open-line' if `org-return-follows-link' allows it.
+     ;; On a link or a timestamp, call `org-open-line' if
+     ;; `org-return-follows-link' allows it.  Tolerate fuzzy
+     ;; locations, e.g., in a comment, as `org-open-line'.
      ((and org-return-follows-link
-	   (memq type '(link timestamp))
-	   (< (point)
-	      (save-excursion (goto-char (org-element-property :end context))
-			      (skip-chars-backward " \t")
-			      (point))))
+	   (or (org-at-timestamp-p t)
+	       (org-at-date-range-p t)
+	       (org-in-regexp org-any-link-re)))
       (call-interactively #'org-open-at-point))
      ;; Insert newline in heading, but preserve tags.
      ((and (not (bolp))
@@ -21735,7 +21747,7 @@ on context.  See the individual commands for more information."
      ["Cycle Global Visibility" org-shifttab :active (not (org-at-table-p))]
      ["Sparse Tree..." org-sparse-tree t]
      ["Reveal Context" org-reveal t]
-     ["Show All" show-all t]
+     ["Show All" outline-show-all t]
      "--"
      ["Subtree to indirect buffer" org-tree-to-indirect-buffer t])
     "--"
@@ -24131,7 +24143,7 @@ interactive command with similar behavior."
 	     (or (looking-at org-outline-regexp)
 		 (re-search-forward org-outline-regexp-bol end t))
 	     (while (and (< (point) end) (looking-at org-outline-regexp))
-	       (hide-subtree)
+	       (outline-hide-subtree)
 	       (org-cycle-show-empty-lines 'folded)
 	       (condition-case nil
 		   (outline-forward-same-level 1)

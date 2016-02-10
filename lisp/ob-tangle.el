@@ -1,6 +1,6 @@
 ;;; ob-tangle.el --- extract source code from org-mode files
 
-;; Copyright (C) 2009-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2009-2016 Free Software Foundation, Inc.
 
 ;; Author: Eric Schulte
 ;; Keywords: literate programming, reproducible research
@@ -39,8 +39,9 @@
 (declare-function org-link-escape "org" (text &optional table))
 (declare-function org-open-link-from-string "org" (s &optional arg reference-buffer))
 (declare-function org-store-link "org" (arg))
-(declare-function org-up-heading-safe "org" ())
 (declare-function outline-previous-heading "outline" ())
+
+(defvar org-link-types-re)
 
 (defcustom org-babel-tangle-lang-exts
   '(("emacs-lisp" . "el")
@@ -179,12 +180,14 @@ Return a list whose CAR is the tangled file name."
 	(save-window-excursion
 	  (find-file file)
 	  (setq to-be-removed (current-buffer))
-	  (org-babel-tangle nil target-file lang))
+	  (mapcar #'expand-file-name (org-babel-tangle nil target-file lang)))
       (unless visited-p
 	(kill-buffer to-be-removed)))))
 
 (defun org-babel-tangle-publish (_ filename pub-dir)
   "Tangle FILENAME and place the results in PUB-DIR."
+  (unless (file-exists-p pub-dir)
+    (make-directory pub-dir t))
   (mapc (lambda (el) (copy-file el pub-dir t)) (org-babel-tangle-file filename)))
 
 ;;;###autoload
@@ -334,23 +337,25 @@ that the appropriate major-mode is set.  SPEC has the form:
 
   (start-line file link source-name params body comment)"
   (let* ((start-line (nth 0 spec))
+	 (info (nth 4 spec))
 	 (file (if org-babel-tangle-use-relative-file-links
 		   (file-relative-name (nth 1 spec))
 		 (nth 1 spec)))
 	 (link (let ((link (nth 2 spec)))
 		 (if org-babel-tangle-use-relative-file-links
-		     (when (string-match "^\\(file:\\|docview:\\)\\(.*\\)" link)
-		       (let* ((type (match-string 1 link))
-			      (path (match-string 2 link))
-			      (origpath path)
-			      (case-fold-search nil))
-			 (setq path (file-relative-name path))
-			 (concat type path)))
+		     (when (string-match org-link-types-re link)
+		       (let ((type (match-string 0 link))
+			     (link (substring link (match-end 0))))
+			 (concat
+			  type
+			  (file-relative-name
+			   link
+			   (file-name-directory (cdr (assq :tangle info)))))))
 		   link)))
 	 (source-name (nth 3 spec))
 	 (body (nth 5 spec))
 	 (comment (nth 6 spec))
-	 (comments (cdr (assoc :comments (nth 4 spec))))
+	 (comments (cdr (assq :comments info)))
 	 (link-p (or (string= comments "both") (string= comments "link")
 		     (string= comments "yes") (string= comments "noweb")))
 	 (link-data (mapcar (lambda (el)
@@ -401,14 +406,14 @@ can be used to limit the collected code blocks by target file."
       (let ((current-heading-pos
 	     (org-with-wide-buffer
 	      (org-with-limited-levels (outline-previous-heading)))))
-	(cond ((eq last-heading-pos current-heading-pos) (incf counter))
-	      ((= counter 1))
-	      (t (setq counter 1))))
+	(if (eq last-heading-pos current-heading-pos) (incf counter)
+	  (setq counter 1)
+	  (setq last-heading-pos current-heading-pos)))
       (unless (org-in-commented-heading-p)
 	(let* ((info (org-babel-get-src-block-info 'light))
 	       (src-lang (nth 0 info))
 	       (src-tfile (cdr (assq :tangle (nth 2 info)))))
-	  (unless (or (string= (cdr (assq :tangle (nth 2 info))) "no")
+	  (unless (or (string= src-tfile "no")
 		      (and tangle-file (not (equal tangle-file src-tfile)))
 		      (and language (not (string= language src-lang))))
 	    ;; Add the spec for this block to blocks under its
