@@ -1,6 +1,6 @@
 ;;; ox-html.el --- HTML Back-End for Org Export Engine
 
-;; Copyright (C) 2011-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2011-2016 Free Software Foundation, Inc.
 
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;;      Jambunathan K <kjambunathan at gmail dot com>
@@ -1978,7 +1978,7 @@ INFO is a plist used as a communication channel."
   (when todo
     (format "<span class=\"%s %s%s\">%s</span>"
 	    (if (member todo org-done-keywords) "done" "todo")
-	    (plist-get info :html-todo-kwd-class-prefix)
+	    (or (plist-get info :html-todo-kwd-class-prefix) "")
 	    (org-html-fix-class-name todo)
 	    todo)))
 
@@ -2047,7 +2047,7 @@ is the language used for CODE, as a string, or nil."
 		    (funcall lang-mode)
 		    (insert code)
 		    ;; Fontify buffer.
-		    (font-lock-ensure)
+		    (org-font-lock-ensure)
 		    ;; Remove formatting on newline characters.
 		    (save-excursion
 		      (let ((beg (point-min))
@@ -2963,10 +2963,8 @@ INFO is a plist holding contextual information.  See
 			      attributes
 			      desc))
      ;; External link without a description part.
-     (path (format "<a href=\"%s\"%s>%s</a>"
-		   (org-html-encode-plain-text path)
-		   attributes
-		   path))
+     (path (let ((path (org-html-encode-plain-text path)))
+	     (format "<a href=\"%s\"%s>%s</a>" path attributes path)))
      ;; No path, only description.  Try to do something useful.
      (t (format "<i>%s</i>" desc)))))
 
@@ -3406,7 +3404,7 @@ contextual information."
 		      (when (org-export-table-cell-starts-colgroup-p
 			     table-cell info)
 			"\n<colgroup>")
-		      ;; Add a column.  Also specify it's alignment.
+		      ;; Add a column.  Also specify its alignment.
 		      (format "\n%s"
 			      (org-html-close-tag
 			       "col" (concat " " (format alignspec alignment)) info))

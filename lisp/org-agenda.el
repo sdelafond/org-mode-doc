@@ -1,6 +1,6 @@
 ;;; org-agenda.el --- Dynamic task and appointment lists for Org
 
-;; Copyright (C) 2004-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2004-2016 Free Software Foundation, Inc.
 
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
@@ -4615,7 +4615,7 @@ in `org-agenda-text-search-extra-files'."
 				  (> (org-reduced-level (org-outline-level))
 				     org-agenda-search-view-max-outline-level)
 				  (forward-line -1)
-				  (outline-back-to-heading t)))
+				  (org-back-to-heading t)))
 		      (skip-chars-forward "* ")
 		      (setq beg (point-at-bol)
 			    beg1 (point)
@@ -7568,7 +7568,9 @@ to switch between filtering and excluding."
 (defun org-agenda-filter-by-tag-refine (arg &optional char)
   "Refine the current filter.  See `org-agenda-filter-by-tag'."
   (interactive "P")
-  (org-agenda-filter-by-tag arg char 'refine))
+  (org-agenda-filter-by-tag arg char))
+(make-obsolete 'org-agenda-filter-by-tag-refine
+	       "use `org-agenda-filter-by-tag' instead." "8.3.4")
 
 (defun org-agenda-filter-make-matcher (filter type &optional expand)
   "Create the form that tests a line for agenda filter.  Optional
@@ -7705,7 +7707,7 @@ tags in the FILTER if any of the tags in FILTER are grouptags."
 	    (progn
 	      (setq tags (org-get-at-bol 'tags)
 		    cat (org-get-at-eol 'org-category 1)
-		    txt (org-get-at-eol 'txt 1))
+		    txt (org-get-at-bol 'txt))
 	      (if (not (eval org-agenda-filter-form))
 		  (org-agenda-filter-hide-line type))
 	      (beginning-of-line 2))

@@ -1,6 +1,6 @@
 ;;; org-src.el --- Source code examples in Org
 ;;
-;; Copyright (C) 2004-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2004-2016 Free Software Foundation, Inc.
 ;;
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;;	   Bastien Guerry <bzg@gnu.org>
@@ -54,6 +54,7 @@
 (declare-function org-trim "org" (s))
 
 (defvar org-element-all-elements)
+(defvar org-inhibit-startup)
 
 (defcustom org-edit-src-turn-on-auto-save nil
   "Non-nil means turn `auto-save-mode' on when editing a source block.
@@ -495,9 +496,7 @@ as `org-src-fontify-natively' is non-nil."
 	  (delete-region (point-min) (point-max))
 	  (insert string " ") ;; so there's a final property change
 	  (unless (eq major-mode lang-mode) (funcall lang-mode))
-	  ;; Avoid `font-lock-ensure', which does not display fonts in
-	  ;; source block.
-	  (font-lock-fontify-buffer)
+	  (org-font-lock-ensure)
 	  (setq pos (point-min))
 	  (while (setq next (next-single-property-change pos 'face))
 	    (put-text-property
