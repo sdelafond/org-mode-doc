@@ -1,6 +1,6 @@
 ;;; org-clock.el --- The time clocking code for Org-mode
 
-;; Copyright (C) 2004-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2004-2016 Free Software Foundation, Inc.
 
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
@@ -875,7 +875,7 @@ This macro also protects the current active clock from being altered."
 	   (org-clock-effort)
 	   (org-clock-marker (car ,clock))
 	   (org-clock-hd-marker (save-excursion
-				  (outline-back-to-heading t)
+				  (org-back-to-heading t)
 				  (point-marker))))
        ,@forms)))
 (def-edebug-spec org-with-clock (form body))
@@ -960,7 +960,7 @@ If necessary, clock-out of the currently active clock."
 	(org-with-wide-buffer
 	 (let ((drawer-re (format "^[ \t]*:%s:[ \t]*$"
 				  (regexp-quote (if (stringp drawer) drawer "LOGBOOK"))))
-	       (beg (save-excursion (outline-back-to-heading t) (point))))
+	       (beg (save-excursion (org-back-to-heading t) (point))))
 	   (catch 'exit
 	     (while (re-search-backward drawer-re beg t)
 	       (let ((element (org-element-at-point)))
@@ -2031,7 +2031,7 @@ fontified, and then returned."
     (org-mode)
     (org-create-dblock props)
     (org-update-dblock)
-    (font-lock-ensure)
+    (org-font-lock-ensure)
     (forward-line 2)
     (buffer-substring (point) (progn
 				(re-search-forward "^[ \t]*#\\+END" nil t)
@@ -2646,12 +2646,14 @@ from the dynamic block definition."
 	 ((eq formula '%)
 	  ;; compute the column where the % numbers need to go
 	  (setq pcol (+ 2
+			(length properties)
 			(if multifile 1 0)
 			(if level-p 1 0)
 			(if timestamp 1 0)
 			(min maxlevel (or ntcol 100))))
 	  ;; compute the column where the total time is
 	  (setq tcol (+ 2
+			(length properties)
 			(if multifile 1 0)
 			(if level-p 1 0)
 			(if timestamp 1 0)))

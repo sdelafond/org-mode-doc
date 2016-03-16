@@ -1,6 +1,6 @@
 ;;; org-archive.el --- Archiving for Org-mode
 
-;; Copyright (C) 2004-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2004-2016 Free Software Foundation, Inc.
 
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
@@ -565,7 +565,7 @@ the children that do not contain any open TODO items."
 	(save-excursion
 	  (org-back-to-heading t)
 	  (setq set (org-toggle-tag org-archive-tag))
-	  (when set (outline-hide-subtree)))
+	  (when set (org-flag-subtree t)))
 	(and set (beginning-of-line 1))
 	(message "Subtree %s" (if set "archived" "unarchived"))))))
 

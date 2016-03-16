@@ -1,6 +1,6 @@
 ;;; ob-fortran.el --- org-babel functions for fortran
 
-;; Copyright (C) 2011-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2011-2016 Free Software Foundation, Inc.
 
 ;; Authors: Sergey Litvinov
 ;;       Eric Schulte
@@ -79,7 +79,7 @@
 
 (defun org-babel-expand-body:fortran (body params)
   "Expand a block of fortran or fortran code with org-babel according to
-it's header arguments."
+its header arguments."
   (let ((vars (mapcar #'cdr (org-babel-get-header params :var)))
         (main-p (not (string= (cdr (assoc :main params)) "no")))
         (includes (or (cdr (assoc :includes params))

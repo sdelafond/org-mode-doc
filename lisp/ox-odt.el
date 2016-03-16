@@ -1,6 +1,6 @@
 ;;; ox-odt.el --- OpenDocument Text Exporter for Org Mode
 
-;; Copyright (C) 2010-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2010-2016 Free Software Foundation, Inc.
 
 ;; Author: Jambunathan K <kjambunathan at gmail dot com>
 ;; Keywords: outlines, hypermedia, calendar, wp
@@ -1383,7 +1383,8 @@ original parsed data.  INFO is a plist holding export options."
   ;; Copy styles.xml.  Also dump htmlfontify styles, if there is any.
   ;; Write styles file.
   (let* ((styles-file (plist-get info :odt-styles-file))
-	 (styles-file (and styles-file (read (org-trim styles-file))))
+	 (styles-file (and (org-string-nw-p styles-file)
+			   (read (org-trim styles-file))))
 	 ;; Non-availability of styles.xml is not a critical
 	 ;; error. For now, throw an error.
 	 (styles-file (or styles-file
@@ -3167,7 +3168,7 @@ and prefix with \"OrgSrc\".  For example,
 		 (with-temp-buffer
 		   (insert code)
 		   (funcall lang-mode)
-		   (font-lock-ensure)
+		   (org-font-lock-ensure)
 		   (buffer-string))))
 	 (fontifier (if use-htmlfontify-p 'org-odt-htmlfontify-string
 		      'org-odt--encode-plain-text))

@@ -1,6 +1,6 @@
 ;;; org-element.el --- Parser And Applications for Org syntax
 
-;; Copyright (C) 2012-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2012-2016 Free Software Foundation, Inc.
 
 ;; Author: Nicolas Goaziou <n.goaziou at gmail dot com>
 ;; Keywords: outlines, hypermedia, calendar, wp
@@ -415,9 +415,9 @@ Other brackets are treated as spaces.")
 ;; Provide four accessors: `org-element-type', `org-element-property'
 ;; `org-element-contents' and `org-element-restriction'.
 ;;
-;; Setter functions allow to modify elements by side effect.  There is
-;; `org-element-put-property', `org-element-set-contents'.  These
-;; low-level functions are useful to build a parse tree.
+;; Setter functions allow modification of elements by side effect.
+;; There is `org-element-put-property', `org-element-set-contents'.
+;; These low-level functions are useful to build a parse tree.
 ;;
 ;; `org-element-adopt-element', `org-element-set-element',
 ;; `org-element-extract-element' and `org-element-insert-before' are
@@ -625,7 +625,7 @@ is cleared and contents are removed in the process."
 ;; cannot contain other greater elements of their own type.
 ;;
 ;; Beside implementing a parser and an interpreter, adding a new
-;; greater element requires to tweak `org-element--current-element'.
+;; greater element requires tweaking `org-element--current-element'.
 ;; Moreover, the newly defined type must be added to both
 ;; `org-element-all-elements' and `org-element-greater-elements'.
 
@@ -796,6 +796,12 @@ CONTENTS is the contents of the element."
 
 ;;;; Footnote Definition
 
+(defconst org-element--footnote-separator
+  (concat org-outline-regexp-bol "\\|"
+	  org-footnote-definition-re "\\|"
+	  "^\\([ \t]*\n\\)\\{2,\\}")
+  "Regexp used as a footnote definition separator.")
+
 (defun org-element-footnote-definition-parser (limit affiliated)
   "Parse a footnote definition.
 
@@ -814,21 +820,29 @@ Assume point is at the beginning of the footnote definition."
 			 (org-match-string-no-properties 1)))
 	   (begin (car affiliated))
 	   (post-affiliated (point))
-	   (ending (save-excursion
-		     (if (progn
-			   (end-of-line)
-			   (re-search-forward
-			    (concat org-outline-regexp-bol "\\|"
-				    org-footnote-definition-re "\\|"
-				    "^\\([ \t]*\n\\)\\{2,\\}") limit 'move))
-			 (match-beginning 0)
-		       (point))))
-	   (contents-begin (progn
-			     (search-forward "]")
-			     (skip-chars-forward " \r\t\n" ending)
-			     (cond ((= (point) ending) nil)
-				   ((= (line-beginning-position) begin) (point))
-				   (t (line-beginning-position)))))
+	   (ending
+	    (save-excursion
+	      (end-of-line)
+	      (cond
+	       ((not
+		 (re-search-forward org-element--footnote-separator limit t))
+		limit)
+	       ((eq (char-after (match-beginning 0)) ?\[)
+		;; At a new footnote definition, make sure we end
+		;; before any affiliated keyword above.
+		(forward-line -1)
+		(while (and (> (point) post-affiliated)
+			    (org-looking-at-p org-element--affiliated-re))
+		  (forward-line -1))
+		(line-beginning-position 2))
+	       (t (match-beginning 0)))))
+	   (contents-begin
+	    (progn
+	      (search-forward "]")
+	      (skip-chars-forward " \r\t\n" ending)
+	      (cond ((= (point) ending) nil)
+		    ((= (line-beginning-position) post-affiliated) (point))
+		    (t (line-beginning-position)))))
 	   (contents-end (and contents-begin ending))
 	   (end (progn (goto-char ending)
 		       (skip-chars-forward " \r\t\n" limit)
@@ -3919,8 +3933,8 @@ position of point and CDR is nil."
 ;; `org-element-parse-secondary-string', which parses objects within
 ;; a given string.
 ;;
-;; The (almost) almighty `org-element-map' allows to apply a function
-;; on elements or objects matching some type, and accumulate the
+;; The (almost) almighty `org-element-map' allows applying a function
+;; on elements or objects matching some type, and accumulating the
 ;; resulting values.  In an export situation, it also skips unneeded
 ;; parts of the parse tree.
 
@@ -4906,7 +4920,7 @@ This function assumes `org-element--cache' is a valid AVL tree."
   "Non-nil when cache is active in current buffer."
   (and org-element-use-cache
        org-element--cache
-       (or (derived-mode-p 'org-mode) orgstruct-mode)))
+       (derived-mode-p 'org-mode)))
 
 (defun org-element--cache-find (pos &optional side)
   "Find element in cache starting at POS or before.
@@ -5618,8 +5632,7 @@ buffers."
   (interactive "P")
   (dolist (buffer (if all (buffer-list) (list (current-buffer))))
     (with-current-buffer buffer
-      (when (and org-element-use-cache
-		 (or (derived-mode-p 'org-mode) orgstruct-mode))
+      (when (and org-element-use-cache (derived-mode-p 'org-mode))
 	(org-set-local 'org-element--cache
 		       (avl-tree-create #'org-element--cache-compare))
 	(org-set-local 'org-element--cache-objects (make-hash-table :test #'eq))
@@ -5722,15 +5735,15 @@ Providing it allows for quicker computation."
     (org-with-wide-buffer
      (let* ((pos (point))
 	    (element (or element (org-element-at-point)))
-	    (type (org-element-type element)))
+	    (type (org-element-type element))
+	    (post (org-element-property :post-affiliated element)))
        ;; If point is inside an element containing objects or
        ;; a secondary string, narrow buffer to the container and
        ;; proceed with parsing.  Otherwise, return ELEMENT.
        (cond
 	;; At a parsed affiliated keyword, check if we're inside main
 	;; or dual value.
-	((let ((post (org-element-property :post-affiliated element)))
-	   (and post (< pos post)))
+	((and post (< pos post))
 	 (beginning-of-line)
 	 (let ((case-fold-search t)) (looking-at org-element--affiliated-re))
 	 (cond
@@ -5749,7 +5762,8 @@ Providing it allows for quicker computation."
 	;; At an item, objects can only be located within tag, if any.
 	((eq type 'item)
 	 (let ((tag (org-element-property :tag element)))
-	   (if (not tag) (throw 'objects-forbidden element)
+	   (if (or (not tag) (/= (line-beginning-position) post))
+	       (throw 'objects-forbidden element)
 	     (beginning-of-line)
 	     (search-forward tag (line-end-position))
 	     (goto-char (match-beginning 0))
@@ -5759,10 +5773,14 @@ Providing it allows for quicker computation."
 	;; At an headline or inlinetask, objects are in title.
 	((memq type '(headline inlinetask))
 	 (goto-char (org-element-property :begin element))
-	 (skip-chars-forward "*")
-	 (if (and (> pos (point)) (< pos (line-end-position)))
-	     (narrow-to-region (point) (line-end-position))
-	   (throw 'objects-forbidden element)))
+	 (looking-at org-complex-heading-regexp)
+	 (let ((end (match-end 4)))
+	   (if (not end) (throw 'objects-forbidden element)
+	     (goto-char (match-beginning 4))
+	     (when (let (case-fold-search) (looking-at org-comment-string))
+	       (goto-char (match-end 0)))
+	     (if (>= (point) end) (throw 'objects-forbidden element)
+	       (narrow-to-region (point) end)))))
 	;; At a paragraph, a table-row or a verse block, objects are
 	;; located within their contents.
 	((memq type '(paragraph table-row verse-block))

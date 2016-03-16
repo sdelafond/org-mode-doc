@@ -1,5 +1,5 @@
 ;;; ox-publish.el --- Publish Related Org Mode Files as a Website
-;; Copyright (C) 2006-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2006-2016 Free Software Foundation, Inc.
 
 ;; Author: David O'Toole <dto@gnu.org>
 ;; Maintainer: Carsten Dominik <carsten DOT dominik AT gmail DOT com>
@@ -1139,7 +1139,7 @@ This function is meant to be used as a final out filter.  See
 
 Return value is an internal reference, as a string.
 
-This function allows to resolve external links like:
+This function allows the resolution of external links like:
 
   [[file.org::*fuzzy][description]]
   [[file.org::#custom-id][description]]

@@ -1,7 +1,7 @@
 ;;; org.el --- Outline-based notes management and organizer
 
 ;; Carstens outline-mode for keeping track of everything.
-;; Copyright (C) 2004-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2004-2016 Free Software Foundation, Inc.
 ;;
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Maintainer: Carsten Dominik <carsten at orgmode dot org>
@@ -2293,17 +2293,17 @@ For more examples, see the system specific constants
   :group 'org)
 
 (defcustom org-directory "~/org"
-  "Directory with org files.
+  "Directory with Org files.
 This is just a default location to look for Org files.  There is no need
-at all to put your files into this directory.  It is only used in the
+at all to put your files into this directory.  It is used in the
 following situations:
 
 1. When a capture template specifies a target file that is not an
    absolute path.  The path will then be interpreted relative to
    `org-directory'
-2. When a capture note is filed away in an interactive way (when exiting the
-   note buffer with `C-1 C-c C-c'.  The user is prompted for an org file,
-   with `org-directory' as the default path."
+2. When the value of variable `org-agenda-files' is a single file, any
+   relative paths in this file will be taken as relative to
+   `org-directory'."
   :group 'org-refile
   :group 'org-capture
   :type 'directory)
@@ -2483,7 +2483,7 @@ fast, while still showing the whole path to the entry."
   :type 'boolean)
 
 (defcustom org-refile-allow-creating-parent-nodes nil
-  "Non-nil means allow to create new nodes as refile targets.
+  "Non-nil means allow the creation of new nodes as refile targets.
 New nodes are then created by adding \"/new node name\" to the completion
 of an existing node.  When the value of this variable is `confirm',
 new node creation must be confirmed by the user (recommended).
@@ -5849,24 +5849,20 @@ prompted for."
 
 (defun org-activate-plain-links (limit)
   "Add link properties for plain links."
-  (let (f hl)
-    (when (and (re-search-forward (concat org-plain-link-re) limit t)
-	       (not (member 'org-tag
-			    (get-text-property (1- (match-beginning 0)) 'face)))
-	       (not (org-in-src-block-p)))
-      (org-remove-flyspell-overlays-in (match-beginning 0) (match-end 0))
-      (setq f (get-text-property (match-beginning 0) 'face))
-      (setq hl (org-match-string-no-properties 0))
-      (if (or (eq f 'org-tag)
-	      (and (listp f) (memq 'org-tag f)))
-	  nil
+  (when (and (re-search-forward org-plain-link-re limit t)
+	     (not (org-in-src-block-p)))
+    (let ((face (get-text-property (max (1- (match-beginning 0)) (point-min))
+				   'face))
+	  (link (org-match-string-no-properties 0)))
+      (unless (if (consp face) (memq 'org-tag face) (eq 'org-tag face))
+	(org-remove-flyspell-overlays-in (match-beginning 0) (match-end 0))
 	(add-text-properties (match-beginning 0) (match-end 0)
 			     (list 'mouse-face 'highlight
 				   'face 'org-link
-				   'htmlize-link `(:uri ,hl)
+				   'htmlize-link `(:uri ,link)
 				   'keymap org-mouse-map))
-	(org-rear-nonsticky-at (match-end 0)))
-      t)))
+	(org-rear-nonsticky-at (match-end 0))
+	t))))
 
 (defun org-activate-code (limit)
   (if (re-search-forward "^[ \t]*\\(:\\(?: .*\\|$\\)\n?\\)" limit t)
@@ -6240,14 +6236,14 @@ done, nil otherwise."
     (font-lock-mode 1)))
 
 (defun org-activate-tags (limit)
-  (if (re-search-forward (org-re "^\\*+.*[ \t]\\(:[[:alnum:]_@#%:]+:\\)[ \r\n]") limit t)
-      (progn
-	(org-remove-flyspell-overlays-in (match-beginning 1) (match-end 1))
-	(add-text-properties (match-beginning 1) (match-end 1)
-			     (list 'mouse-face 'highlight
-				   'keymap org-mouse-map))
-	(org-rear-nonsticky-at (match-end 1))
-	t)))
+  (when (re-search-forward
+	 (org-re "^\\*+.*[ \t]\\(:[[:alnum:]_@#%:]+:\\)[ \t]*$") limit t)
+    (org-remove-flyspell-overlays-in (match-beginning 1) (match-end 1))
+    (add-text-properties (match-beginning 1) (match-end 1)
+			 (list 'mouse-face 'highlight
+			       'keymap org-mouse-map))
+    (org-rear-nonsticky-at (match-end 1))
+    t))
 
 (defun org-outline-level ()
   "Compute the outline level of the heading at point.
@@ -6501,7 +6497,7 @@ needs to be inserted at a specific position in the font-lock sequence.")
     (insert s)
     (let ((org-odd-levels-only odd-levels))
       (org-mode)
-      (font-lock-ensure)
+      (org-font-lock-ensure)
       (buffer-string))))
 
 (defvar org-m nil)
@@ -7195,7 +7191,7 @@ open and agenda-wise Org files."
 
 (defsubst org-entry-beginning-position ()
   "Return the beginning position of the current entry."
-  (save-excursion (outline-back-to-heading t) (point)))
+  (save-excursion (org-back-to-heading t) (point)))
 
 (defsubst org-entry-end-position ()
   "Return the end position of the current entry."
@@ -18755,10 +18751,14 @@ When a buffer is unmodified, it is just killed.  When modified, it is saved
 		   (append org-tag-alist-for-agenda
 			   org-tag-alist
 			   org-tag-persistent-alist)))
-	    (if org-group-tags
-		(setq org-tag-groups-alist-for-agenda
-		      (org-uniquify-alist
-		       (append org-tag-groups-alist-for-agenda org-tag-groups-alist))))
+	    ;; Merge current file's tag groups into global
+	    ;; `org-tag-groups-alist-for-agenda'.
+	    (when org-group-tags
+	      (dolist (alist org-tag-groups-alist)
+		(let ((old (assoc (car alist) org-tag-groups-alist-for-agenda)))
+		  (if old
+		      (setcdr old (org-uniquify (append (cdr old) (cdr alist))))
+		    (push alist org-tag-groups-alist-for-agenda)))))
 	    (org-with-silent-modifications
 	     (save-excursion
 	       (remove-text-properties (point-min) (point-max) pall)
@@ -18977,29 +18977,38 @@ looks only before point, not after."
     (org-in-regexp
      "\\\\[a-zA-Z]+\\*?\\(\\(\\[[^][\n{}]*\\]\\)\\|\\({[^{}\n]*}\\)\\)*")))
 
-(defvar org-latex-fragment-image-overlays nil
-  "List of overlays carrying the images of latex fragments.")
-(make-variable-buffer-local 'org-latex-fragment-image-overlays)
+(defun org--format-latex-make-overlay (beg end image)
+  "Build an overlay between BEG and END using IMAGE file."
+  (let ((ov (make-overlay beg end)))
+    (overlay-put ov 'org-overlay-type 'org-latex-overlay)
+    (overlay-put ov 'evaporate t)
+    (overlay-put ov
+		 'modification-hooks
+		 (list (lambda (o _flag _beg _end &optional _l)
+			 (delete-overlay o))))
+    (if (featurep 'xemacs)
+	(progn
+	  (overlay-put ov 'invisible t)
+	  (overlay-put ov 'end-glyph (make-glyph (vector 'png :file image))))
+      (overlay-put ov
+		   'display
+		   (list 'image :type 'png :file image :ascent 'center)))))
+
+(defun org--list-latex-overlays (&optional beg end)
+  "List all Org LaTeX overlays in current buffer.
+Limit to overlays between BEG and END when those are provided."
+  (org-remove-if-not
+   (lambda (o) (eq (overlay-get o 'org-overlay-type) 'org-latex-overlay))
+   (overlays-in (or beg (point-min)) (or end (point-max)))))
 
 (defun org-remove-latex-fragment-image-overlays (&optional beg end)
   "Remove all overlays with LaTeX fragment images in current buffer.
 When optional arguments BEG and END are non-nil, remove all
-overlays between them instead.  Return t when some overlays were
-removed, nil otherwise."
-  (let (removedp)
-    (setq org-latex-fragment-image-overlays
-	  (let ((beg (or beg (point-min)))
-		(end (or end (point-max))))
-	    (org-remove-if
-	     (lambda (o)
-	       (cond ((not (overlay-buffer o)) (delete-overlay o) t)
-		     ((and (>= (overlay-start o) beg)
-			   (<= (overlay-end o) end))
-		      (delete-overlay o)
-		      (unless removedp (setq removedp t)))
-		     (t nil)))
-	     org-latex-fragment-image-overlays)))
-    removedp))
+overlays between them instead.  Return a non-nil value when some
+overlays were removed, nil otherwise."
+  (let ((overlays (org--list-latex-overlays beg end)))
+    (mapc #'delete-overlay overlays)
+    overlays))
 
 (define-obsolete-function-alias
   'org-preview-latex-fragment 'org-toggle-latex-fragment "24.4")
@@ -19116,11 +19125,12 @@ Some of the options can be changed using the variable
 		(case processing-type
 		  (mathjax
 		   ;; Prepare for MathJax processing.
-		   (if (eq (char-after beg) ?$)
-		       (save-excursion
-			 (delete-region beg end)
-			 (insert "\\(" (substring value 1 -1) "\\)"))
-		     (goto-char end)))
+		   (if (not (string-match "\\`\\$\\$?" value))
+		       (goto-char end)
+		     (delete-region beg end)
+		     (if (string= (match-string 0 value) "$$")
+			 (insert "\\[" (substring value 2 -2) "\\]")
+		       (insert "\\(" (substring value 1 -1) "\\)"))))
 		  ((dvipng imagemagick)
 		   ;; Process to an image.
 		   (incf cnt)
@@ -19169,25 +19179,7 @@ Some of the options can be changed using the variable
 			     (when (eq (overlay-get o 'org-overlay-type)
 				       'org-latex-overlay)
 			       (delete-overlay o)))
-			   (let ((ov (make-overlay beg end)))
-			     (overlay-put ov
-					  'org-overlay-type
-					  'org-latex-overlay)
-			     (overlay-put ov 'evaporate t)
-			     (if (featurep 'xemacs)
-				 (progn
-				   (overlay-put ov 'invisible t)
-				   (overlay-put
-				    ov 'end-glyph
-				    (make-glyph
-				     (vector 'png :file movefile))))
-			       (overlay-put
-				ov 'display
-				(list 'image
-				      :type 'png
-				      :file movefile
-				      :ascent 'center)))
-			     (push ov org-latex-fragment-image-overlays))
+			   (org--format-latex-make-overlay beg end movefile)
 			   (goto-char end))
 		       (delete-region beg end)
 		       (insert
@@ -22506,11 +22498,12 @@ and :keyword."
       (if (looking-at org-radio-target-regexp)
 	  (push (org-point-in-group p 0 :radio-target) clist))
       (goto-char p))
-     ((setq o (car (delq nil
-			 (mapcar
-			  (lambda (x)
-			    (if (memq x org-latex-fragment-image-overlays) x))
-			  (overlays-at (point))))))
+     ((setq o (org-some
+	       (lambda (o)
+		 (and (eq (overlay-get o 'org-overlay-type)
+			  'org-latex-overlay)
+		      o))
+	       (overlays-at (point))))
       (push (list :latex-fragment
 		  (overlay-start o) (overlay-end o)) clist)
       (push (list :latex-preview
@@ -24502,7 +24495,7 @@ respect customization of `org-odd-levels-only'."
    (outline-next-visible-heading arg)))
 
 (defun org-previous-visible-heading (arg)
-  "Move to the next visible heading.
+  "Move to the previous visible heading.
 
 This function wraps `outline-previous-visible-heading' with
 `org-with-limited-levels' in order to skip over inline tasks and

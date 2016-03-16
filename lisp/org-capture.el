@@ -1,6 +1,6 @@
 ;;; org-capture.el --- Fast note taking in Org-mode
 
-;; Copyright (C) 2010-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2010-2016 Free Software Foundation, Inc.
 
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
@@ -124,7 +124,8 @@ target       Specification of where the captured item should be placed.
              Most target specifications contain a file name.  If that file
              name is the empty string, it defaults to `org-default-notes-file'.
              A file can also be given as a variable, function, or Emacs Lisp
-             form.
+             form.  When an absolute path is not specified for a
+             target, it is taken as relative to `org-directory'.
 
              Valid values are:
 
