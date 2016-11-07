@@ -1,12 +1,12 @@
-;;; ob-java.el --- Babel Functions for Java          -*- lexical-binding: t; -*-
+;;; ob-vbnet.el --- org-babel functions for VB.Net evaluation
 
-;; Copyright (C) 2011-2016 Free Software Foundation, Inc.
+;; Copyright (C) 2011-2015 Free Software Foundation, Inc.
 
-;; Author: Eric Schulte
+;; Author: thomas "at" friendlyvillagers.com based on ob-java.el by Eric Schulte
 ;; Keywords: literate programming, reproducible research
 ;; Homepage: http://orgmode.org
 
-;; This file is part of GNU Emacs.
+;; This file is not part of GNU Emacs.
 
 ;; GNU Emacs is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,49 +24,44 @@
 ;;; Commentary:
 
 ;; Currently this only supports the external compilation and execution
-;; of java code blocks (i.e., no session support).
+;; of VB.Net code blocks (i.e., no session support).
 
 ;;; Code:
 (require 'ob)
 
 (defvar org-babel-tangle-lang-exts)
-(add-to-list 'org-babel-tangle-lang-exts '("java" . "java"))
+(add-to-list 'org-babel-tangle-lang-exts '("vbnet" . "vb"))
 
-(defcustom org-babel-java-command "java"
-  "Name of the java command.
-May be either a command in the path, like java
-or an absolute path name, like /usr/local/bin/java
-parameters may be used, like java -verbose"
+(defcustom org-babel-vbnet-command "mono"
+  "Name of the mono command.
+May be either a command in the path, like mono
+or an absolute path name, like /usr/local/bin/mono
+parameters may be used, like mono -verbose"
   :group 'org-babel
   :version "24.3"
   :type 'string)
 
-(defcustom org-babel-java-compiler "javac"
-  "Name of the java compiler.
-May be either a command in the path, like javac
-or an absolute path name, like /usr/local/bin/javac
-parameters may be used, like javac -verbose"
+(defcustom org-babel-vbnet-compiler "vbnc"
+  "Name of the VB.Net compiler.
+May be either a command in the path, like vbnc
+or an absolute path name, like /usr/local/bin/vbnc
+parameters may be used, like vbnc /warnaserror+"
   :group 'org-babel
   :version "24.3"
   :type 'string)
 
-(defun org-babel-execute:java (body params)
-  (let* ((classname (or (cdr (assq :classname params))
-			(error
-			 "Can't compile a java block without a classname")))
-	 (packagename (file-name-directory classname))
-	 (src-file (concat classname ".java"))
+(defun org-babel-execute:vbnet (body params)
+  (let* ((full-body (org-babel-expand-body:generic body params))
 	 (cmpflag (or (cdr (assq :cmpflag params)) ""))
 	 (cmdline (or (cdr (assq :cmdline params)) ""))
-	 (full-body (org-babel-expand-body:generic body params)))
-    (with-temp-file src-file (insert full-body))
-    (org-babel-eval
-     (concat org-babel-java-compiler " " cmpflag " " src-file) "")
-    ;; created package-name directories if missing
-    (unless (or (not packagename) (file-exists-p packagename))
-      (make-directory packagename 'parents))
-    (let ((results (org-babel-eval (concat org-babel-java-command
-                                           " " cmdline " " classname) "")))
+	 (src-file (org-babel-temp-file "vbnet-src-" ".vb"))
+	 (exe-file (concat (file-name-sans-extension src-file)  ".exe"))
+	 (compile
+	  (progn (with-temp-file  src-file (insert full-body))
+		 (org-babel-eval
+		  (concat org-babel-vbnet-compiler " " cmpflag " " src-file)
+		  ""))))
+    (let ((results (org-babel-eval (concat org-babel-vbnet-command " " cmdline " " exe-file) "")))
       (org-babel-reassemble-table
        (org-babel-result-cond (cdr (assq :result-params params))
 	 (org-babel-read results)
@@ -78,8 +73,12 @@ parameters may be used, like javac -verbose"
        (org-babel-pick-name
         (cdr (assq :rowname-names params)) (cdr (assq :rownames params)))))))
 
-(provide 'ob-java)
+(defun org-babel-prep-session:vbnet (session params)
+  "Return an error because vbnet does not support sessions."
+  (error "Sessions are not supported for VB.Net"))
+
+(provide 'ob-vbnet)
 
 
 
-;;; ob-java.el ends here
+;;; ob-vbnet.el ends here
