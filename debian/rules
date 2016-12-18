@@ -17,7 +17,7 @@ build build-indep build-arch:
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k 
+	dh_prep
 	dh_installdirs
 	make doc
 	rm -f $(DOC_TMP_FILES)
