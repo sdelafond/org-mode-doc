@@ -979,9 +979,12 @@ this heading.
 
 (autoload 'org-archive-to-archive-sibling "org-archive" "\
 Archive the current heading by moving it under the archive sibling.
+
 The archive sibling is a sibling of the heading with the heading name
 `org-archive-sibling-heading' and an `org-archive-tag' tag.  If this
 sibling does not exist, it will be created at the end of the subtree.
+
+Archiving time is retained in the ARCHIVE_TIME node property.
 
 \(fn)" t nil)
 
@@ -1815,6 +1818,7 @@ SIZE is a string Columns x Rows like for example \"3x2\".
 
 (autoload 'org-table-convert-region "org-table" "\
 Convert region to a table.
+
 The region goes from BEG0 to END0, but these borders will be moved
 slightly, to make sure a beginning of line in the first line is included.
 
@@ -1824,7 +1828,7 @@ following values:
 \(4)     Use the comma as a field separator
 \(16)    Use a TAB as field separator
 \(64)    Prompt for a regular expression as field separator
-integer  When a number, use that many spaces as field separator
+integer  When a number, use that many spaces, or a TAB, as field separator
 regexp   When a regular expression, use it to match the separator
 nil      When nil, the command tries to be smart and figure out the
          separator in the following way:

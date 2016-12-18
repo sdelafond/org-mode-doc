@@ -2007,18 +2007,24 @@ channel.
 Unlike to `org-export-with-backend', this function will
 recursively convert DATA using BACKEND translation table."
   (when (symbolp backend) (setq backend (org-export-get-backend backend)))
-  (org-export-data
-   data
-   ;; Set-up a new communication channel with translations defined in
-   ;; BACKEND as the translate table and a new hash table for
-   ;; memoization.
-   (org-combine-plists
-    info
-    (list :back-end backend
-	  :translate-alist (org-export-get-all-transcoders backend)
-	  ;; Size of the hash table is reduced since this function
-	  ;; will probably be used on small trees.
-	  :exported-data (make-hash-table :test 'eq :size 401)))))
+  ;; Set-up a new communication channel with translations defined in
+  ;; BACKEND as the translate table and a new hash table for
+  ;; memoization.
+  (let ((new-info
+	 (org-combine-plists
+	  info
+	  (list :back-end backend
+		:translate-alist (org-export-get-all-transcoders backend)
+		;; Size of the hash table is reduced since this
+		;; function will probably be used on small trees.
+		:exported-data (make-hash-table :test 'eq :size 401)))))
+    (prog1 (org-export-data data new-info)
+      ;; Preserve `:internal-references', as those do not depend on
+      ;; the back-end used; we need to make sure that any new
+      ;; reference when the temporary back-end was active gets through
+      ;; the default one.
+      (plist-put info :internal-references
+		 (plist-get new-info :internal-references)))))
 
 (defun org-export-expand (blob contents &optional with-affiliated)
   "Expand a parsed element or object to its original state.
@@ -2472,20 +2478,24 @@ channel, as a plist.  It must return a string or nil.")
 (defun org-export-filter-apply-functions (filters value info)
   "Call every function in FILTERS.
 
-Functions are called with arguments VALUE, current export
-back-end's name and INFO.  A function returning a nil value will
-be skipped.  If it returns the empty string, the process ends and
-VALUE is ignored.
+Functions are called with three arguments: a value, the export
+back-end name and the communication channel.  First function in
+FILTERS is called with VALUE as its first argument.  Second
+function in FILTERS is called with the previous result as its
+value, etc.
+
+Functions returning nil are skipped.  Any function returning the
+empty string ends the process, which returns the empty string.
 
 Call is done in a LIFO fashion, to be sure that developer
 specified filters, if any, are called first."
-  (catch 'exit
+  (catch :exit
     (let* ((backend (plist-get info :back-end))
 	   (backend-name (and backend (org-export-backend-name backend))))
       (dolist (filter filters value)
 	(let ((result (funcall filter value backend-name info)))
-	  (cond ((not result) value)
-		((equal value "") (throw 'exit nil))
+	  (cond ((not result))
+		((equal result "") (throw :exit ""))
 		(t (setq value result))))))))
 
 (defun org-export-install-filters (info)
@@ -3003,14 +3013,14 @@ Return code as a string."
   (save-excursion
     (save-restriction
       ;; Narrow buffer to an appropriate region or subtree for
-      ;; parsing.  If parsing subtree, be sure to remove main headline
-      ;; too.
+      ;; parsing.  If parsing subtree, be sure to remove main
+      ;; headline, planning data and property drawer.
       (cond ((org-region-active-p)
 	     (narrow-to-region (region-beginning) (region-end)))
 	    (subtreep
 	     (org-narrow-to-subtree)
 	     (goto-char (point-min))
-	     (forward-line)
+	     (org-end-of-meta-data)
 	     (narrow-to-region (point) (point-max))))
       ;; Initialize communication channel with original buffer
       ;; attributes, unavailable in its copy.
@@ -3672,18 +3682,20 @@ the communication channel used for export, as a plist."
   (when (symbolp backend) (setq backend (org-export-get-backend backend)))
   (org-export-barf-if-invalid-backend backend)
   (let ((type (org-element-type data)))
-    (if (memq type '(nil org-data)) (error "No foreign transcoder available")
-      (let* ((all-transcoders (org-export-get-all-transcoders backend))
-	     (transcoder (cdr (assq type all-transcoders))))
-	(if (not (functionp transcoder))
-	    (error "No foreign transcoder available")
-	  (funcall
-	   transcoder data contents
-	   (org-combine-plists
-	    info (list
-		  :back-end backend
-		  :translate-alist all-transcoders
-		  :exported-data (make-hash-table :test #'eq :size 401)))))))))
+    (when (memq type '(nil org-data)) (error "No foreign transcoder available"))
+    (let* ((all-transcoders (org-export-get-all-transcoders backend))
+	   (transcoder (cdr (assq type all-transcoders))))
+      (unless (functionp transcoder) (error "No foreign transcoder available"))
+      (let ((new-info
+	     (org-combine-plists
+	      info (list
+		    :back-end backend
+		    :translate-alist all-transcoders
+		    :exported-data (make-hash-table :test #'eq :size 401)))))
+	;; `:internal-references' are shared across back-ends.
+	(prog1 (funcall transcoder data contents new-info)
+	  (plist-put info :internal-references
+		     (plist-get new-info :internal-references)))))))
 
 
 ;;;; For Export Snippets
@@ -4167,18 +4179,15 @@ error if no block contains REF."
 	(lambda (el)
 	  (with-temp-buffer
 	    (insert (org-trim (org-element-property :value el)))
-	    (let* ((label-fmt (regexp-quote
-			       (or (org-element-property :label-fmt el)
-				   org-coderef-label-format)))
-		   (ref-re
-		    (format "^.*?\\S-.*?\\([ \t]*\\(%s\\)\\)[ \t]*$"
-			    (format label-fmt ref))))
+	    (let* ((label-fmt (or (org-element-property :label-fmt el)
+				  org-coderef-label-format))
+		   (ref-re (org-src-coderef-regexp label-fmt ref)))
 	      ;; Element containing REF is found.  Resolve it to
 	      ;; either a label or a line number, as needed.
 	      (when (re-search-backward ref-re nil t)
-		(cond
-		 ((org-element-property :use-labels el) ref)
-		 (t (+ (or (org-export-get-loc el info) 0) (line-number-at-pos))))))))
+		(if (org-element-property :use-labels el) ref
+		  (+ (or (org-export-get-loc el info) 0)
+		     (line-number-at-pos)))))))
 	info 'first-match)
       (signal 'org-link-broken (list ref))))
 
@@ -4385,19 +4394,35 @@ reference consists of alphanumeric characters only."
     (or (car (rassq datum cache))
 	(let* ((crossrefs (plist-get info :crossrefs))
 	       (cells (org-export-search-cells datum))
-	       ;; If any other published document relies on an
-	       ;; association between a search cell and a reference,
-	       ;; make sure to preserve it.  See
-	       ;; `org-publish-resolve-external-link' for details.
-	       (new (or (cdr (cl-some (lambda (c) (assoc c crossrefs)) cells))
+	       ;; Preserve any pre-existing association between
+	       ;; a search cell and a reference, i.e., when some
+	       ;; previously published document referenced a location
+	       ;; within current file (see
+	       ;; `org-publish-resolve-external-link').
+	       ;;
+	       ;; However, there is no guarantee that search cells are
+	       ;; unique, e.g., there might be duplicate custom ID or
+	       ;; two headings with the same title in the file.
+	       ;;
+	       ;; As a consequence, before re-using any reference to
+	       ;; an element or object, we check that it doesn't refer
+	       ;; to a previous element or object.
+	       (new (or (cl-some
+			 (lambda (cell)
+			   (let ((stored (cdr (assoc cell crossrefs))))
+			     (when stored
+			       (let ((old (org-export-format-reference stored)))
+				 (and (not (assoc old cache)) stored)))))
+			 cells)
 			(org-export-new-reference cache)))
 	       (reference-string (org-export-format-reference new)))
 	  ;; Cache contains both data already associated to
 	  ;; a reference and in-use internal references, so as to make
 	  ;; unique references.
 	  (dolist (cell cells) (push (cons cell new) cache))
-	  ;; Keep an associated related to DATUM as not every object
-	  ;; and element can be associated to a search cell.
+	  ;; Retain a direct association between reference string and
+	  ;; DATUM since (1) not every object or element can be given
+	  ;; a search cell (2) it permits quick lookup.
 	  (push (cons reference-string datum) cache)
 	  (plist-put info :internal-references cache)
 	  reference-string))))
