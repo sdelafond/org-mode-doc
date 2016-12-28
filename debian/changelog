@@ -1,3 +1,9 @@
+org-mode-doc (9.0.3-2) unstable; urgency=medium
+
+  * Correct Vcs-Git URL
+
+ -- Sebastien Delafond <seb@debian.org>  Wed, 28 Dec 2016 09:38:49 +0100
+
 org-mode-doc (9.0.3-1) unstable; urgency=medium
 
   * Imported Upstream version 9.0.3
