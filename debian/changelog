@@ -1,3 +1,13 @@
+org-mode-doc (9.0.9-1) UNRELEASED; urgency=medium
+
+  [ Nicholas D Steeves ]
+  * debian/watch: Switch to version 4, automatically repack,
+    and compress with xz
+  * Switch to copyright-format 1.0; use Files-Excluded to exclude non-docs
+  * New upstream version 9.0.9
+
+ -- Nicholas D Steeves <nsteeves@gmail.com>  Mon, 03 Jul 2017 22:35:38 -0400
+
 org-mode-doc (9.0.3-2) unstable; urgency=medium
 
   * Correct Vcs-Git URL
