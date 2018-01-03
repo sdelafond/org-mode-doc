@@ -1,3 +1,10 @@
+org-mode-doc (9.1.5-1) unstable; urgency=medium
+
+  * New upstream version 9.1.5
+  * Bump-up Standards-Version
+
+ -- Sebastien Delafond <seb@debian.org>  Wed, 03 Jan 2018 11:44:29 +0100
+
 org-mode-doc (9.1.2-1) unstable; urgency=medium
 
   * New upstream version 9.1.2
