@@ -2,7 +2,7 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Source: http://orgmode.org/
 Upstream-Contact: Carsten Dominik <carsten@orgmode.org>
 Files-Excluded: contrib/lisp contrib/README contrib/scripts COPYING etc lisp
-                README request-assign-future.txt
+                README request-assign-future.txt testing
 
 Files: *
 Copyright: 2004-2017 Free Software Foundation, Inc.
