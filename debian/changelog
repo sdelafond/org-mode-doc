@@ -1,3 +1,10 @@
+org-mode-doc (9.1.7-1) unstable; urgency=medium
+
+  * Remove testing/ when repacking the upstream tarball (Closes: #886433)
+  * New upstream version 9.1.7
+
+ -- Sebastien Delafond <seb@debian.org>  Mon, 05 Mar 2018 09:20:27 +0100
+
 org-mode-doc (9.1.6-1) unstable; urgency=medium
 
   * New upstream version 9.1.6
