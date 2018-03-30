@@ -1,3 +1,9 @@
+org-mode-doc (9.1.9-1) unstable; urgency=medium
+
+  * New upstream version 9.1.9
+
+ -- Sebastien Delafond <seb@debian.org>  Fri, 30 Mar 2018 14:56:54 +0200
+
 org-mode-doc (9.1.7-2) unstable; urgency=medium
 
   * Switch to DEP 14
