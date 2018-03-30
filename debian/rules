@@ -19,7 +19,7 @@ install: build
 	dh_testroot
 	dh_prep
 	dh_installdirs
-	make doc
+	make ORG_MAKE_DOC="info html pdf card" doc
 	rm -f $(DOC_TMP_FILES)
 	# find $(CURDIR)/debian/org-mode-doc/usr/share/org-mode/ -type f -exec chmod 644 "{}" \;
 	# find $(CURDIR)/debian/org-mode-doc/usr/share/emacs/site-lisp/org-mode -type f -exec chmod 644 "{}" \;

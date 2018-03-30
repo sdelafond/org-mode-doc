@@ -1,0 +1,22 @@
+From: =?utf-8?q?S=C3=A9bastien_Delafond?= <sdelafond@gmail.com>
+Date: Fri, 30 Mar 2018 14:47:26 +0200
+Subject: Only build one refcard,
+ as passing ORG_MAKE_DOC="... orgcard.pdf" does not work
+
+---
+ doc/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/doc/Makefile b/doc/Makefile
+index e17d441..941f948 100644
+--- a/doc/Makefile
++++ b/doc/Makefile
+@@ -13,7 +13,7 @@ html:		org.html
+ 
+ pdf:		org.pdf orgguide.pdf
+ 
+-card:		orgcard.pdf orgcard_letter.pdf orgguide.pdf
++card:		orgcard.pdf
+ 
+ ifneq ($(SERVERMK),)
+ manual guide::
