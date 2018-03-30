@@ -1,3 +1,11 @@
+org-mode-doc (9.1.7-2) unstable; urgency=medium
+
+  * Switch to DEP 14
+  * Update Vcs-* to point to salsa.d.o
+  * Provide refcard in PDF format (Closes: #892027)
+
+ -- Sebastien Delafond <seb@debian.org>  Fri, 30 Mar 2018 14:28:15 +0200
+
 org-mode-doc (9.1.7-1) unstable; urgency=medium
 
   * Remove testing/ when repacking the upstream tarball (Closes: #886433)
