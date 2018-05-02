@@ -1,13 +1,14 @@
 Source: org-mode-doc
 Section: non-free/doc
 Priority: optional
-Maintainer: Sebastien Delafond <seb@debian.org>
+Maintainer: Debian Emacsen team <debian-emacsen@lists.debian.org>
+Uploaders: Sebastien Delafond <seb@debian.org>
 Build-Depends: debhelper (>= 9)
 Build-Depends-Indep: texinfo, texlive-latex-base, texlive-fonts-recommended
 Standards-Version: 4.1.3
 Homepage: https://orgmode.org
-Vcs-Git: https://salsa.debian.org/debian/org-mode-doc.git
-Vcs-Browser: https://salsa.debian.org/debian/org-mode-doc
+Vcs-Git: https://salsa.debian.org/emacsen-team/org-mode-doc.git
+Vcs-Browser: https://salsa.debian.org/emacsen-team/org-mode-doc
 
 Package: org-mode-doc
 Architecture: all
