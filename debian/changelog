@@ -1,3 +1,10 @@
+org-mode-doc (9.1.13-1) unstable; urgency=medium
+
+  * Move to emacsen-team
+  * New upstream version 9.1.13
+
+ -- Sebastien Delafond <seb@debian.org>  Thu, 21 Jun 2018 15:08:47 +0200
+
 org-mode-doc (9.1.11-1) unstable; urgency=medium
 
   * New upstream version 9.1.11
