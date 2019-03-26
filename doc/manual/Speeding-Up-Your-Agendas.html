@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Speeding Up Your Agendas</title>
+
+<meta name="description" content="The Org Manual: Speeding Up Your Agendas">
+<meta name="keywords" content="The Org Manual: Speeding Up Your Agendas">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Hacking.html#Hacking" rel="up" title="Hacking">
+<link href="Extracting-Agenda-Information.html#Extracting-Agenda-Information" rel="next" title="Extracting Agenda Information">
+<link href="Special-Agenda-Views.html#Special-Agenda-Views" rel="prev" title="Special Agenda Views">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Speeding-Up-Your-Agendas"></a>
+<div class="header">
+<p>
+Next: <a href="Extracting-Agenda-Information.html#Extracting-Agenda-Information" accesskey="n" rel="next">Extracting Agenda Information</a>, Previous: <a href="Special-Agenda-Views.html#Special-Agenda-Views" accesskey="p" rel="prev">Special Agenda Views</a>, Up: <a href="Hacking.html#Hacking" accesskey="u" rel="up">Hacking</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Speeding-Up-Your-Agendas-1"></a>
+<h3 class="appendixsec">A.8 Speeding Up Your Agendas</h3>
+
+<a name="index-agenda-views_002c-optimization"></a>
+
+<p>Some agenda commands slow down when the Org files grow in size or
+number.  Here are tips to speed up:
+</p>
+<ul>
+<li> Reduce the number of Org agenda files to avoid slowdowns due to hard drive
+accesses.
+
+</li><li> Reduce the number of DONE and archived headlines so agenda
+operations that skip over these can finish faster.
+
+</li><li> Do not dim blocked tasks:
+<a name="index-org_002dagenda_002ddim_002dblocked_002dtasks-1"></a>
+
+<div class="lisp">
+<pre class="lisp">(setq org-agenda-dim-blocked-tasks nil)
+</pre></div>
+
+</li><li> Stop preparing agenda buffers on startup:
+<a name="index-org_002dstartup_002dfolded-2"></a>
+<a name="index-org_002dagenda_002dinhibit_002dstartup"></a>
+
+<div class="lisp">
+<pre class="lisp">(setq org-agenda-inhibit-startup t)
+</pre></div>
+
+</li><li> Disable tag inheritance for agendas:
+<a name="index-org_002dagenda_002dshow_002dinherited_002dtags-1"></a>
+<a name="index-org_002dagenda_002duse_002dtag_002dinheritance-1"></a>
+
+<div class="lisp">
+<pre class="lisp">(setq org-agenda-use-tag-inheritance nil)
+</pre></div>
+</li></ul>
+
+<p>These options can be applied to selected agenda views.  For more
+details about generation of agenda views, see the docstrings for the
+relevant variables, and this <a href="https://orgmode.org/worg/agenda-optimization.html">dedicated Worg page</a> for agenda
+optimization.
+</p>
+
+
+
+</body>
+</html>

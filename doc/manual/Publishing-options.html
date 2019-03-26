@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Publishing options</title>
+
+<meta name="description" content="The Org Manual: Publishing options">
+<meta name="keywords" content="The Org Manual: Publishing options">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Configuration.html#Configuration" rel="up" title="Configuration">
+<link href="Publishing-links.html#Publishing-links" rel="next" title="Publishing links">
+<link href="Publishing-action.html#Publishing-action" rel="prev" title="Publishing action">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Publishing-options"></a>
+<div class="header">
+<p>
+Next: <a href="Publishing-links.html#Publishing-links" accesskey="n" rel="next">Publishing links</a>, Previous: <a href="Publishing-action.html#Publishing-action" accesskey="p" rel="prev">Publishing action</a>, Up: <a href="Configuration.html#Configuration" accesskey="u" rel="up">Configuration</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Options-for-the-exporters"></a>
+<h4 class="subsection">13.1.5 Options for the exporters</h4>
+
+<a name="index-options_002c-for-publishing"></a>
+<a name="index-publishing-options"></a>
+
+<p>The property list can be used to set many export options for the HTML
+and LaTeX exporters.  In most cases, these properties correspond to
+user variables in Org.  The table below lists these properties along
+with the variable they belong to.  See the documentation string for
+the respective variable for details.
+</p>
+<a name="index-org_002dpublish_002dproject_002dalist-1"></a>
+<p>When a property is given a value in <code>org-publish-project-alist</code>, its
+setting overrides the value of the corresponding user variable, if
+any, during publishing.  Options set within a file (see <a href="Export-Settings.html#Export-Settings">Export Settings</a>), however, override everything.
+</p>
+<a name="Generic-properties"></a><a name="Generic-properties-1"></a>
+<h4 class="subsubheading">Generic properties</h4>
+
+<table>
+<tr><td><code>:archived-trees</code></td><td><code>org-export-with-archived-trees</code></td></tr>
+<tr><td><code>:exclude-tags</code></td><td><code>org-export-exclude-tags</code></td></tr>
+<tr><td><code>:headline-levels</code></td><td><code>org-export-headline-levels</code></td></tr>
+<tr><td><code>:language</code></td><td><code>org-export-default-language</code></td></tr>
+<tr><td><code>:preserve-breaks</code></td><td><code>org-export-preserve-breaks</code></td></tr>
+<tr><td><code>:section-numbers</code></td><td><code>org-export-with-section-numbers</code></td></tr>
+<tr><td><code>:select-tags</code></td><td><code>org-export-select-tags</code></td></tr>
+<tr><td><code>:with-author</code></td><td><code>org-export-with-author</code></td></tr>
+<tr><td><code>:with-broken-links</code></td><td><code>org-export-with-broken-links</code></td></tr>
+<tr><td><code>:with-clocks</code></td><td><code>org-export-with-clocks</code></td></tr>
+<tr><td><code>:with-creator</code></td><td><code>org-export-with-creator</code></td></tr>
+<tr><td><code>:with-date</code></td><td><code>org-export-with-date</code></td></tr>
+<tr><td><code>:with-drawers</code></td><td><code>org-export-with-drawers</code></td></tr>
+<tr><td><code>:with-email</code></td><td><code>org-export-with-email</code></td></tr>
+<tr><td><code>:with-emphasize</code></td><td><code>org-export-with-emphasize</code></td></tr>
+<tr><td><code>:with-fixed-width</code></td><td><code>org-export-with-fixed-width</code></td></tr>
+<tr><td><code>:with-footnotes</code></td><td><code>org-export-with-footnotes</code></td></tr>
+<tr><td><code>:with-latex</code></td><td><code>org-export-with-latex</code></td></tr>
+<tr><td><code>:with-planning</code></td><td><code>org-export-with-planning</code></td></tr>
+<tr><td><code>:with-priority</code></td><td><code>org-export-with-priority</code></td></tr>
+<tr><td><code>:with-properties</code></td><td><code>org-export-with-properties</code></td></tr>
+<tr><td><code>:with-special-strings</code></td><td><code>org-export-with-special-strings</code></td></tr>
+<tr><td><code>:with-sub-superscript</code></td><td><code>org-export-with-sub-superscripts</code></td></tr>
+<tr><td><code>:with-tables</code></td><td><code>org-export-with-tables</code></td></tr>
+<tr><td><code>:with-tags</code></td><td><code>org-export-with-tags</code></td></tr>
+<tr><td><code>:with-tasks</code></td><td><code>org-export-with-tasks</code></td></tr>
+<tr><td><code>:with-timestamps</code></td><td><code>org-export-with-timestamps</code></td></tr>
+<tr><td><code>:with-title</code></td><td><code>org-export-with-title</code></td></tr>
+<tr><td><code>:with-toc</code></td><td><code>org-export-with-toc</code></td></tr>
+<tr><td><code>:with-todo-keywords</code></td><td><code>org-export-with-todo-keywords</code></td></tr>
+</table>
+
+<a name="ASCII-specific-properties"></a><a name="ASCII-specific-properties-1"></a>
+<h4 class="subsubheading">ASCII specific properties</h4>
+
+<table>
+<tr><td><code>:ascii-bullets</code></td><td><code>org-ascii-bullets</code></td></tr>
+<tr><td><code>:ascii-caption-above</code></td><td><code>org-ascii-caption-above</code></td></tr>
+<tr><td><code>:ascii-charset</code></td><td><code>org-ascii-charset</code></td></tr>
+<tr><td><code>:ascii-global-margin</code></td><td><code>org-ascii-global-margin</code></td></tr>
+<tr><td><code>:ascii-format-drawer-function</code></td><td><code>org-ascii-format-drawer-function</code></td></tr>
+<tr><td><code>:ascii-format-inlinetask-function</code></td><td><code>org-ascii-format-inlinetask-function</code></td></tr>
+<tr><td><code>:ascii-headline-spacing</code></td><td><code>org-ascii-headline-spacing</code></td></tr>
+<tr><td><code>:ascii-indented-line-width</code></td><td><code>org-ascii-indented-line-width</code></td></tr>
+<tr><td><code>:ascii-inlinetask-width</code></td><td><code>org-ascii-inlinetask-width</code></td></tr>
+<tr><td><code>:ascii-inner-margin</code></td><td><code>org-ascii-inner-margin</code></td></tr>
+<tr><td><code>:ascii-links-to-notes</code></td><td><code>org-ascii-links-to-notes</code></td></tr>
+<tr><td><code>:ascii-list-margin</code></td><td><code>org-ascii-list-margin</code></td></tr>
+<tr><td><code>:ascii-paragraph-spacing</code></td><td><code>org-ascii-paragraph-spacing</code></td></tr>
+<tr><td><code>:ascii-quote-margin</code></td><td><code>org-ascii-quote-margin</code></td></tr>
+<tr><td><code>:ascii-table-keep-all-vertical-lines</code></td><td><code>org-ascii-table-keep-all-vertical-lines</code></td></tr>
+<tr><td><code>:ascii-table-use-ascii-art</code></td><td><code>org-ascii-table-use-ascii-art</code></td></tr>
+<tr><td><code>:ascii-table-widen-columns</code></td><td><code>org-ascii-table-widen-columns</code></td></tr>
+<tr><td><code>:ascii-text-width</code></td><td><code>org-ascii-text-width</code></td></tr>
+<tr><td><code>:ascii-underline</code></td><td><code>org-ascii-underline</code></td></tr>
+<tr><td><code>:ascii-verbatim-format</code></td><td><code>org-ascii-verbatim-format</code></td></tr>
+</table>
+
+<a name="Beamer-specific-properties"></a><a name="Beamer-specific-properties-1"></a>
+<h4 class="subsubheading">Beamer specific properties</h4>
+
+<table>
+<tr><td><code>:beamer-theme</code></td><td><code>org-beamer-theme</code></td></tr>
+<tr><td><code>:beamer-column-view-format</code></td><td><code>org-beamer-column-view-format</code></td></tr>
+<tr><td><code>:beamer-environments-extra</code></td><td><code>org-beamer-environments-extra</code></td></tr>
+<tr><td><code>:beamer-frame-default-options</code></td><td><code>org-beamer-frame-default-options</code></td></tr>
+<tr><td><code>:beamer-outline-frame-options</code></td><td><code>org-beamer-outline-frame-options</code></td></tr>
+<tr><td><code>:beamer-outline-frame-title</code></td><td><code>org-beamer-outline-frame-title</code></td></tr>
+<tr><td><code>:beamer-subtitle-format</code></td><td><code>org-beamer-subtitle-format</code></td></tr>
+</table>
+
+<a name="HTML-specific-properties"></a><a name="HTML-specific-properties-1"></a>
+<h4 class="subsubheading">HTML specific properties</h4>
+
+<table>
+<tr><td><code>:html-allow-name-attribute-in-anchors</code></td><td><code>org-html-allow-name-attribute-in-anchors</code></td></tr>
+<tr><td><code>:html-checkbox-type</code></td><td><code>org-html-checkbox-type</code></td></tr>
+<tr><td><code>:html-container</code></td><td><code>org-html-container-element</code></td></tr>
+<tr><td><code>:html-divs</code></td><td><code>org-html-divs</code></td></tr>
+<tr><td><code>:html-doctype</code></td><td><code>org-html-doctype</code></td></tr>
+<tr><td><code>:html-extension</code></td><td><code>org-html-extension</code></td></tr>
+<tr><td><code>:html-footnote-format</code></td><td><code>org-html-footnote-format</code></td></tr>
+<tr><td><code>:html-footnote-separator</code></td><td><code>org-html-footnote-separator</code></td></tr>
+<tr><td><code>:html-footnotes-section</code></td><td><code>org-html-footnotes-section</code></td></tr>
+<tr><td><code>:html-format-drawer-function</code></td><td><code>org-html-format-drawer-function</code></td></tr>
+<tr><td><code>:html-format-headline-function</code></td><td><code>org-html-format-headline-function</code></td></tr>
+<tr><td><code>:html-format-inlinetask-function</code></td><td><code>org-html-format-inlinetask-function</code></td></tr>
+<tr><td><code>:html-head-extra</code></td><td><code>org-html-head-extra</code></td></tr>
+<tr><td><code>:html-head-include-default-style</code></td><td><code>org-html-head-include-default-style</code></td></tr>
+<tr><td><code>:html-head-include-scripts</code></td><td><code>org-html-head-include-scripts</code></td></tr>
+<tr><td><code>:html-head</code></td><td><code>org-html-head</code></td></tr>
+<tr><td><code>:html-home/up-format</code></td><td><code>org-html-home/up-format</code></td></tr>
+<tr><td><code>:html-html5-fancy</code></td><td><code>org-html-html5-fancy</code></td></tr>
+<tr><td><code>:html-indent</code></td><td><code>org-html-indent</code></td></tr>
+<tr><td><code>:html-infojs-options</code></td><td><code>org-html-infojs-options</code></td></tr>
+<tr><td><code>:html-infojs-template</code></td><td><code>org-html-infojs-template</code></td></tr>
+<tr><td><code>:html-inline-image-rules</code></td><td><code>org-html-inline-image-rules</code></td></tr>
+<tr><td><code>:html-inline-images</code></td><td><code>org-html-inline-images</code></td></tr>
+<tr><td><code>:html-link-home</code></td><td><code>org-html-link-home</code></td></tr>
+<tr><td><code>:html-link-org-files-as-html</code></td><td><code>org-html-link-org-files-as-html</code></td></tr>
+<tr><td><code>:html-link-up</code></td><td><code>org-html-link-up</code></td></tr>
+<tr><td><code>:html-link-use-abs-url</code></td><td><code>org-html-link-use-abs-url</code></td></tr>
+<tr><td><code>:html-mathjax-options</code></td><td><code>org-html-mathjax-options</code></td></tr>
+<tr><td><code>:html-mathjax-template</code></td><td><code>org-html-mathjax-template</code></td></tr>
+<tr><td><code>:html-metadata-timestamp-format</code></td><td><code>org-html-metadata-timestamp-format</code></td></tr>
+<tr><td><code>:html-postamble-format</code></td><td><code>org-html-postamble-format</code></td></tr>
+<tr><td><code>:html-postamble</code></td><td><code>org-html-postamble</code></td></tr>
+<tr><td><code>:html-preamble-format</code></td><td><code>org-html-preamble-format</code></td></tr>
+<tr><td><code>:html-preamble</code></td><td><code>org-html-preamble</code></td></tr>
+<tr><td><code>:html-table-align-individual-field</code></td><td><code>de{org-html-table-align-individual-fields</code></td></tr>
+<tr><td><code>:html-table-attributes</code></td><td><code>org-html-table-default-attributes</code></td></tr>
+<tr><td><code>:html-table-caption-above</code></td><td><code>org-html-table-caption-above</code></td></tr>
+<tr><td><code>:html-table-data-tags</code></td><td><code>org-html-table-data-tags</code></td></tr>
+<tr><td><code>:html-table-header-tags</code></td><td><code>org-html-table-header-tags</code></td></tr>
+<tr><td><code>:html-table-row-tags</code></td><td><code>org-html-table-row-tags</code></td></tr>
+<tr><td><code>:html-table-use-header-tags-for-first-column</code></td><td><code>org-html-table-use-header-tags-for-first-column</code></td></tr>
+<tr><td><code>:html-tag-class-prefix</code></td><td><code>org-html-tag-class-prefix</code></td></tr>
+<tr><td><code>:html-text-markup-alist</code></td><td><code>org-html-text-markup-alist</code></td></tr>
+<tr><td><code>:html-todo-kwd-class-prefix</code></td><td><code>org-html-todo-kwd-class-prefix</code></td></tr>
+<tr><td><code>:html-toplevel-hlevel</code></td><td><code>org-html-toplevel-hlevel</code></td></tr>
+<tr><td><code>:html-use-infojs</code></td><td><code>org-html-use-infojs</code></td></tr>
+<tr><td><code>:html-validation-link</code></td><td><code>org-html-validation-link</code></td></tr>
+<tr><td><code>:html-viewport</code></td><td><code>org-html-viewport</code></td></tr>
+<tr><td><code>:html-xml-declaration</code></td><td><code>org-html-xml-declaration</code></td></tr>
+</table>
+
+<a name="LaTeX-specific-properties"></a><a name="LaTeX-specific-properties-1"></a>
+<h4 class="subsubheading">LaTeX specific properties</h4>
+
+<table>
+<tr><td><code>:latex-active-timestamp-format</code></td><td><code>org-latex-active-timestamp-format</code></td></tr>
+<tr><td><code>:latex-caption-above</code></td><td><code>org-latex-caption-above</code></td></tr>
+<tr><td><code>:latex-classes</code></td><td><code>org-latex-classes</code></td></tr>
+<tr><td><code>:latex-class</code></td><td><code>org-latex-default-class</code></td></tr>
+<tr><td><code>:latex-compiler</code></td><td><code>org-latex-compiler</code></td></tr>
+<tr><td><code>:latex-default-figure-position</code></td><td><code>org-latex-default-figure-position</code></td></tr>
+<tr><td><code>:latex-default-table-environment</code></td><td><code>org-latex-default-table-environment</code></td></tr>
+<tr><td><code>:latex-default-table-mode</code></td><td><code>org-latex-default-table-mode</code></td></tr>
+<tr><td><code>:latex-diary-timestamp-format</code></td><td><code>org-latex-diary-timestamp-format</code></td></tr>
+<tr><td><code>:latex-footnote-defined-format</code></td><td><code>org-latex-footnote-defined-format</code></td></tr>
+<tr><td><code>:latex-footnote-separator</code></td><td><code>org-latex-footnote-separator</code></td></tr>
+<tr><td><code>:latex-format-drawer-function</code></td><td><code>org-latex-format-drawer-function</code></td></tr>
+<tr><td><code>:latex-format-headline-function</code></td><td><code>org-latex-format-headline-function</code></td></tr>
+<tr><td><code>:latex-format-inlinetask-function</code></td><td><code>org-latex-format-inlinetask-function</code></td></tr>
+<tr><td><code>:latex-hyperref-template</code></td><td><code>org-latex-hyperref-template</code></td></tr>
+<tr><td><code>:latex-image-default-height</code></td><td><code>org-latex-image-default-height</code></td></tr>
+<tr><td><code>:latex-image-default-option</code></td><td><code>org-latex-image-default-option</code></td></tr>
+<tr><td><code>:latex-image-default-width</code></td><td><code>org-latex-image-default-width</code></td></tr>
+<tr><td><code>:latex-images-centered</code></td><td><code>org-latex-images-centered</code></td></tr>
+<tr><td><code>:latex-inactive-timestamp-format</code></td><td><code>org-latex-inactive-timestamp-format</code></td></tr>
+<tr><td><code>:latex-inline-image-rules</code></td><td><code>org-latex-inline-image-rules</code></td></tr>
+<tr><td><code>:latex-link-with-unknown-path-format</code></td><td><code>org-latex-link-with-unknown-path-format</code></td></tr>
+<tr><td><code>:latex-listings-langs</code></td><td><code>org-latex-listings-langs</code></td></tr>
+<tr><td><code>:latex-listings-options</code></td><td><code>org-latex-listings-options</code></td></tr>
+<tr><td><code>:latex-listings</code></td><td><code>org-latex-listings</code></td></tr>
+<tr><td><code>:latex-minted-langs</code></td><td><code>org-latex-minted-langs</code></td></tr>
+<tr><td><code>:latex-minted-options</code></td><td><code>org-latex-minted-options</code></td></tr>
+<tr><td><code>:latex-prefer-user-labels</code></td><td><code>org-latex-prefer-user-labels</code></td></tr>
+<tr><td><code>:latex-subtitle-format</code></td><td><code>org-latex-subtitle-format</code></td></tr>
+<tr><td><code>:latex-subtitle-separate</code></td><td><code>org-latex-subtitle-separate</code></td></tr>
+<tr><td><code>:latex-table-scientific-notation</code></td><td><code>org-latex-table-scientific-notation</code></td></tr>
+<tr><td><code>:latex-tables-booktabs</code></td><td><code>org-latex-tables-booktabs</code></td></tr>
+<tr><td><code>:latex-tables-centered</code></td><td><code>org-latex-tables-centered</code></td></tr>
+<tr><td><code>:latex-text-markup-alist</code></td><td><code>org-latex-text-markup-alist</code></td></tr>
+<tr><td><code>:latex-title-command</code></td><td><code>org-latex-title-command</code></td></tr>
+<tr><td><code>:latex-toc-command</code></td><td><code>org-latex-toc-command</code></td></tr>
+</table>
+
+<a name="Markdown-specific-properties"></a><a name="Markdown-specific-properties-1"></a>
+<h4 class="subsubheading">Markdown specific properties</h4>
+
+<table>
+<tr><td><code>:md-footnote-format</code></td><td><code>org-md-footnote-format</code></td></tr>
+<tr><td><code>:md-footnotes-section</code></td><td><code>org-md-footnotes-section</code></td></tr>
+<tr><td><code>:md-headline-style</code></td><td><code>org-md-headline-style</code></td></tr>
+</table>
+
+<a name="ODT-specific-properties"></a><a name="ODT-specific-properties-1"></a>
+<h4 class="subsubheading">ODT specific properties</h4>
+
+<table>
+<tr><td><code>:odt-content-template-file</code></td><td><code>org-odt-content-template-file</code></td></tr>
+<tr><td><code>:odt-display-outline-level</code></td><td><code>org-odt-display-outline-level</code></td></tr>
+<tr><td><code>:odt-fontify-srcblocks</code></td><td><code>org-odt-fontify-srcblocks</code></td></tr>
+<tr><td><code>:odt-format-drawer-function</code></td><td><code>org-odt-format-drawer-function</code></td></tr>
+<tr><td><code>:odt-format-headline-function</code></td><td><code>org-odt-format-headline-function</code></td></tr>
+<tr><td><code>:odt-format-inlinetask-function</code></td><td><code>org-odt-format-inlinetask-function</code></td></tr>
+<tr><td><code>:odt-inline-formula-rules</code></td><td><code>org-odt-inline-formula-rules</code></td></tr>
+<tr><td><code>:odt-inline-image-rules</code></td><td><code>org-odt-inline-image-rules</code></td></tr>
+<tr><td><code>:odt-pixels-per-inch</code></td><td><code>org-odt-pixels-per-inch</code></td></tr>
+<tr><td><code>:odt-styles-file</code></td><td><code>org-odt-styles-file</code></td></tr>
+<tr><td><code>:odt-table-styles</code></td><td><code>org-odt-table-styles</code></td></tr>
+<tr><td><code>:odt-use-date-fields</code></td><td><code>org-odt-use-date-fields</code></td></tr>
+</table>
+
+<a name="Texinfo-specific-properties"></a><a name="Texinfo-specific-properties-1"></a>
+<h4 class="subsubheading">Texinfo specific properties</h4>
+
+<table>
+<tr><td><code>:texinfo-active-timestamp-format</code></td><td><code>org-texinfo-active-timestamp-format</code></td></tr>
+<tr><td><code>:texinfo-classes</code></td><td><code>org-texinfo-classes</code></td></tr>
+<tr><td><code>:texinfo-class</code></td><td><code>org-texinfo-default-class</code></td></tr>
+<tr><td><code>:texinfo-table-default-markup</code></td><td><code>org-texinfo-table-default-markup</code></td></tr>
+<tr><td><code>:texinfo-diary-timestamp-format</code></td><td><code>org-texinfo-diary-timestamp-format</code></td></tr>
+<tr><td><code>:texinfo-filename</code></td><td><code>org-texinfo-filename</code></td></tr>
+<tr><td><code>:texinfo-format-drawer-function</code></td><td><code>org-texinfo-format-drawer-function</code></td></tr>
+<tr><td><code>:texinfo-format-headline-function</code></td><td><code>org-texinfo-format-headline-function</code></td></tr>
+<tr><td><code>:texinfo-format-inlinetask-function</code></td><td><code>org-texinfo-format-inlinetask-function</code></td></tr>
+<tr><td><code>:texinfo-inactive-timestamp-format</code></td><td><code>org-texinfo-inactive-timestamp-format</code></td></tr>
+<tr><td><code>:texinfo-link-with-unknown-path-format</code></td><td><code>org-texinfo-link-with-unknown-path-format</code></td></tr>
+<tr><td><code>:texinfo-node-description-column</code></td><td><code>org-texinfo-node-description-column</code></td></tr>
+<tr><td><code>:texinfo-table-scientific-notation</code></td><td><code>org-texinfo-table-scientific-notation</code></td></tr>
+<tr><td><code>:texinfo-tables-verbatim</code></td><td><code>org-texinfo-tables-verbatim</code></td></tr>
+<tr><td><code>:texinfo-text-markup-alist</code></td><td><code>org-texinfo-text-markup-alist</code></td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Publishing-links.html#Publishing-links" accesskey="n" rel="next">Publishing links</a>, Previous: <a href="Publishing-action.html#Publishing-action" accesskey="p" rel="prev">Publishing action</a>, Up: <a href="Configuration.html#Configuration" accesskey="u" rel="up">Configuration</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

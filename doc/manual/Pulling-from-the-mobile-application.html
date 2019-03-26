@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Pulling from the mobile application</title>
+
+<meta name="description" content="The Org Manual: Pulling from the mobile application">
+<meta name="keywords" content="The Org Manual: Pulling from the mobile application">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Org-Mobile.html#Org-Mobile" rel="up" title="Org Mobile">
+<link href="Org-Syntax.html#Org-Syntax" rel="next" title="Org Syntax">
+<link href="Pushing-to-the-mobile-application.html#Pushing-to-the-mobile-application" rel="prev" title="Pushing to the mobile application">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Pulling-from-the-mobile-application"></a>
+<div class="header">
+<p>
+Previous: <a href="Pushing-to-the-mobile-application.html#Pushing-to-the-mobile-application" accesskey="p" rel="prev">Pushing to the mobile application</a>, Up: <a href="Org-Mobile.html#Org-Mobile" accesskey="u" rel="up">Org Mobile</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Pulling-from-the-mobile-application-1"></a>
+<h4 class="subsection">15.14.3 Pulling from the mobile application</h4>
+
+<a name="index-org_002dmobile_002dpull"></a>
+<p>The command <code>org-mobile-pull</code> synchronizes changes with the server.
+More specifically, it first pulls the Org files for viewing.  It then
+appends captured entries and pointers to flagged or changed entries to
+the file &lsquo;<samp>mobileorg.org</samp>&rsquo; on the server.  Org ultimately integrates its
+data in an inbox file format, through the following steps:
+</p>
+<ol>
+<li> <a name="index-org_002dmobile_002dinbox_002dfor_002dpull"></a>
+Org moves all entries found in &lsquo;<samp>mobileorg.org</samp>&rsquo;<a name="DOCF156" href="#FOOT156"><sup>156</sup></a> and appends
+them to the file pointed to by the variable
+<code>org-mobile-inbox-for-pull</code>.  It should reside neither in the
+staging area nor on the server.  Each captured entry and each
+editing event is a top-level entry in the inbox file.
+
+</li><li> <a name="index-FLAGGED_002c-tag"></a>
+After moving the entries, Org processes changes to the shared
+files.  Some of them are applied directly and without user
+interaction.  Examples include changes to tags, TODO state,
+headline and body text.  Entries requiring further action are
+tagged as &lsquo;<samp>FLAGGED</samp>&rsquo;.  Org marks entries with problems with an error
+message in the inbox.  They have to be resolved manually.
+
+</li><li> Org generates an agenda view for flagged entries for user
+intervention to clean up.  For notes stored in flagged entries, Org
+displays them in the echo area when point is on the corresponding
+agenda item.
+
+<dl compact="compact">
+<dt><kbd>?</kbd></dt>
+<dd><p>Pressing <kbd>?</kbd> displays the entire flagged note in
+another window.  Org also pushes it to the kill ring.  To
+store flagged note as a normal note, use <kbd>? z C-y C-c C-c</kbd>.  Pressing <kbd>?</kbd> twice does these things: first
+it removes the &lsquo;<samp>FLAGGED</samp>&rsquo; tag; second, it removes the flagged
+note from the property drawer; third, it signals that manual
+editing of the flagged entry is now finished.
+</p></dd>
+</dl>
+</li></ol>
+
+<a name="index-_003f-_0028Agenda-dispatcher_0029"></a>
+<p>From the agenda dispatcher, <kbd>?</kbd> returns to the view to finish
+processing flagged entries.  Note that these entries may not be the
+most recent since the mobile application searches files that were last
+pulled.  To get an updated agenda view with changes since the last
+pull, pull again.
+</p>
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT156" href="#DOCF156">(156)</a></h3>
+<p>The file will be empty after this operation.</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Pushing-to-the-mobile-application.html#Pushing-to-the-mobile-application" accesskey="p" rel="prev">Pushing to the mobile application</a>, Up: <a href="Org-Mobile.html#Org-Mobile" accesskey="u" rel="up">Org Mobile</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Advanced Export Configuration</title>
+
+<meta name="description" content="The Org Manual: Advanced Export Configuration">
+<meta name="keywords" content="The Org Manual: Advanced Export Configuration">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Exporting.html#Exporting" rel="up" title="Exporting">
+<link href="Export-in-Foreign-Buffers.html#Export-in-Foreign-Buffers" rel="next" title="Export in Foreign Buffers">
+<link href="Other-Built_002din-Back_002dends.html#Other-Built_002din-Back_002dends" rel="prev" title="Other Built-in Back-ends">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Advanced-Export-Configuration"></a>
+<div class="header">
+<p>
+Next: <a href="Export-in-Foreign-Buffers.html#Export-in-Foreign-Buffers" accesskey="n" rel="next">Export in Foreign Buffers</a>, Previous: <a href="Other-Built_002din-Back_002dends.html#Other-Built_002din-Back_002dends" accesskey="p" rel="prev">Other Built-in Back-ends</a>, Up: <a href="Exporting.html#Exporting" accesskey="u" rel="up">Exporting</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Advanced-Export-Configuration-1"></a>
+<h3 class="section">12.17 Advanced Export Configuration</h3>
+
+
+
+<a name="Hooks"></a><a name="Hooks-2"></a>
+<h4 class="subheading">Hooks</h4>
+
+<a name="index-org_002dexport_002dbefore_002dprocessing_002dhook"></a>
+<a name="index-org_002dexport_002dbefore_002dparsing_002dhook"></a>
+<p>The export process executes two hooks before the actual exporting
+begins.  The first hook, <code>org-export-before-processing-hook</code>, runs
+before any expansions of macros, Babel code, and include keywords in
+the buffer.  The second hook, <code>org-export-before-parsing-hook</code>, runs
+before the buffer is parsed.
+</p>
+<p>Functions added to these hooks are called with a single argument: the
+export back-end actually used, as a symbol.  You may use them for
+heavy duty structural modifications of the document.  For example, you
+can remove every headline in the buffer during export like this:
+</p>
+<div class="lisp">
+<pre class="lisp">(defun my-headline-removal (backend)
+  &quot;Remove all headlines in the current buffer.
+BACKEND is the export back-end being used, as a symbol.&quot;
+  (org-map-entries
+   (lambda () (delete-region (point) (line-beginning-position 2)))))
+
+(add-hook 'org-export-before-parsing-hook 'my-headline-removal)
+</pre></div>
+
+<a name="Filters"></a><a name="Filters-1"></a>
+<h4 class="subheading">Filters</h4>
+
+<a name="index-Filters_002c-exporting"></a>
+<p>Filters are lists of functions to be applied to certain parts for
+a given back-end.  The output from the first function in the filter is
+passed on to the next function in the filter.  The final output is the
+output from the final function in the filter.
+</p>
+<p>The Org export process has many filter sets applicable to different
+types of objects, plain text, parse trees, export options, and final
+output formats.  The filters are named after the element type or
+object type: <code>org-export-filter-TYPE-functions</code>, where <var>TYPE</var>
+is the type targeted by the filter.  Valid types are:
+</p>
+<table>
+<tr><td width="33%">body</td><td width="33%">bold</td><td width="33%">babel-call</td></tr>
+<tr><td width="33%">center-block</td><td width="33%">clock</td><td width="33%">code</td></tr>
+<tr><td width="33%">diary-sexp</td><td width="33%">drawer</td><td width="33%">dynamic-block</td></tr>
+<tr><td width="33%">entity</td><td width="33%">example-block</td><td width="33%">export-block</td></tr>
+<tr><td width="33%">export-snippet</td><td width="33%">final-output</td><td width="33%">fixed-width</td></tr>
+<tr><td width="33%">footnote-definition</td><td width="33%">footnote-reference</td><td width="33%">headline</td></tr>
+<tr><td width="33%">horizontal-rule</td><td width="33%">inline-babel-call</td><td width="33%">inline-src-block</td></tr>
+<tr><td width="33%">inlinetask</td><td width="33%">italic</td><td width="33%">item</td></tr>
+<tr><td width="33%">keyword</td><td width="33%">latex-environment</td><td width="33%">latex-fragment</td></tr>
+<tr><td width="33%">line-break</td><td width="33%">link</td><td width="33%">node-property</td></tr>
+<tr><td width="33%">options</td><td width="33%">paragraph</td><td width="33%">parse-tree</td></tr>
+<tr><td width="33%">plain-list</td><td width="33%">plain-text</td><td width="33%">planning</td></tr>
+<tr><td width="33%">property-drawer</td><td width="33%">quote-block</td><td width="33%">radio-target</td></tr>
+<tr><td width="33%">section</td><td width="33%">special-block</td><td width="33%">src-block</td></tr>
+<tr><td width="33%">statistics-cookie</td><td width="33%">strike-through</td><td width="33%">subscript</td></tr>
+<tr><td width="33%">superscript</td><td width="33%">table</td><td width="33%">table-cell</td></tr>
+<tr><td width="33%">table-row</td><td width="33%">target</td><td width="33%">timestamp</td></tr>
+<tr><td width="33%">underline</td><td width="33%">verbatim</td><td width="33%">verse-block</td></tr>
+</table>
+
+<p>Here is an example filter that replaces non-breaking spaces <code> </code> in the
+Org buffer with &lsquo;<samp>~</samp>&rsquo; for the LaTeX back-end.
+</p>
+<div class="lisp">
+<pre class="lisp">(defun my-latex-filter-nobreaks (text backend info)
+  &quot;Ensure \&quot; \&quot; are properly handled in LaTeX export.&quot;
+  (when (org-export-derived-backend-p backend 'latex)
+    (replace-regexp-in-string &quot; &quot; &quot;~&quot; text)))
+
+(add-to-list 'org-export-filter-plain-text-functions
+             'my-latex-filter-nobreaks)
+</pre></div>
+
+<p>A filter requires three arguments: the code to be transformed, the
+name of the back-end, and some optional information about the export
+process.  The third argument can be safely ignored.  Note the use of
+<code>org-export-derived-backend-p</code> predicate that tests for <em>latex</em>
+back-end or any other back-end, such as <em>beamer</em>, derived from
+<em>latex</em>.
+</p>
+<a name="Defining-filters-for-individual-files"></a><a name="Defining-filters-for-individual-files-1"></a>
+<h4 class="subheading">Defining filters for individual files</h4>
+
+<p>The Org export can filter not just for back-ends, but also for
+specific files through the &lsquo;<samp>BIND</samp>&rsquo; keyword.  Here is an example with
+two filters; one removes brackets from time stamps, and the other
+removes strike-through text.  The filter functions are defined in
+a code block in the same Org file, which is a handy location for
+debugging.
+</p>
+<div class="example">
+<pre class="example">#+BIND: org-export-filter-timestamp-functions (tmp-f-timestamp)
+#+BIND: org-export-filter-strike-through-functions (tmp-f-strike-through)
+#+BEGIN_SRC emacs-lisp :exports results :results none
+  (defun tmp-f-timestamp (s backend info)
+    (replace-regexp-in-string &quot;&amp;[lg]t;\\|[][]&quot; &quot;&quot; s))
+  (defun tmp-f-strike-through (s backend info) &quot;&quot;)
+#+END_SRC
+</pre></div>
+
+<a name="Extending-an-existing-back_002dend"></a><a name="Extending-an-existing-back_002dend-1"></a>
+<h4 class="subheading">Extending an existing back-end</h4>
+
+<p>Some parts of the conversion process can be extended for certain
+elements so as to introduce a new or revised translation.  That is how
+the HTML export back-end was extended to handle Markdown format.  The
+extensions work seamlessly so any aspect of filtering not done by the
+extended back-end is handled by the original back-end.  Of all the
+export customization in Org, extending is very powerful as it operates
+at the parser level.
+</p>
+<p>For this example, make the <em>ascii</em> back-end display the language used
+in a source code block.  Also make it display only when some attribute
+is non-<code>nil</code>, like the following:
+</p>
+<div class="example">
+<pre class="example">#+ATTR_ASCII: :language t
+</pre></div>
+
+
+<p>Then extend ASCII back-end with a custom &ldquo;my-ascii&rdquo; back-end.
+</p>
+<div class="lisp">
+<pre class="lisp">(defun my-ascii-src-block (src-block contents info)
+  &quot;Transcode a SRC-BLOCK element from Org to ASCII.
+CONTENTS is nil.  INFO is a plist used as a communication
+channel.&quot;
+  (if (not (org-export-read-attribute :attr_ascii src-block :language))
+      (org-export-with-backend 'ascii src-block contents info)
+    (concat
+     (format &quot;,--[ %s ]--\n%s`----&quot;
+             (org-element-property :language src-block)
+             (replace-regexp-in-string
+              &quot;^&quot; &quot;| &quot;
+              (org-element-normalize-string
+               (org-export-format-code-default src-block info)))))))
+
+(org-export-define-derived-backend 'my-ascii 'ascii
+  :translate-alist '((src-block . my-ascii-src-block)))
+</pre></div>
+
+<p>The <code>my-ascii-src-block</code> function looks at the attribute above the
+current element.  If not true, hands over to <em>ascii</em> back-end.  If
+true, which it is in this example, it creates a box around the code
+and leaves room for the inserting a string for language.  The last
+form creates the new back-end that springs to action only when
+translating <code>src-block</code> type elements.
+</p>
+<p>To use the newly defined back-end, evaluate the following from an Org
+buffer:
+</p>
+<div class="lisp">
+<pre class="lisp">(org-export-to-buffer 'my-ascii &quot;*Org MY-ASCII Export*&quot;)
+</pre></div>
+
+<p>Further steps to consider would be an interactive function,
+self-installing an item in the export dispatcher menu, and other
+user-friendly improvements.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Export-in-Foreign-Buffers.html#Export-in-Foreign-Buffers" accesskey="n" rel="next">Export in Foreign Buffers</a>, Previous: <a href="Other-Built_002din-Back_002dends.html#Other-Built_002din-Back_002dends" accesskey="p" rel="prev">Other Built-in Back-ends</a>, Up: <a href="Exporting.html#Exporting" accesskey="u" rel="up">Exporting</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

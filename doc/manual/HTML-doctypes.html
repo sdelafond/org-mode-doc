@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: HTML doctypes</title>
+
+<meta name="description" content="The Org Manual: HTML doctypes">
+<meta name="keywords" content="The Org Manual: HTML doctypes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="HTML-Export.html#HTML-Export" rel="up" title="HTML Export">
+<link href="HTML-preamble-and-postamble.html#HTML-preamble-and-postamble" rel="next" title="HTML preamble and postamble">
+<link href="HTML-specific-export-settings.html#HTML-specific-export-settings" rel="prev" title="HTML specific export settings">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="HTML-doctypes"></a>
+<div class="header">
+<p>
+Next: <a href="HTML-preamble-and-postamble.html#HTML-preamble-and-postamble" accesskey="n" rel="next">HTML preamble and postamble</a>, Previous: <a href="HTML-specific-export-settings.html#HTML-specific-export-settings" accesskey="p" rel="prev">HTML specific export settings</a>, Up: <a href="HTML-Export.html#HTML-Export" accesskey="u" rel="up">HTML Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="HTML-doctypes-1"></a>
+<h4 class="subsection">12.9.3 HTML doctypes</h4>
+
+<p>Org can export to various (X)HTML flavors.
+</p>
+<a name="index-org_002dhtml_002ddoctype-1"></a>
+<a name="index-org_002dhtml_002ddoctype_002dalist"></a>
+<p>Set the <code>org-html-doctype</code> variable for different (X)HTML variants.
+Depending on the variant, the HTML exporter adjusts the syntax of HTML
+conversion accordingly.  Org includes the following ready-made
+variants:
+</p>
+<ul>
+<li> <code>&quot;html4-strict&quot;</code>
+</li><li> <code>&quot;html4-transitional&quot;</code>
+</li><li> <code>&quot;html4-frameset&quot;</code>
+</li><li> <code>&quot;xhtml-strict&quot;</code>
+</li><li> <code>&quot;xhtml-transitional&quot;</code>
+</li><li> <code>&quot;xhtml-frameset&quot;</code>
+</li><li> <code>&quot;xhtml-11&quot;</code>
+</li><li> <code>&quot;html5&quot;</code>
+</li><li> <code>&quot;xhtml5&quot;</code>
+</li></ul>
+
+<p>See the variable <code>org-html-doctype-alist</code> for details.  The default is
+<code>&quot;xhtml-strict&quot;</code>.
+</p>
+<a name="index-org_002dhtml_002dhtml5_002dfancy"></a>
+<a name="index-HTML5_002c-export-new-elements"></a>
+<p>Org&rsquo;s HTML exporter does not by default enable new block elements
+introduced with the HTML5 standard.  To enable them, set
+<code>org-html-html5-fancy</code> to non-<code>nil</code>.  Or use an &lsquo;<samp>OPTIONS</samp>&rsquo; line in the
+file to set &lsquo;<samp>html5-fancy</samp>&rsquo;.
+</p>
+<p>HTML5 documents can now have arbitrary &lsquo;<samp>#+BEGIN</samp>&rsquo; &hellip; &lsquo;<samp>#+END</samp>&rsquo; blocks.
+For example:
+</p>
+<div class="example">
+<pre class="example">#+BEGIN_aside
+  Lorem ipsum
+#+END_aside
+</pre></div>
+
+<p>exports to:
+</p>
+<div class="example">
+<pre class="example">&lt;aside&gt;
+  &lt;p&gt;Lorem ipsum&lt;/p&gt;
+&lt;/aside&gt;
+</pre></div>
+
+<p>while this:
+</p>
+<div class="example">
+<pre class="example">#+ATTR_HTML: :controls controls :width 350
+#+BEGIN_video
+#+HTML: &lt;source src=&quot;movie.mp4&quot; type=&quot;video/mp4&quot;&gt;
+#+HTML: &lt;source src=&quot;movie.ogg&quot; type=&quot;video/ogg&quot;&gt;
+Your browser does not support the video tag.
+#+END_video
+</pre></div>
+
+<p>exports to:
+</p>
+<div class="example">
+<pre class="example">&lt;video controls=&quot;controls&quot; width=&quot;350&quot;&gt;
+  &lt;source src=&quot;movie.mp4&quot; type=&quot;video/mp4&quot;&gt;
+    &lt;source src=&quot;movie.ogg&quot; type=&quot;video/ogg&quot;&gt;
+      &lt;p&gt;Your browser does not support the video tag.&lt;/p&gt;
+&lt;/video&gt;
+</pre></div>
+
+<a name="index-org_002dhtml_002dhtml5_002delements"></a>
+<p>When special blocks do not have a corresponding HTML5 element, the
+HTML exporter reverts to standard translation (see
+<code>org-html-html5-elements</code>).  For example, &lsquo;<samp>#+BEGIN_lederhosen</samp>&rsquo; exports
+to <code>&lt;div class=&quot;lederhosen&quot;&gt;</code>.
+</p>
+<p>Special blocks cannot have headlines.  For the HTML exporter to wrap
+the headline and its contents in <code>&lt;section&gt;</code> or <code>&lt;article&gt;</code> tags, set
+the &lsquo;<samp>HTML_CONTAINER</samp>&rsquo; property for the headline.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="HTML-preamble-and-postamble.html#HTML-preamble-and-postamble" accesskey="n" rel="next">HTML preamble and postamble</a>, Previous: <a href="HTML-specific-export-settings.html#HTML-specific-export-settings" accesskey="p" rel="prev">HTML specific export settings</a>, Up: <a href="HTML-Export.html#HTML-Export" accesskey="u" rel="up">HTML Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

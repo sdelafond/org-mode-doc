@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Site map</title>
+
+<meta name="description" content="The Org Manual: Site map">
+<meta name="keywords" content="The Org Manual: Site map">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Configuration.html#Configuration" rel="up" title="Configuration">
+<link href="Generating-an-index.html#Generating-an-index" rel="next" title="Generating an index">
+<link href="Publishing-links.html#Publishing-links" rel="prev" title="Publishing links">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Site-map"></a>
+<div class="header">
+<p>
+Next: <a href="Generating-an-index.html#Generating-an-index" accesskey="n" rel="next">Generating an index</a>, Previous: <a href="Publishing-links.html#Publishing-links" accesskey="p" rel="prev">Publishing links</a>, Up: <a href="Configuration.html#Configuration" accesskey="u" rel="up">Configuration</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Generating-a-sitemap"></a>
+<h4 class="subsection">13.1.7 Generating a sitemap</h4>
+
+<a name="index-sitemap_002c-of-published-pages"></a>
+
+<p>The following properties may be used to control publishing of
+a map of files for a given project.
+</p>
+<dl compact="compact">
+<dt><code>:auto-sitemap</code></dt>
+<dd><p>When non-<code>nil</code>, publish a sitemap during
+<code>org-publish-current-project</code> or <code>org-publish-all</code>.
+</p>
+</dd>
+<dt><code>:sitemap-filename</code></dt>
+<dd><p>Filename for output of sitemap.  Defaults to &lsquo;<samp>sitemap.org</samp>&rsquo;, which
+becomes &lsquo;<samp>sitemap.html</samp>&rsquo;.
+</p>
+</dd>
+<dt><code>:sitemap-title</code></dt>
+<dd><p>Title of sitemap page.  Defaults to name of file.
+</p>
+</dd>
+<dt><code>:sitemap-format-entry</code></dt>
+<dd><a name="index-org_002dpublish_002dfind_002ddate"></a>
+<a name="index-org_002dpublish_002dfind_002dproperty"></a>
+<a name="index-org_002dpublish_002dfind_002dtitle"></a>
+<p>With this option one can tell how a site-map entry is formatted
+in the site-map.  It is a function called with three arguments:
+the file or directory name relative to base directory of the
+project, the site-map style and the current project.  It is
+expected to return a string.  Default value turns file names into
+links and use document titles as descriptions.  For specific
+formatting needs, one can use <code>org-publish-find-date</code>,
+<code>org-publish-find-title</code> and <code>org-publish-find-property</code>, to
+retrieve additional information about published documents.
+</p>
+</dd>
+<dt><code>:sitemap-function</code></dt>
+<dd><p>Plug-in function to use for generation of the sitemap.  It is
+called with two arguments: the title of the site-map and
+a representation of the files and directories involved in the
+project as a nested list, which can further be transformed using
+<code>org-list-to-generic</code>, <code>org-list-to-subtree</code> and alike.  Default
+value generates a plain list of links to all files in the
+project.
+</p>
+</dd>
+<dt><code>:sitemap-sort-folders</code></dt>
+<dd><p>Where folders should appear in the sitemap.  Set this to <code>first</code>
+(default) or <code>last</code> to display folders first or last,
+respectively.  When set to <code>ignore</code>, folders are ignored
+altogether.  Any other value mixes files and folders.  This
+variable has no effect when site-map style is <code>tree</code>.
+</p>
+</dd>
+<dt><code>:sitemap-sort-files</code></dt>
+<dd><p>How the files are sorted in the site map.  Set this to
+<code>alphabetically</code> (default), <code>chronologically</code> or
+<code>anti-chronologically</code>.  <code>chronologically</code> sorts the files with
+older date first while <code>anti-chronologically</code> sorts the files
+with newer date first.  <code>alphabetically</code> sorts the files
+alphabetically.  The date of a file is retrieved with
+<code>org-publish-find-date</code>.
+</p>
+</dd>
+<dt><code>:sitemap-ignore-case</code></dt>
+<dd><p>Should sorting be case-sensitive?  Default <code>nil</code>.
+</p>
+</dd>
+<dt><code>:sitemap-file-entry-format</code></dt>
+<dd><p>With this option one can tell how a sitemap&rsquo;s entry is formatted
+in the sitemap.  This is a format string with some escape
+sequences: <code>%t</code> stands for the title of the file, <code>%a</code> stands for
+the author of the file and <code>%d</code> stands for the date of the file.
+The date is retrieved with the <code>org-publish-find-date</code> function
+and formatted with <code>org-publish-sitemap-date-format</code>.  Default
+<code>%t</code>.
+</p>
+</dd>
+<dt><code>:sitemap-date-format</code></dt>
+<dd><p>Format string for the <code>format-time-string</code> function that tells
+how a sitemap entry&rsquo;s date is to be formatted.  This property
+bypasses <code>org-publish-sitemap-date-format</code> which defaults to
+<code>%Y-%m-%d</code>.
+</p></dd>
+</dl>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Generating-an-index.html#Generating-an-index" accesskey="n" rel="next">Generating an index</a>, Previous: <a href="Publishing-links.html#Publishing-links" accesskey="p" rel="prev">Publishing links</a>, Up: <a href="Configuration.html#Configuration" accesskey="u" rel="up">Configuration</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

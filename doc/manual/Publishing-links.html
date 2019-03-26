@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Publishing links</title>
+
+<meta name="description" content="The Org Manual: Publishing links">
+<meta name="keywords" content="The Org Manual: Publishing links">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Configuration.html#Configuration" rel="up" title="Configuration">
+<link href="Site-map.html#Site-map" rel="next" title="Site map">
+<link href="Publishing-options.html#Publishing-options" rel="prev" title="Publishing options">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Publishing-links"></a>
+<div class="header">
+<p>
+Next: <a href="Site-map.html#Site-map" accesskey="n" rel="next">Site map</a>, Previous: <a href="Publishing-options.html#Publishing-options" accesskey="p" rel="prev">Publishing options</a>, Up: <a href="Configuration.html#Configuration" accesskey="u" rel="up">Configuration</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Publishing-links-1"></a>
+<h4 class="subsection">13.1.6 Publishing links</h4>
+
+<a name="index-links_002c-publishing"></a>
+
+<p>To create a link from one Org file to another, you would use something
+like &lsquo;<samp>[[file:foo.org][The foo]]</samp>&rsquo; or simply &lsquo;<samp>[[file:foo.org]]</samp>&rsquo; (see <a href="External-Links.html#External-Links">External Links</a>).  When
+published, this link becomes a link to &lsquo;<samp>foo.html</samp>&rsquo;.  You can thus
+interlink the pages of your &ldquo;Org web&rdquo; project and the links will work
+as expected when you publish them to HTML.  If you also publish the
+Org source file and want to link to it, use an &lsquo;<samp>http</samp>&rsquo; link instead of
+a &lsquo;<samp>file:</samp>&rsquo; link, because &lsquo;<samp>file</samp>&rsquo; links are converted to link to the
+corresponding &lsquo;<samp>.html</samp>&rsquo; file.
+</p>
+<p>You may also link to related files, such as images.  Provided you are
+careful with relative file names, and provided you have also
+configured Org to upload the related files, these links will work too.
+See <a href="Complex-example.html#Complex-example">Complex example</a>, for an example of this
+usage.
+</p>
+<p>Eventually, links between published documents can contain some search
+options (see <a href="Search-Options.html#Search-Options">Search Options</a>), which will be resolved to
+the appropriate location in the linked file.  For example, once
+published to HTML, the following links all point to a dedicated anchor
+in &lsquo;<samp>foo.html</samp>&rsquo;.
+</p>
+<div class="example">
+<pre class="example">[[file:foo.org::*heading]]
+[[file:foo.org::#custom-id]]
+[[file:foo.org::target]]
+</pre></div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Creating Timestamps</title>
+
+<meta name="description" content="The Org Manual: Creating Timestamps">
+<meta name="keywords" content="The Org Manual: Creating Timestamps">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Dates-and-Times.html#Dates-and-Times" rel="up" title="Dates and Times">
+<link href="The-date_002ftime-prompt.html#The-date_002ftime-prompt" rel="next" title="The date/time prompt">
+<link href="Timestamps.html#Timestamps" rel="prev" title="Timestamps">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Creating-Timestamps"></a>
+<div class="header">
+<p>
+Next: <a href="Deadlines-and-Scheduling.html#Deadlines-and-Scheduling" accesskey="n" rel="next">Deadlines and Scheduling</a>, Previous: <a href="Timestamps.html#Timestamps" accesskey="p" rel="prev">Timestamps</a>, Up: <a href="Dates-and-Times.html#Dates-and-Times" accesskey="u" rel="up">Dates and Times</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Creating-Timestamps-1"></a>
+<h3 class="section">8.2 Creating Timestamps</h3>
+
+<p>For Org mode to recognize timestamps, they need to be in the specific
+format.  All commands listed below produce timestamps in the correct
+format.
+</p>
+<dl compact="compact">
+<dt><kbd>C-c .</kbd> (<code>org-time-stamp</code>)</dt>
+<dd><a name="index-C_002dc-_002e"></a>
+<a name="index-org_002dtime_002dstamp"></a>
+<p>Prompt for a date and insert a corresponding timestamp.  When
+point is at an existing timestamp in the buffer, the command is
+used to modify this timestamp instead of inserting a new one.
+When this command is used twice in succession, a time range is
+inserted.
+</p>
+<a name="index-C_002du-C_002dc-_002e"></a>
+<a name="index-org_002dtime_002dstamp_002drounding_002dminutes"></a>
+<p>When called with a prefix argument, use the alternative format
+which contains date and time.  The default time can be rounded to
+multiples of 5 minutes.  See the option
+<code>org-time-stamp-rounding-minutes</code>.
+</p>
+<a name="index-C_002du-C_002du-C_002dc-_002e"></a>
+<p>With two prefix arguments, insert an active timestamp with the
+current time without prompting.
+</p>
+</dd>
+<dt><kbd>C-c !</kbd> (<code>org-time-stamp-inactive</code>)</dt>
+<dd><a name="index-C_002dc-_0021"></a>
+<a name="index-C_002du-C_002dc-_0021"></a>
+<a name="index-C_002du-C_002du-C_002dc-_0021"></a>
+<a name="index-org_002dtime_002dstamp_002dinactive"></a>
+<p>Like <kbd>C-c .</kbd>, but insert an inactive timestamp that does
+not cause an agenda entry.
+</p>
+</dd>
+<dt><kbd>C-c C-c</kbd></dt>
+<dd><a name="index-C_002dc-C_002dc-13"></a>
+<p>Normalize timestamp, insert or fix day name if missing or wrong.
+</p>
+</dd>
+<dt><kbd>C-c &lt;</kbd> (<code>org-date-from-calendar</code>)</dt>
+<dd><a name="index-C_002dc-_003c"></a>
+<a name="index-org_002ddate_002dfrom_002dcalendar"></a>
+<p>Insert a timestamp corresponding to point date in the calendar.
+</p>
+</dd>
+<dt><kbd>C-c &gt;</kbd> (<code>org-goto-calendar</code>)</dt>
+<dd><a name="index-C_002dc-_003e"></a>
+<a name="index-org_002dgoto_002dcalendar"></a>
+<p>Access the Emacs calendar for the current date.  If there is
+a timestamp in the current line, go to the corresponding date
+instead.
+</p>
+</dd>
+<dt><kbd>C-c C-o</kbd> (<code>org-open-at-point</code>)</dt>
+<dd><a name="index-C_002dc-C_002do-2"></a>
+<a name="index-org_002dopen_002dat_002dpoint-1"></a>
+<p>Access the agenda for the date given by the timestamp or -range
+at point (see <a href="Weekly_002fdaily-agenda.html#Weekly_002fdaily-agenda">Weekly/daily agenda</a>).
+</p>
+</dd>
+<dt><kbd>S-<span class="key">LEFT</span></kbd> (<code>org-timestamp-down-day</code>)</dt>
+<dt><kbd>S-<span class="key">RIGHT</span></kbd> (<code>org-timestamp-up-day</code>)</dt>
+<dd><a name="index-S_002dLEFT-6"></a>
+<a name="index-S_002dRIGHT-6"></a>
+<a name="index-org_002dtimestamp_002ddown_002dday"></a>
+<a name="index-org_002dtimestamp_002dup_002dday"></a>
+<p>Change date at point by one day.  These key bindings conflict
+with shift-selection and related modes (see <a href="Conflicts.html#Conflicts">Conflicts</a>).
+</p>
+</dd>
+<dt><kbd>S-<span class="key">UP</span></kbd> (<code>org-timestamp-up</code>)</dt>
+<dt><kbd>S-<span class="key">DOWN</span></kbd> (<code>org-timestamp-down</code>)</dt>
+<dd><a name="index-S_002dUP-3"></a>
+<a name="index-S_002dDOWN-3"></a>
+<p>On the beginning or enclosing bracket of a timestamp, change its
+type.  Within a timestamp, change the item under point.  Point
+can be on a year, month, day, hour or minute.  When the timestamp
+contains a time range like &lsquo;<samp>15:30-16:30</samp>&rsquo;, modifying the first
+time also shifts the second, shifting the time block with
+constant length.  To change the length, modify the second time.
+Note that if point is in a headline and not at a timestamp, these
+same keys modify the priority of an item (see <a href="Priorities.html#Priorities">Priorities</a>).  The
+key bindings also conflict with shift-selection and related modes
+(see <a href="Conflicts.html#Conflicts">Conflicts</a>).
+</p>
+</dd>
+<dt><kbd>C-c C-y</kbd> (<code>org-evaluate-time-range</code>)</dt>
+<dd><a name="index-C_002dc-C_002dy"></a>
+<a name="index-org_002devaluate_002dtime_002drange"></a>
+<a name="index-evaluate-time-range"></a>
+<p>Evaluate a time range by computing the difference between start
+and end.  With a prefix argument, insert result after the time
+range (in a table: into the following column).
+</p></dd>
+</dl>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="The-date_002ftime-prompt.html#The-date_002ftime-prompt" accesskey="1">The date/time prompt</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How Org mode helps you enter dates and times.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Custom-time-format.html#Custom-time-format" accesskey="2">Custom time format</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Making dates look different.
+</td></tr>
+</table>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Deadlines-and-Scheduling.html#Deadlines-and-Scheduling" accesskey="n" rel="next">Deadlines and Scheduling</a>, Previous: <a href="Timestamps.html#Timestamps" accesskey="p" rel="prev">Timestamps</a>, Up: <a href="Dates-and-Times.html#Dates-and-Times" accesskey="u" rel="up">Dates and Times</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

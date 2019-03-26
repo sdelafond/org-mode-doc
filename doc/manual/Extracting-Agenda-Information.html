@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Extracting Agenda Information</title>
+
+<meta name="description" content="The Org Manual: Extracting Agenda Information">
+<meta name="keywords" content="The Org Manual: Extracting Agenda Information">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Hacking.html#Hacking" rel="up" title="Hacking">
+<link href="Using-the-Property-API.html#Using-the-Property-API" rel="next" title="Using the Property API">
+<link href="Speeding-Up-Your-Agendas.html#Speeding-Up-Your-Agendas" rel="prev" title="Speeding Up Your Agendas">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Extracting-Agenda-Information"></a>
+<div class="header">
+<p>
+Next: <a href="Using-the-Property-API.html#Using-the-Property-API" accesskey="n" rel="next">Using the Property API</a>, Previous: <a href="Speeding-Up-Your-Agendas.html#Speeding-Up-Your-Agendas" accesskey="p" rel="prev">Speeding Up Your Agendas</a>, Up: <a href="Hacking.html#Hacking" accesskey="u" rel="up">Hacking</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Extracting-Agenda-Information-1"></a>
+<h3 class="appendixsec">A.9 Extracting Agenda Information</h3>
+
+<a name="index-agenda_002c-pipe"></a>
+<a name="index-scripts_002c-for-agenda-processing"></a>
+
+<p>Org provides commands to access agendas through Emacs batch mode.
+Through this command-line interface, agendas are automated for further
+processing or printing.
+</p>
+<a name="index-org_002dagenda_002dcustom_002dcommands-3"></a>
+<a name="index-org_002dbatch_002dagenda"></a>
+<p><code>org-batch-agenda</code> creates an agenda view in ASCII and outputs to
+standard output.  This command takes one string parameter.  When
+string consists of a single character, Org uses it as a key to
+<code>org-agenda-custom-commands</code>.  These are the same ones available
+through the agenda dispatcher (see <a href="Agenda-Dispatcher.html#Agenda-Dispatcher">Agenda Dispatcher</a>).
+</p>
+<p>This example command line directly prints the TODO list to the printer:
+</p>
+<div class="example">
+<pre class="example">emacs -batch -l ~/.emacs -eval '(org-batch-agenda &quot;t&quot;)' | lpr
+</pre></div>
+
+
+<p>When the string parameter length is two or more characters, Org
+matches it with tags/TODO strings.  For example, this example command
+line prints items tagged with &lsquo;<samp>shop</samp>&rsquo;, but excludes items tagged with
+&lsquo;<samp>NewYork</samp>&rsquo;:
+</p>
+<div class="example">
+<pre class="example">emacs -batch -l ~/.emacs                                      \
+      -eval '(org-batch-agenda &quot;+shop-NewYork&quot;)' | lpr
+</pre></div>
+
+<p>An example showing on-the-fly parameter modifications:
+</p>
+<div class="example">
+<pre class="example">emacs -batch -l ~/.emacs                                      \
+   -eval '(org-batch-agenda &quot;a&quot;                               \
+           org-agenda-span (quote month)                      \
+           org-agenda-include-diary nil                       \
+           org-agenda-files (quote (&quot;~/org/project.org&quot;)))'   \
+   | lpr
+</pre></div>
+
+<p>which produces an agenda for the next 30 days from just the
+&lsquo;<samp>~/org/projects.org</samp>&rsquo; file.
+</p>
+<a name="index-org_002dbatch_002dagenda_002dcsv"></a>
+<p>For structured processing of agenda output, use <code>org-batch-agenda-csv</code>
+with the following fields:
+</p>
+<dl compact="compact">
+<dt>category</dt>
+<dd><p>The category of the item
+</p></dd>
+<dt>head</dt>
+<dd><p>The headline, without TODO keyword, TAGS and PRIORITY
+</p></dd>
+<dt>type</dt>
+<dd><p>The type of the agenda entry, can be
+</p>
+<table>
+<tr><td><code>todo</code></td><td>selected in TODO match</td></tr>
+<tr><td><code>tagsmatch</code></td><td>selected in tags match</td></tr>
+<tr><td><code>diary</code></td><td>imported from diary</td></tr>
+<tr><td><code>deadline</code></td><td>a deadline</td></tr>
+<tr><td><code>scheduled</code></td><td>scheduled</td></tr>
+<tr><td><code>timestamp</code></td><td>appointment, selected by timestamp</td></tr>
+<tr><td><code>closed</code></td><td>entry was closed on date</td></tr>
+<tr><td><code>upcoming-deadline</code></td><td>warning about nearing deadline</td></tr>
+<tr><td><code>past-scheduled</code></td><td>forwarded scheduled item</td></tr>
+<tr><td><code>block</code></td><td>entry has date block including date</td></tr>
+</table>
+
+</dd>
+<dt>todo</dt>
+<dd><p>The TODO keyword, if any
+</p></dd>
+<dt>tags</dt>
+<dd><p>All tags including inherited ones, separated by colons
+</p></dd>
+<dt>date</dt>
+<dd><p>The relevant date, like &lsquo;<samp>2007-2-14</samp>&rsquo;
+</p></dd>
+<dt>time</dt>
+<dd><p>The time, like &lsquo;<samp>15:00-16:50</samp>&rsquo;
+</p></dd>
+<dt>extra</dt>
+<dd><p>String with extra planning info
+</p></dd>
+<dt>priority-l</dt>
+<dd><p>The priority letter if any was given
+</p></dd>
+<dt>priority-n</dt>
+<dd><p>The computed numerical priority
+</p></dd>
+</dl>
+
+<p>If the selection of the agenda item was based on a timestamp,
+including those items with &lsquo;<samp>DEADLINE</samp>&rsquo; and &lsquo;<samp>SCHEDULED</samp>&rsquo; keywords, then
+Org includes date and time in the output.
+</p>
+<p>If the selection of the agenda item was based on a timestamp  (or
+deadline/scheduled), then Org includes date and time in the output.
+</p>
+<p>Here is an example of a post-processing script in Perl.  It takes the
+CSV output from Emacs and prints with a checkbox:
+</p>
+<div class="example">
+<pre class="example">#!/usr/bin/perl
+
+# define the Emacs command to run
+$cmd = &quot;emacs -batch -l ~/.emacs -eval '(org-batch-agenda-csv \&quot;t\&quot;)'&quot;;
+
+# run it and capture the output
+$agenda = qx{$cmd 2&gt;/dev/null};
+
+# loop over all lines
+foreach $line (split(/\n/,$agenda)) {
+    # get the individual values
+    ($category,$head,$type,$todo,$tags,$date,$time,$extra,
+     $priority_l,$priority_n) = split(/,/,$line);
+    # process and print
+    print &quot;[ ] $head\n&quot;;
+}
+</pre></div>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Using-the-Property-API.html#Using-the-Property-API" accesskey="n" rel="next">Using the Property API</a>, Previous: <a href="Speeding-Up-Your-Agendas.html#Speeding-Up-Your-Agendas" accesskey="p" rel="prev">Speeding Up Your Agendas</a>, Up: <a href="Hacking.html#Hacking" accesskey="u" rel="up">Hacking</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

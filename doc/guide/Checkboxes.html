@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- 
+Copyright (C) 2010-2019 Free Software Foundation
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License"
+in the full Org manual, which is distributed together with the compact
+guide.
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual." -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The compact Org-mode Guide: Checkboxes</title>
+
+<meta name="description" content="The compact Org-mode Guide: Checkboxes">
+<meta name="keywords" content="The compact Org-mode Guide: Checkboxes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="TODO-Items.html#TODO-Items" rel="up" title="TODO Items">
+<link href="Tags.html#Tags" rel="next" title="Tags">
+<link href="Breaking-down-tasks.html#Breaking-down-tasks" rel="prev" title="Breaking down tasks">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Checkboxes"></a>
+<div class="header">
+<p>
+Previous: <a href="Breaking-down-tasks.html#Breaking-down-tasks" accesskey="p" rel="prev">Breaking down tasks</a>, Up: <a href="TODO-Items.html#TODO-Items" accesskey="u" rel="up">TODO Items</a> &nbsp; </p>
+</div>
+<hr>
+<a name="Checkboxes-1"></a>
+<h3 class="section">5.6 Checkboxes</h3>
+
+<p>Every item in a plain list (see <a href="Plain-lists.html#Plain-lists">Plain lists</a>) can be made into a checkbox
+by starting it with the string &lsquo;<samp>[ ]</samp>&rsquo;.  Checkboxes are not included in
+the global TODO list, so they are often great to split a task into a number
+of simple steps.
+Here is an example of a checkbox list.
+</p>
+<div class="smallexample">
+<pre class="smallexample">* TODO Organize party [1/3]
+  - [-] call people [1/2]
+    - [ ] Peter
+    - [X] Sarah
+  - [X] order food
+</pre></div>
+
+<p>Checkboxes work hierarchically, so if a checkbox item has children that
+are checkboxes, toggling one of the children checkboxes will make the
+parent checkbox reflect if none, some, or all of the children are
+checked.
+</p>
+<p>The following commands work with checkboxes:
+</p>
+<dl compact="compact">
+<dt><kbd>C-c C-c</kbd></dt>
+<dd><p>Toggle checkbox status or (with prefix arg) checkbox presence at point.
+</p></dd>
+<dt><kbd>M-S-<span class="key">RET</span></kbd></dt>
+<dd><p>Insert a new item with a checkbox.
+This works only if the cursor is already in a plain list item
+(see <a href="Plain-lists.html#Plain-lists">Plain lists</a>).
+</p></dd>
+</dl>
+
+<p><b>Further reading</b><br><a href="https://orgmode.org/manual/TODO-items.html#TODO-items">Chapter 5 of the manual</a><br>
+<a href="https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html">David
+O&rsquo;Toole&rsquo;s introductory tutorial</a><br>
+<a href="http://members.optusnet.com.au/~charles57/GTD/gtd_workflow.html">Charles Cave&rsquo;s GTD setup</a>
+</p>
+
+
+
+</body>
+</html>

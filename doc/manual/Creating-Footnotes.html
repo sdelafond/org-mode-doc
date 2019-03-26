@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Creating Footnotes</title>
+
+<meta name="description" content="The Org Manual: Creating Footnotes">
+<meta name="keywords" content="The Org Manual: Creating Footnotes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Document-Structure.html#Document-Structure" rel="up" title="Document Structure">
+<link href="Tables.html#Tables" rel="next" title="Tables">
+<link href="Blocks.html#Blocks" rel="prev" title="Blocks">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Creating-Footnotes"></a>
+<div class="header">
+<p>
+Previous: <a href="Blocks.html#Blocks" accesskey="p" rel="prev">Blocks</a>, Up: <a href="Document-Structure.html#Document-Structure" accesskey="u" rel="up">Document Structure</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Creating-Footnotes-1"></a>
+<h3 class="section">2.10 Creating Footnotes</h3>
+
+<a name="index-footnotes"></a>
+
+<p>Org mode supports the creation of footnotes.
+</p>
+<p>A footnote is started by a footnote marker in square brackets in
+column 0, no indentation allowed.  It ends at the next footnote
+definition, headline, or after two consecutive empty lines.  The
+footnote reference is simply the marker in square brackets, inside
+text.  Markers always start with &lsquo;<samp>fn:</samp>&rsquo;.  For example:
+</p>
+<div class="example">
+<pre class="example">The Org homepage[fn:1] now looks a lot better than it used to.
+...
+[fn:1] The link is: https://orgmode.org
+</pre></div>
+
+<p>Org mode extends the number-based syntax to <em>named</em> footnotes and
+optional inline definition.  Here are the valid references:
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>[fn:NAME]</samp>&rsquo;</dt>
+<dd><p>A named footnote reference, where <var>NAME</var> is a unique
+label word, or, for simplicity of automatic creation, a number.
+</p>
+</dd>
+<dt>&lsquo;<samp>[fn:: This is the inline definition of this footnote]</samp>&rsquo;</dt>
+<dd><p>A LaTeX-like anonymous footnote where the definition is given
+directly at the reference point.
+</p>
+</dd>
+<dt>&lsquo;<samp>[fn:NAME: a definition]</samp>&rsquo;</dt>
+<dd><p>An inline definition of a footnote, which also specifies a name
+for the note.  Since Org allows multiple references to the same
+note, you can then use &lsquo;<samp>[fn:NAME]</samp>&rsquo; to create additional
+references.
+</p></dd>
+</dl>
+
+<a name="index-org_002dfootnote_002dauto_002dlabel"></a>
+<p>Footnote labels can be created automatically, or you can create names
+yourself.  This is handled by the variable <code>org-footnote-auto-label</code>
+and its corresponding &lsquo;<samp>STARTUP</samp>&rsquo; keywords.  See the docstring of that
+variable for details.
+</p>
+<p>The following command handles footnotes:
+</p>
+<dl compact="compact">
+<dt><kbd>C-c C-x f</kbd></dt>
+<dd><p>The footnote action command.
+</p>
+<a name="index-C_002dc-C_002dx-f"></a>
+<p>When point is on a footnote reference, jump to the
+definition.  When it is at a definition, jump to
+the&mdash;first&mdash;reference.
+</p>
+<a name="index-org_002dfootnote_002ddefine_002dinline"></a>
+<a name="index-org_002dfootnote_002dsection-1"></a>
+<p>Otherwise, create a new footnote.  Depending on the variable
+<code>org-footnote-define-inline</code><a name="DOCF17" href="#FOOT17"><sup>17</sup></a>, the definition is placed
+right into the text as part of the reference, or separately into
+the location determined by the variable <code>org-footnote-section</code>.
+</p>
+<p>When this command is called with a prefix argument, a menu of
+additional options is offered:
+</p>
+<table>
+<tr><td width="10%"><kbd>s</kbd></td><td width="90%">Sort the footnote definitions by reference sequence.</td></tr>
+<tr><td width="10%"><kbd>r</kbd></td><td width="90%">Renumber the simple &lsquo;<samp>fn:N</samp>&rsquo; footnotes.</td></tr>
+<tr><td width="10%"><kbd>S</kbd></td><td width="90%">Short for first <kbd>r</kbd>, then <kbd>s</kbd> action.</td></tr>
+<tr><td width="10%"><kbd>n</kbd></td><td width="90%">Rename all footnotes into a &lsquo;<samp>fn:1</samp>&rsquo; &hellip; &lsquo;<samp>fn:n</samp>&rsquo; sequence.</td></tr>
+<tr><td width="10%"><kbd>d</kbd></td><td width="90%">Delete the footnote at point, including definition and references.</td></tr>
+</table>
+
+<a name="index-org_002dfootnote_002dauto_002dadjust"></a>
+<p>Depending on the variable <code>org-footnote-auto-adjust</code><a name="DOCF18" href="#FOOT18"><sup>18</sup></a>,
+renumbering and sorting footnotes can be automatic after each
+insertion or deletion.
+</p>
+</dd>
+<dt><kbd>C-c C-c</kbd></dt>
+<dd><a name="index-C_002dc-C_002dc-1"></a>
+<p>If point is on a footnote reference, jump to the definition.
+If it is at the definition, jump back to the reference.  When
+called at a footnote location with a prefix argument, offer the
+same menu as <kbd>C-c C-x f</kbd>.
+</p>
+</dd>
+<dt><kbd>C-c C-o</kbd> or <kbd>mouse-1/2</kbd></dt>
+<dd><a name="index-C_002dc-C_002do"></a>
+<a name="index-mouse_002d1"></a>
+<a name="index-mouse_002d2"></a>
+<p>Footnote labels are also links to the corresponding definition or
+reference, and you can use the usual commands to follow these
+links.
+</p></dd>
+</dl>
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT17" href="#DOCF17">(17)</a></h3>
+<p>The corresponding in-buffer setting is: &lsquo;<samp>#+STARTUP: fninline</samp>&rsquo;
+or &lsquo;<samp>#+STARTUP: nofninline</samp>&rsquo;.</p>
+<h3><a name="FOOT18" href="#DOCF18">(18)</a></h3>
+<p>The corresponding in-buffer options are &lsquo;<samp>#+STARTUP: fnadjust</samp>&rsquo;
+and &lsquo;<samp>#+STARTUP: nofnadjust</samp>&rsquo;.</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Blocks.html#Blocks" accesskey="p" rel="prev">Blocks</a>, Up: <a href="Document-Structure.html#Document-Structure" accesskey="u" rel="up">Document Structure</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

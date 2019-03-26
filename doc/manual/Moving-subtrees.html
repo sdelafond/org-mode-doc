@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Moving subtrees</title>
+
+<meta name="description" content="The Org Manual: Moving subtrees">
+<meta name="keywords" content="The Org Manual: Moving subtrees">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Archiving.html#Archiving" rel="up" title="Archiving">
+<link href="Internal-archiving.html#Internal-archiving" rel="next" title="Internal archiving">
+<link href="Archiving.html#Archiving" rel="prev" title="Archiving">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Moving-subtrees"></a>
+<div class="header">
+<p>
+Next: <a href="Internal-archiving.html#Internal-archiving" accesskey="n" rel="next">Internal archiving</a>, Up: <a href="Archiving.html#Archiving" accesskey="u" rel="up">Archiving</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Moving-a-tree-to-an-archive-file"></a>
+<h4 class="subsection">9.6.1 Moving a tree to an archive file</h4>
+
+<a name="index-external-archiving"></a>
+
+<p>The most common archiving action is to move a project tree to another
+file, the archive file.
+</p>
+<dl compact="compact">
+<dt><kbd>C-c C-x C-s</kbd> or short <kbd>C-c $</kbd> (<code>org-archive-subtree</code>)</dt>
+<dd><a name="index-C_002dc-C_002dx-C_002ds"></a>
+<a name="index-C_002dc-_0024"></a>
+<a name="index-org_002darchive_002dsubtree"></a>
+<a name="index-org_002darchive_002dlocation"></a>
+<p>Archive the subtree starting at point position to the location
+given by <code>org-archive-location</code>.
+</p>
+</dd>
+<dt><kbd>C-u C-c C-x C-s</kbd></dt>
+<dd><a name="index-C_002du-C_002dc-C_002dx-C_002ds"></a>
+<p>Check if any direct children of the current headline could be
+moved to the archive.  To do this, check each subtree for open
+TODO entries.  If none is found, the command offers to move it to
+the archive location.  If point is <em>not</em> on a headline when this
+command is invoked, check level 1 trees.
+</p>
+</dd>
+<dt><kbd>C-u C-u C-c C-x C-s</kbd></dt>
+<dd><a name="index-C_002du-C_002du-C_002dc-C_002dx-C_002ds"></a>
+<p>As above, but check subtree for timestamps instead of TODO
+entries.  The command offers to archive the subtree if it <em>does</em>
+contain a timestamp, and that timestamp is in the past.
+</p></dd>
+</dl>
+
+<a name="index-archive-locations"></a>
+<p>The default archive location is a file in the same directory as the
+current file, with the name derived by appending &lsquo;<samp>_archive</samp>&rsquo; to the
+current file name.  You can also choose what heading to file archived
+items under, with the possibility to add them to a datetree in a file.
+For information and examples on how to specify the file and the
+heading, see the documentation string of the variable
+<code>org-archive-location</code>.
+</p>
+<p>There is also an in-buffer option for setting this variable, for
+example:
+</p>
+<a name="index-ARCHIVE_002c-keyword"></a>
+<div class="example">
+<pre class="example">#+ARCHIVE: %s_done::
+</pre></div>
+
+
+<a name="index-ARCHIVE_002c-property-1"></a>
+<p>If you would like to have a special archive location for a single
+entry or a (sub)tree, give the entry an &lsquo;<samp>ARCHIVE</samp>&rsquo; property with the
+location as the value (see <a href="Properties-and-Columns.html#Properties-and-Columns">Properties and Columns</a>).
+</p>
+<a name="index-org_002darchive_002dsave_002dcontext_002dinfo"></a>
+<p>When a subtree is moved, it receives a number of special properties
+that record context information like the file from where the entry
+came, its outline path the archiving time etc.  Configure the variable
+<code>org-archive-save-context-info</code> to adjust the amount of information
+added.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Internal-archiving.html#Internal-archiving" accesskey="n" rel="next">Internal archiving</a>, Up: <a href="Archiving.html#Archiving" accesskey="u" rel="up">Archiving</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

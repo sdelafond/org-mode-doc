@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- 
+Copyright (C) 2010-2019 Free Software Foundation
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License"
+in the full Org manual, which is distributed together with the compact
+guide.
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual." -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The compact Org-mode Guide: Targeted links</title>
+
+<meta name="description" content="The compact Org-mode Guide: Targeted links">
+<meta name="keywords" content="The compact Org-mode Guide: Targeted links">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Hyperlinks.html#Hyperlinks" rel="up" title="Hyperlinks">
+<link href="TODO-Items.html#TODO-Items" rel="next" title="TODO Items">
+<link href="Handling-links.html#Handling-links" rel="prev" title="Handling links">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Targeted-links"></a>
+<div class="header">
+<p>
+Previous: <a href="Handling-links.html#Handling-links" accesskey="p" rel="prev">Handling links</a>, Up: <a href="Hyperlinks.html#Hyperlinks" accesskey="u" rel="up">Hyperlinks</a> &nbsp; </p>
+</div>
+<hr>
+<a name="Targeted-links-1"></a>
+<h3 class="section">4.5 Targeted links</h3>
+
+<p>File links can contain additional information to make Emacs jump to a
+particular location in the file when following a link.  This can be a
+line number or a search option after a double colon.
+</p>
+<p>Here is the syntax of the different ways to attach a search to a file
+link, together with an explanation:
+</p>
+<div class="smallexample">
+<pre class="smallexample">[[file:~/code/main.c::255]]                 <span class="roman">Find line 255</span>
+[[file:~/xx.org::My Target]]                <span class="roman">Find &lsquo;<samp>&lt;&lt;My Target&gt;&gt;</samp>&rsquo;</span>
+[[file:~/xx.org::#my-custom-id]]            <span class="roman">Find entry with custom id</span>
+</pre></div>
+
+<p><b>Further reading</b><br><a href="https://orgmode.org/manual/Hyperlinks.html#Hyperlinks">Chapter 4 of the
+manual</a>
+</p>
+
+
+
+</body>
+</html>

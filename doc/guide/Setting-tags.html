@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- 
+Copyright (C) 2010-2019 Free Software Foundation
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License"
+in the full Org manual, which is distributed together with the compact
+guide.
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual." -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The compact Org-mode Guide: Setting tags</title>
+
+<meta name="description" content="The compact Org-mode Guide: Setting tags">
+<meta name="keywords" content="The compact Org-mode Guide: Setting tags">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Tags.html#Tags" rel="up" title="Tags">
+<link href="Tag-groups.html#Tag-groups" rel="next" title="Tag groups">
+<link href="Tag-inheritance.html#Tag-inheritance" rel="prev" title="Tag inheritance">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Setting-tags"></a>
+<div class="header">
+<p>
+Next: <a href="Tag-groups.html#Tag-groups" accesskey="n" rel="next">Tag groups</a>, Previous: <a href="Tag-inheritance.html#Tag-inheritance" accesskey="p" rel="prev">Tag inheritance</a>, Up: <a href="Tags.html#Tags" accesskey="u" rel="up">Tags</a> &nbsp; </p>
+</div>
+<hr>
+<a name="Setting-tags-1"></a>
+<h3 class="section">6.2 Setting tags</h3>
+
+<p>Tags can simply be typed into the buffer at the end of a headline.
+After a colon, <kbd>M-<span class="key">TAB</span></kbd> offers completion on tags.  There is
+also a special command for inserting tags:
+</p>
+<dl compact="compact">
+<dt><kbd>C-c C-q</kbd></dt>
+<dd><p>Enter new tags for the current headline.  Org mode will either offer
+completion or a special single-key interface for setting tags, see
+below.  After pressing <tt class="key">RET</tt>, the tags will be inserted and aligned
+to <code>org-tags-column</code>.  When called with a <kbd>C-u</kbd> prefix, all
+tags in the current buffer will be aligned to that column, just to make
+things look nice.
+</p></dd>
+<dt><kbd>C-c C-c</kbd></dt>
+<dd><p>When the cursor is in a headline, this does the same as <kbd>C-c C-q</kbd>.
+</p></dd>
+</dl>
+
+<p>Org will support tag insertion based on a <em>list of tags</em>.  By
+default this list is constructed dynamically, containing all tags
+currently used in the buffer.  You may also globally specify a hard list
+of tags with the variable <code>org-tag-alist</code>.  Finally you can set
+the default tags for a given file with lines like
+</p>
+<div class="smallexample">
+<pre class="smallexample">#+TAGS: @work @home @tennisclub
+#+TAGS: laptop car pc sailboat
+</pre></div>
+
+<p>By default Org mode uses the standard minibuffer completion facilities for
+entering tags.  However, it also implements another, quicker, tag selection
+method called <em>fast tag selection</em>.  This allows you to select and
+deselect tags with just a single key press.  For this to work well you should
+assign unique letters to most of your commonly used tags.  You can do this
+globally by configuring the variable <code>org-tag-alist</code> in your
+<samp>.emacs</samp> file.  For example, you may find the need to tag many items in
+different files with &lsquo;<samp>:@home:</samp>&rsquo;.  In this case you can set something
+like:
+</p>
+<div class="smalllisp">
+<pre class="smalllisp">(setq org-tag-alist '((&quot;@work&quot; . ?w) (&quot;@home&quot; . ?h) (&quot;laptop&quot; . ?l)))
+</pre></div>
+
+<p>If the tag is only relevant to the file you are working on, then you
+can instead set the TAGS option line as:
+</p>
+<div class="smallexample">
+<pre class="smallexample">#+TAGS: @work(w)  @home(h)  @tennisclub(t)  laptop(l)  pc(p)
+</pre></div>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Tag-groups.html#Tag-groups" accesskey="n" rel="next">Tag groups</a>, Previous: <a href="Tag-inheritance.html#Tag-inheritance" accesskey="p" rel="prev">Tag inheritance</a>, Up: <a href="Tags.html#Tags" accesskey="u" rel="up">Tags</a> &nbsp; </p>
+</div>
+
+
+
+</body>
+</html>

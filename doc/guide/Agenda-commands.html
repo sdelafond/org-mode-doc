@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- 
+Copyright (C) 2010-2019 Free Software Foundation
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License"
+in the full Org manual, which is distributed together with the compact
+guide.
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual." -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The compact Org-mode Guide: Agenda commands</title>
+
+<meta name="description" content="The compact Org-mode Guide: Agenda commands">
+<meta name="keywords" content="The compact Org-mode Guide: Agenda commands">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Agenda-Views.html#Agenda-Views" rel="up" title="Agenda Views">
+<link href="Custom-agenda-views.html#Custom-agenda-views" rel="next" title="Custom agenda views">
+<link href="Search-view.html#Search-view" rel="prev" title="Search view">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Agenda-commands"></a>
+<div class="header">
+<p>
+Next: <a href="Custom-agenda-views.html#Custom-agenda-views" accesskey="n" rel="next">Custom agenda views</a>, Previous: <a href="Built_002din-agenda-views.html#Built_002din-agenda-views" accesskey="p" rel="prev">Built-in agenda views</a>, Up: <a href="Agenda-Views.html#Agenda-Views" accesskey="u" rel="up">Agenda Views</a> &nbsp; </p>
+</div>
+<hr>
+<a name="Commands-in-the-agenda-buffer"></a>
+<h3 class="section">10.4 Commands in the agenda buffer</h3>
+
+<p>Entries in the agenda buffer are linked back to the Org file or diary
+file where they originate.  Commands are provided to show and jump to the
+original entry location, and to edit the Org files &ldquo;remotely&rdquo; from
+the agenda buffer.  This is just a selection of the many commands, explore
+the <code>Agenda</code> menu and the manual for a complete list.
+</p>
+<dl compact="compact">
+<dt><kbd><b>Motion</b></kbd></dt>
+<dt><kbd>n</kbd></dt>
+<dd><p>Next line (same as <tt class="key">up</tt> and <kbd>C-p</kbd>).
+</p></dd>
+<dt><kbd>p</kbd></dt>
+<dd><p>Previous line (same as <tt class="key">down</tt> and <kbd>C-n</kbd>).
+</p></dd>
+<dt><kbd><b>View/Go to Org file</b></kbd></dt>
+<dt><kbd>mouse-3</kbd></dt>
+<dt><kbd><span class="key">SPC</span></kbd></dt>
+<dd><p>Display the original location of the item in another window.
+With prefix arg, make sure that the entire entry is made visible in the
+outline, not only the heading.
+</p></dd>
+<dt><kbd><span class="key">TAB</span></kbd></dt>
+<dd><p>Go to the original location of the item in another window.  Under Emacs
+22, <kbd>mouse-1</kbd> will also work for this.
+</p></dd>
+<dt><kbd><span class="key">RET</span></kbd></dt>
+<dd><p>Go to the original location of the item and delete other windows.
+</p>
+</dd>
+<dt><kbd><b>Change display</b></kbd></dt>
+<dt><kbd>o</kbd></dt>
+<dd><p>Delete other windows.
+</p></dd>
+<dt><kbd>d <span class="roman">/</span> w</kbd></dt>
+<dd><p>Switch to day/week view. 
+</p></dd>
+<dt><kbd>f <span class="roman">and</span> b</kbd></dt>
+<dd><p>Go forward/backward in time to display the following
+<code>org-agenda-current-span</code> days.  For example, if the display covers a
+week, switch to the following/previous week.
+</p></dd>
+<dt><kbd>.</kbd></dt>
+<dd><p>Go to today.
+</p></dd>
+<dt><kbd>j</kbd></dt>
+<dd><p>Prompt for a date and go there.
+</p></dd>
+<dt><kbd>v l &nbsp;<span class="roman">or short</span> &nbsp;l</kbd></dt>
+<dd><p>Toggle Logbook mode.  In Logbook mode, entries that were marked DONE while
+logging was on (variable <code>org-log-done</code>) are shown in the agenda, as are
+entries that have been clocked on that day.  When called with a <kbd>C-u</kbd>
+prefix, show all possible logbook entries, including state changes.
+</p></dd>
+<dt><kbd>r <span class="roman">or</span> g</kbd></dt>
+<dd><p>Recreate the agenda buffer, to reflect the changes.
+</p></dd>
+<dt><kbd>s</kbd></dt>
+<dd><p>Save all Org buffers in the current Emacs session, and also the locations of
+IDs.
+</p>
+</dd>
+<dt><kbd><b>Secondary filtering and query editing</b></kbd></dt>
+<dt><kbd>/</kbd></dt>
+<dd><p>Filter the current agenda view with respect to a tag.  You are prompted for a
+letter to select a tag.  Press &lsquo;<samp>-</samp>&rsquo; first to select against the tag.
+</p>
+</dd>
+<dt><kbd>\</kbd></dt>
+<dd><p>Narrow the current agenda filter by an additional condition.
+</p>
+</dd>
+<dt><kbd><b>Remote editing (see the manual for many more commands)</b></kbd></dt>
+<dt><kbd>0--9</kbd></dt>
+<dd><p>Digit argument.
+</p></dd>
+<dt><kbd>t</kbd></dt>
+<dd><p>Change the TODO state of the item, in the agenda and in the
+org file.
+</p></dd>
+<dt><kbd>C-k</kbd></dt>
+<dd><p>Delete the current agenda item along with the entire subtree belonging
+to it in the original Org file.
+</p></dd>
+<dt><kbd>C-c C-w</kbd></dt>
+<dd><p>Refile the entry at point.
+</p></dd>
+<dt><kbd>C-c C-x C-a &nbsp;<span class="roman">or short</span> &nbsp;a</kbd></dt>
+<dd><p>Archive the subtree corresponding to the entry at point using the default
+archiving command set in <code>org-archive-default-command</code>.
+</p></dd>
+<dt><kbd>C-c C-x C-s &nbsp;<span class="roman">or short</span> &nbsp;$</kbd></dt>
+<dd><p>Archive the subtree corresponding to the current headline.
+</p></dd>
+<dt><kbd>C-c C-s</kbd></dt>
+<dd><p>Schedule this item, with prefix arg remove the scheduling timestamp
+</p></dd>
+<dt><kbd>C-c C-d</kbd></dt>
+<dd><p>Set a deadline for this item, with prefix arg remove the deadline.
+</p></dd>
+<dt><kbd>S-<span class="key">right</span> <span class="roman">and</span> S-<span class="key">left</span></kbd></dt>
+<dd><p>Change the timestamp associated with the current line by one day.
+</p></dd>
+<dt><kbd>I</kbd></dt>
+<dd><p>Start the clock on the current item.
+</p></dd>
+<dt><kbd>O / X</kbd></dt>
+<dd><p>Stop/cancel the previously started clock.
+</p>
+</dd>
+<dt><kbd>J</kbd></dt>
+<dd><p>Jump to the running clock in another window.
+</p></dd>
+</dl>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Custom-agenda-views.html#Custom-agenda-views" accesskey="n" rel="next">Custom agenda views</a>, Previous: <a href="Built_002din-agenda-views.html#Built_002din-agenda-views" accesskey="p" rel="prev">Built-in agenda views</a>, Up: <a href="Agenda-Views.html#Agenda-Views" accesskey="u" rel="up">Agenda Views</a> &nbsp; </p>
+</div>
+
+
+
+</body>
+</html>

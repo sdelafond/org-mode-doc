@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Text areas in HTML export</title>
+
+<meta name="description" content="The Org Manual: Text areas in HTML export">
+<meta name="keywords" content="The Org Manual: Text areas in HTML export">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="HTML-Export.html#HTML-Export" rel="up" title="HTML Export">
+<link href="CSS-support.html#CSS-support" rel="next" title="CSS support">
+<link href="Math-formatting-in-HTML-export.html#Math-formatting-in-HTML-export" rel="prev" title="Math formatting in HTML export">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Text-areas-in-HTML-export"></a>
+<div class="header">
+<p>
+Next: <a href="CSS-support.html#CSS-support" accesskey="n" rel="next">CSS support</a>, Previous: <a href="Math-formatting-in-HTML-export.html#Math-formatting-in-HTML-export" accesskey="p" rel="prev">Math formatting in HTML export</a>, Up: <a href="HTML-Export.html#HTML-Export" accesskey="u" rel="up">HTML Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Text-areas-in-HTML-export-1"></a>
+<h4 class="subsection">12.9.10 Text areas in HTML export</h4>
+
+<a name="index-text-areas_002c-in-HTML"></a>
+<p>Before Org mode&rsquo;s Babel, one popular approach to publishing code in
+HTML was by using &lsquo;<samp>:textarea</samp>&rsquo;.  The advantage of this approach was
+that copying and pasting was built into browsers with simple
+JavaScript commands.  Even editing before pasting was made simple.
+</p>
+<p>The HTML export back-end can create such text areas.  It requires an
+&lsquo;<samp>#+ATTR_HTML</samp>&rsquo; line as shown in the example below with the &lsquo;<samp>:textarea</samp>&rsquo;
+option.  This must be followed by either an example or a source code
+block.  Other Org block types do not honor the &lsquo;<samp>:textarea</samp>&rsquo; option.
+</p>
+<p>By default, the HTML export back-end creates a text area 80 characters
+wide and height just enough to fit the content.  Override these
+defaults with &lsquo;<samp>:width</samp>&rsquo; and &lsquo;<samp>:height</samp>&rsquo; options on the &lsquo;<samp>#+ATTR_HTML</samp>&rsquo;
+line.
+</p>
+<div class="example">
+<pre class="example">#+ATTR_HTML: :textarea t :width 40
+#+BEGIN_EXAMPLE
+  (defun org-xor (a b)
+     &quot;Exclusive or.&quot;
+     (if a (not b) b))
+#+END_EXAMPLE
+</pre></div>
+
+
+
+
+</body>
+</html>
