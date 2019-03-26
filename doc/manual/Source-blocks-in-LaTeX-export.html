@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Source blocks in LaTeX export</title>
+
+<meta name="description" content="The Org Manual: Source blocks in LaTeX export">
+<meta name="keywords" content="The Org Manual: Source blocks in LaTeX export">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="LaTeX-Export.html#LaTeX-Export" rel="up" title="LaTeX Export">
+<link href="Example-blocks-in-LaTeX-export.html#Example-blocks-in-LaTeX-export" rel="next" title="Example blocks in LaTeX export">
+<link href="Plain-lists-in-LaTeX-export.html#Plain-lists-in-LaTeX-export" rel="prev" title="Plain lists in LaTeX export">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Source-blocks-in-LaTeX-export"></a>
+<div class="header">
+<p>
+Next: <a href="Example-blocks-in-LaTeX-export.html#Example-blocks-in-LaTeX-export" accesskey="n" rel="next">Example blocks in LaTeX export</a>, Previous: <a href="Plain-lists-in-LaTeX-export.html#Plain-lists-in-LaTeX-export" accesskey="p" rel="prev">Plain lists in LaTeX export</a>, Up: <a href="LaTeX-Export.html#LaTeX-Export" accesskey="u" rel="up">LaTeX Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Source-blocks-in-LaTeX-export-1"></a>
+<h4 class="subsection">12.10.8 Source blocks in LaTeX export</h4>
+
+<a name="index-source-blocks_002c-in-LaTeX-export"></a>
+<a name="index-ATTR_005fLATEX_002c-keyword-2"></a>
+
+<p>The LaTeX export back-end can make source code blocks into floating
+objects through the attributes &lsquo;<samp>:float</samp>&rsquo; and &lsquo;<samp>:options</samp>&rsquo;.  For &lsquo;<samp>:float</samp>&rsquo;:
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>t</samp>&rsquo;</dt>
+<dd><p>Makes a source block float; by default floats any source block
+with a caption.
+</p>
+</dd>
+<dt>&lsquo;<samp>multicolumn</samp>&rsquo;</dt>
+<dd><p>Spans the source block across multiple columns of a page.
+</p>
+</dd>
+<dt>&lsquo;<samp>nil</samp>&rsquo;</dt>
+<dd><p>Avoids a &lsquo;<samp>:float</samp>&rsquo; even if using a caption; useful for source code
+blocks that may not fit on a page.
+</p></dd>
+</dl>
+
+<div class="example">
+<pre class="example">#+ATTR_LATEX: :float nil
+#+BEGIN_SRC emacs-lisp
+  Lisp code that may not fit in a single page.
+#+END_SRC
+</pre></div>
+
+<a name="index-org_002dlatex_002dlistings_002doptions"></a>
+<a name="index-org_002dlatex_002dminted_002doptions"></a>
+<p>The LaTeX export back-end passes string values in &lsquo;<samp>:options</samp>&rsquo; to LaTeX
+packages for customization of that specific source block.  In the
+example below, the &lsquo;<samp>:options</samp>&rsquo; are set for Minted.  Minted is a source
+code highlighting LaTeX package with many configurable options.
+</p>
+<div class="example">
+<pre class="example">#+ATTR_LATEX: :options commentstyle=\bfseries
+#+BEGIN_SRC emacs-lisp
+  (defun Fib (n)
+    (if (&lt; n 2) n (+ (Fib (- n 1)) (Fib (- n 2)))))
+#+END_SRC
+</pre></div>
+
+<p>To apply similar configuration options for all source blocks in
+a file, use the <code>org-latex-listings-options</code> and
+<code>org-latex-minted-options</code> variables.
+</p>
+
+
+
+</body>
+</html>

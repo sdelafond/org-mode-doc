@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Images in ODT export</title>
+
+<meta name="description" content="The Org Manual: Images in ODT export">
+<meta name="keywords" content="The Org Manual: Images in ODT export">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="OpenDocument-Text-Export.html#OpenDocument-Text-Export" rel="up" title="OpenDocument Text Export">
+<link href="Math-formatting-in-ODT-export.html#Math-formatting-in-ODT-export" rel="next" title="Math formatting in ODT export">
+<link href="Tables-in-ODT-export.html#Tables-in-ODT-export" rel="prev" title="Tables in ODT export">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Images-in-ODT-export"></a>
+<div class="header">
+<p>
+Next: <a href="Math-formatting-in-ODT-export.html#Math-formatting-in-ODT-export" accesskey="n" rel="next">Math formatting in ODT export</a>, Previous: <a href="Tables-in-ODT-export.html#Tables-in-ODT-export" accesskey="p" rel="prev">Tables in ODT export</a>, Up: <a href="OpenDocument-Text-Export.html#OpenDocument-Text-Export" accesskey="u" rel="up">OpenDocument Text Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Images-in-ODT-export-1"></a>
+<h4 class="subsection">12.12.8 Images in ODT export</h4>
+
+<a name="index-images_002c-embedding-in-ODT"></a>
+<a name="index-embedding-images-in-ODT"></a>
+
+<a name="Embedding-images"></a><a name="Embedding-images-1"></a>
+<h4 class="subsubheading">Embedding images</h4>
+
+<p>The ODT export back-end processes image links in Org files that do not
+have descriptions, such as these links &lsquo;<samp>[[file:img.jpg]]</samp>&rsquo; or &lsquo;<samp>[[./img.jpg]]</samp>&rsquo;,
+as direct image insertions in the final output.  Either of these
+examples works:
+</p>
+<div class="example">
+<pre class="example">[[file:img.png]]
+</pre></div>
+
+
+<div class="example">
+<pre class="example">[[./img.png]]
+</pre></div>
+
+<a name="Embedding-clickable-images"></a><a name="Embedding-clickable-images-1"></a>
+<h4 class="subsubheading">Embedding clickable images</h4>
+
+<p>For clickable images, provide a link whose description is another link
+to an image file.  For example, to embed an image
+&lsquo;<samp>org-mode-unicorn.png</samp>&rsquo; which when clicked jumps to <a href="https://orgmode.org">https://orgmode.org</a>
+website, do the following
+</p>
+<div class="example">
+<pre class="example">[[https://orgmode.org][./org-mode-unicorn.png]]
+</pre></div>
+
+<a name="Sizing-and-scaling-of-embedded-images"></a><a name="Sizing-and-scaling-of-embedded-images-1"></a>
+<h4 class="subsubheading">Sizing and scaling of embedded images</h4>
+
+<a name="index-ATTR_005fODT_002c-keyword-1"></a>
+
+<p>Control the size and scale of the embedded images with the &lsquo;<samp>ATTR_ODT</samp>&rsquo;
+attribute.
+</p>
+<a name="index-identify_002c-ImageMagick"></a>
+<a name="index-org_002dodt_002dpixels_002dper_002dinch"></a>
+<p>The ODT export back-end starts with establishing the size of the image
+in the final document.  The dimensions of this size are measured in
+centimeters.  The back-end then queries the image file for its
+dimensions measured in pixels.  For this measurement, the back-end
+relies on ImageMagick&rsquo;s identify program or Emacs <code>create-image</code> and
+<code>image-size</code> API.  ImageMagick is the preferred choice for large file
+sizes or frequent batch operations.  The back-end then converts the
+pixel dimensions using <code>org-odt-pixels-per-inch</code> into the familiar 72
+dpi or 96 dpi.  The default value for this is in
+<code>display-pixels-per-inch</code>, which can be tweaked for better results
+based on the capabilities of the output device.  Here are some common
+image scaling operations:
+</p>
+<dl compact="compact">
+<dt>Explicitly size the image</dt>
+<dd><p>To embed &lsquo;<samp>img.png</samp>&rsquo; as a 10 cm x 10 cm image, do the following:
+</p>
+<div class="example">
+<pre class="example">#+ATTR_ODT: :width 10 :height 10
+[[./img.png]]
+</pre></div>
+
+</dd>
+<dt>Scale the image</dt>
+<dd><p>To embed &lsquo;<samp>img.png</samp>&rsquo; at half its size, do the following:
+</p>
+<div class="example">
+<pre class="example">#+ATTR_ODT: :scale 0.5
+[[./img.png]]
+</pre></div>
+
+</dd>
+<dt>Scale the image to a specific width</dt>
+<dd><p>To embed &lsquo;<samp>img.png</samp>&rsquo; with a width of 10 cm while retaining the
+original height:width ratio, do the following:
+</p>
+<div class="example">
+<pre class="example">#+ATTR_ODT: :width 10
+[[./img.png]]
+</pre></div>
+
+</dd>
+<dt>Scale the image to a specific height</dt>
+<dd><p>To embed &lsquo;<samp>img.png</samp>&rsquo; with a height of 10 cm while retaining the
+original height:width ratio, do the following:
+</p>
+<div class="example">
+<pre class="example">#+ATTR_ODT: :height 10
+[[./img.png]]
+</pre></div>
+</dd>
+</dl>
+
+<a name="Anchoring-of-images"></a><a name="Anchoring-of-images-1"></a>
+<h4 class="subsubheading">Anchoring of images</h4>
+
+<a name="index-ATTR_005fODT_002c-keyword-2"></a>
+<p>The ODT export back-end can anchor images to &lsquo;<samp>as-char</samp>&rsquo;, &lsquo;<samp>paragraph</samp>&rsquo;,
+or &lsquo;<samp>page</samp>&rsquo;.  Set the preferred anchor using the &lsquo;<samp>:anchor</samp>&rsquo; property of
+the &lsquo;<samp>ATTR_ODT</samp>&rsquo; line.
+</p>
+<p>To create an image that is anchored to a page:
+</p>
+<div class="example">
+<pre class="example">#+ATTR_ODT: :anchor page
+[[./img.png]]
+</pre></div>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Math-formatting-in-ODT-export.html#Math-formatting-in-ODT-export" accesskey="n" rel="next">Math formatting in ODT export</a>, Previous: <a href="Tables-in-ODT-export.html#Tables-in-ODT-export" accesskey="p" rel="prev">Tables in ODT export</a>, Up: <a href="OpenDocument-Text-Export.html#OpenDocument-Text-Export" accesskey="u" rel="up">OpenDocument Text Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

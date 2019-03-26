@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: The Very Busy C-c C-c Key</title>
+
+<meta name="description" content="The Org Manual: The Very Busy C-c C-c Key">
+<meta name="keywords" content="The Org Manual: The Very Busy C-c C-c Key">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Miscellaneous.html#Miscellaneous" rel="up" title="Miscellaneous">
+<link href="Clean-View.html#Clean-View" rel="next" title="Clean View">
+<link href="In_002dbuffer-Settings.html#In_002dbuffer-Settings" rel="prev" title="In-buffer Settings">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="The-Very-Busy-C_002dc-C_002dc-Key"></a>
+<div class="header">
+<p>
+Next: <a href="Clean-View.html#Clean-View" accesskey="n" rel="next">Clean View</a>, Previous: <a href="In_002dbuffer-Settings.html#In_002dbuffer-Settings" accesskey="p" rel="prev">In-buffer Settings</a>, Up: <a href="Miscellaneous.html#Miscellaneous" accesskey="u" rel="up">Miscellaneous</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="The-Very-Busy-C_002dc-C_002dc-Key-1"></a>
+<h3 class="section">15.8 The Very Busy <kbd>C-c C-c</kbd> Key</h3>
+
+<a name="index-C_002dc-C_002dc-18"></a>
+<a name="index-C_002dc-C_002dc_002c-overview"></a>
+
+<p>The <kbd>C-c C-c</kbd> key in Org serves many purposes depending on
+the context.  It is probably the most over-worked, multi-purpose key
+combination in Org.  Its uses are well documented throughout this
+manual, but here is a consolidated list for easy reference.
+</p>
+<ul>
+<li> If any highlights shown in the buffer from the creation of a sparse
+tree, or from clock display, remove such highlights.
+
+</li><li> If point is in one of the special &lsquo;<samp>KEYWORD</samp>&rsquo; lines, scan the buffer
+for these lines and update the information.  Also reset the Org file
+cache used to temporary store the contents of URLs used as values
+for keywords like &lsquo;<samp>SETUPFILE</samp>&rsquo;.
+
+</li><li> If point is inside a table, realign the table.  The table realigns
+even if automatic table editor is turned off.
+
+</li><li> If point is on a &lsquo;<samp>TBLFM</samp>&rsquo; keyword, re-apply the formulas to the
+entire table.
+
+</li><li> If the current buffer is a capture buffer, close the note and file
+it.  With a prefix argument, also jump to the target location after
+saving the note.
+
+</li><li> If point is on a &lsquo;<samp>&lt;&lt;&lt;target&gt;&gt;&gt;</samp>&rsquo;, update radio targets and
+corresponding links in this buffer.
+
+</li><li> If point is on a property line or at the start or end of a property
+drawer, offer property commands.
+
+</li><li> If point is at a footnote reference, go to the corresponding
+definition, and <em>vice versa</em>.
+
+</li><li> If point is on a statistics cookie, update it.
+
+</li><li> If point is in a plain list item with a checkbox, toggle the status
+of the checkbox.
+
+</li><li> If point is on a numbered item in a plain list, renumber the ordered
+list.
+
+</li><li> If point is on the &lsquo;<samp>#+BEGIN</samp>&rsquo; line of a dynamic block, the block is
+updated.
+
+</li><li> If point is at a timestamp, fix the day name in the timestamp.
+</li></ul>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Clean-View.html#Clean-View" accesskey="n" rel="next">Clean View</a>, Previous: <a href="In_002dbuffer-Settings.html#In_002dbuffer-Settings" accesskey="p" rel="prev">In-buffer Settings</a>, Up: <a href="Miscellaneous.html#Miscellaneous" accesskey="u" rel="up">Miscellaneous</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

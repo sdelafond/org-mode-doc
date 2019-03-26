@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.2.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>The Org Manual: Formula syntax for Calc</title>
+
+<meta name="description" content="The Org Manual: Formula syntax for Calc">
+<meta name="keywords" content="The Org Manual: Formula syntax for Calc">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Spreadsheet.html#The-Spreadsheet" rel="up" title="The Spreadsheet">
+<link href="Formula-syntax-for-Lisp.html#Formula-syntax-for-Lisp" rel="next" title="Formula syntax for Lisp">
+<link href="References.html#References" rel="prev" title="References">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Formula-syntax-for-Calc"></a>
+<div class="header">
+<p>
+Next: <a href="Formula-syntax-for-Lisp.html#Formula-syntax-for-Lisp" accesskey="n" rel="next">Formula syntax for Lisp</a>, Previous: <a href="References.html#References" accesskey="p" rel="prev">References</a>, Up: <a href="The-Spreadsheet.html#The-Spreadsheet" accesskey="u" rel="up">The Spreadsheet</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Formula-syntax-for-Calc-1"></a>
+<h4 class="subsection">3.5.2 Formula syntax for Calc</h4>
+
+<a name="index-formula-syntax_002c-Calc"></a>
+<a name="index-syntax_002c-of-formulas"></a>
+
+<p>A formula can be any algebraic expression understood by the Emacs Calc
+package.  Note that Calc has the non-standard convention that &lsquo;<samp>/</samp>&rsquo; has
+lower precedence than &lsquo;<samp>*</samp>&rsquo;, so that &lsquo;<samp>a/b*c</samp>&rsquo; is interpreted as
+&lsquo;<samp>(a/(b*c))</samp>&rsquo;.  Before evaluation by <code>calc-eval</code> (see <a href="http://www.gnu.org/software/emacs/manual/html_node/calc/Calling-Calc-from-Your-Programs.html#Calling-Calc-from-Your-Programs">(calc)Calling Calc from
+Your Lisp Programs</a>), variable substitution takes place according to
+the rules described above.
+</p>
+<a name="index-vectors_002c-in-table-calculations"></a>
+<p>The range vectors can be directly fed into the Calc vector functions
+like <code>vmean</code> and <code>vsum</code>.
+</p>
+<a name="index-format-specifier_002c-in-spreadsheet"></a>
+<a name="index-mode_002c-for-Calc"></a>
+<a name="index-org_002dcalc_002ddefault_002dmodes"></a>
+<p>A formula can contain an optional mode string after a semicolon.  This
+string consists of flags to influence Calc and other modes during
+execution.  By default, Org uses the standard Calc modes (precision
+12, angular units degrees, fraction and symbolic modes off).  The
+display format, however, has been changed to &lsquo;<samp>(float 8)</samp>&rsquo; to keep
+tables compact.  The default settings can be configured using the
+variable <code>org-calc-default-modes</code>.
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>p20</samp>&rsquo;</dt>
+<dd><p>Set the internal Calc calculation precision to 20 digits.
+</p>
+</dd>
+<dt>&lsquo;<samp>n3</samp>&rsquo;, &lsquo;<samp>s3</samp>&rsquo;, &lsquo;<samp>e2</samp>&rsquo;, &lsquo;<samp>f4</samp>&rsquo;</dt>
+<dd><p>Normal, scientific, engineering or fixed format of the result of
+Calc passed back to Org.  Calc formatting is unlimited in
+precision as long as the Calc calculation precision is greater.
+</p>
+</dd>
+<dt>&lsquo;<samp>D</samp>&rsquo;, &lsquo;<samp>R</samp>&rsquo;</dt>
+<dd><p>Degree and radian angle modes of Calc.
+</p>
+</dd>
+<dt>&lsquo;<samp>F</samp>&rsquo;, &lsquo;<samp>S</samp>&rsquo;</dt>
+<dd><p>Fraction and symbolic modes of Calc.
+</p>
+</dd>
+<dt>&lsquo;<samp>T</samp>&rsquo;, &lsquo;<samp>t</samp>&rsquo;, &lsquo;<samp>U</samp>&rsquo;</dt>
+<dd><p>Duration computations in Calc or Lisp, <a href="Durations-and-time-values.html#Durations-and-time-values">Durations and time values</a>.
+</p>
+</dd>
+<dt>&lsquo;<samp>E</samp>&rsquo;</dt>
+<dd><p>If and how to consider empty fields.  Without &lsquo;<samp>E</samp>&rsquo; empty fields in
+range references are suppressed so that the Calc vector or Lisp
+list contains only the non-empty fields.  With &lsquo;<samp>E</samp>&rsquo; the empty
+fields are kept.  For empty fields in ranges or empty field
+references the value &lsquo;<samp>nan</samp>&rsquo; (not a number) is used in Calc
+formulas and the empty string is used for Lisp formulas.  Add &lsquo;<samp>N</samp>&rsquo;
+to use 0 instead for both formula types.  For the value of
+a field the mode &lsquo;<samp>N</samp>&rsquo; has higher precedence than &lsquo;<samp>E</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>N</samp>&rsquo;</dt>
+<dd><p>Interpret all fields as numbers, use 0 for non-numbers.  See the
+next section to see how this is essential for computations with
+Lisp formulas.  In Calc formulas it is used only occasionally
+because there number strings are already interpreted as numbers
+without &lsquo;<samp>N</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>L</samp>&rsquo;</dt>
+<dd><p>Literal, for Lisp formulas only.  See the next section.
+</p></dd>
+</dl>
+
+<p>Unless you use large integer numbers or high-precision calculation and
+display for floating point numbers you may alternatively provide
+a <code>printf</code> format specifier to reformat the Calc result after it has
+been passed back to Org instead of letting Calc already do the
+formatting<a name="DOCF23" href="#FOOT23"><sup>23</sup></a>.  A few examples:
+</p>
+<table>
+<tr><td>&lsquo;<samp>$1+$2</samp>&rsquo;</td><td>Sum of first and second field</td></tr>
+<tr><td>&lsquo;<samp>$1+$2;%.2f</samp>&rsquo;</td><td>Same, format result to two decimals</td></tr>
+<tr><td>&lsquo;<samp>exp($2)+exp($1)</samp>&rsquo;</td><td>Math functions can be used</td></tr>
+<tr><td>&lsquo;<samp>$0;%.1f</samp>&rsquo;</td><td>Reformat current cell to 1 decimal</td></tr>
+<tr><td>&lsquo;<samp>($3-32)*5/9</samp>&rsquo;</td><td>Degrees F &rarr; C conversion</td></tr>
+<tr><td>&lsquo;<samp>$c/$1/$cm</samp>&rsquo;</td><td>Hz &rarr; cm conversion, using &lsquo;<samp>constants.el</samp>&rsquo;</td></tr>
+<tr><td>&lsquo;<samp>tan($1);Dp3s1</samp>&rsquo;</td><td>Compute in degrees, precision 3, display SCI 1</td></tr>
+<tr><td>&lsquo;<samp>sin($1);Dp3%.1e</samp>&rsquo;</td><td>Same, but use <code>printf</code> specifier for display</td></tr>
+<tr><td>&lsquo;<samp>vmean($2..$7)</samp>&rsquo;</td><td>Compute column range mean, using vector function</td></tr>
+<tr><td>&lsquo;<samp>vmean($2..$7);EN</samp>&rsquo;</td><td>Same, but treat empty fields as 0</td></tr>
+<tr><td>&lsquo;<samp>taylor($3,x=7,2)</samp>&rsquo;</td><td>Taylor series of $3, at x=7, second degree</td></tr>
+</table>
+
+<p>Calc also contains a complete set of logical operations (see <a href="http://www.gnu.org/software/emacs/manual/html_node/calc/Logical-Operations.html#Logical-Operations">(calc)Logical
+Operations</a>).  For example
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>if($1 &lt; 20, teen, string(&quot;&quot;))</samp>&rsquo;</dt>
+<dd><p>&lsquo;<samp>&quot;teen&quot;</samp>&rsquo; if age &lsquo;<samp>$1</samp>&rsquo; is less than 20, else the Org table result
+field is set to empty with the empty string.
+</p>
+</dd>
+<dt>&lsquo;<samp>if(&quot;$1&quot; =​= &quot;nan&quot; || &quot;$2&quot; =​= &quot;nan&quot;, string(&quot;&quot;), $1 + $2); E f-1</samp>&rsquo;</dt>
+<dd><p>Sum of the first two columns.  When at least one of the input
+fields is empty the Org table result field is set to empty.  &lsquo;<samp>E</samp>&rsquo;
+is required to not convert empty fields to 0.  &lsquo;<samp>f-1</samp>&rsquo; is an
+optional Calc format string similar to &lsquo;<samp>%.1f</samp>&rsquo; but leaves empty
+results empty.
+</p>
+</dd>
+<dt>&lsquo;<samp>if(typeof(vmean($1..$7)) =​= 12, string(&quot;&quot;), vmean($1..$7); E</samp>&rsquo;</dt>
+<dd><p>Mean value of a range unless there is any empty field.  Every
+field in the range that is empty is replaced by &lsquo;<samp>nan</samp>&rsquo; which lets
+&lsquo;<samp>vmean</samp>&rsquo; result in &lsquo;<samp>nan</samp>&rsquo;.  Then &lsquo;<samp>typeof =</samp>&rsquo; 12= detects the &lsquo;<samp>nan</samp>&rsquo;
+from <code>vmean</code> and the Org table result field is set to empty.  Use
+this when the sample set is expected to never have missing
+values.
+</p>
+</dd>
+<dt>&lsquo;<samp>if(&quot;$1..$7&quot; =​= &quot;[]&quot;, string(&quot;&quot;), vmean($1..$7))</samp>&rsquo;</dt>
+<dd><p>Mean value of a range with empty fields skipped.  Every field in
+the range that is empty is skipped.  When all fields in the range
+are empty the mean value is not defined and the Org table result
+field is set to empty.  Use this when the sample set can have
+a variable size.
+</p>
+</dd>
+<dt>&lsquo;<samp>vmean($1..$7); EN</samp>&rsquo;</dt>
+<dd><p>To complete the example before: Mean value of a range with empty
+fields counting as samples with value 0.  Use this only when
+incomplete sample sets should be padded with 0 to the full size.
+</p></dd>
+</dl>
+
+<p>You can add your own Calc functions defined in Emacs Lisp with
+<code>defmath</code> and use them in formula syntax for Calc.
+</p>
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT23" href="#DOCF23">(23)</a></h3>
+<p>The printf reformatting is limited in precision because the
+value passed to it is converted into an &ldquo;integer&rdquo; or &ldquo;double&rdquo;.  The
+&ldquo;integer&rdquo; is limited in size by truncating the signed value to 32
+bits.  The &ldquo;double&rdquo; is limited in precision to 64 bits overall which
+leaves approximately 16 significant decimal digits.</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Formula-syntax-for-Lisp.html#Formula-syntax-for-Lisp" accesskey="n" rel="next">Formula syntax for Lisp</a>, Previous: <a href="References.html#References" accesskey="p" rel="prev">References</a>, Up: <a href="The-Spreadsheet.html#The-Spreadsheet" accesskey="u" rel="up">The Spreadsheet</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
