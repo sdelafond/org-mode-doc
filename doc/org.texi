@@ -7316,10 +7316,11 @@ Set to @code{week} or @code{day} to split the table into chunks.  To use
 this, @code{:block} or @code{:tstart}, @code{:tend} are needed.
 
 @item @samp{:stepskip0}
-Do not show steps that have zero time.
+When non-@code{nil}, do not show steps that have zero time.
 
 @item @samp{:fileskip0}
-Do not show table sections from files which did not contribute.
+When non-@code{nil}, do not show table sections from files which did
+not contribute.
 
 @item @samp{:match}
 A tags match to select entries that should contribute.  See
@@ -7334,7 +7335,7 @@ using the @samp{:formatter} parameter.
 
 @table @asis
 @item @samp{:emphasize}
-When @code{t}, emphasize level one and level two items.
+When non-@code{nil}, emphasize level one and level two items.
 
 @item @samp{:lang}
 Language@footnote{Language terms can be set through the variable
@@ -8859,7 +8860,7 @@ important for a particular date, this information must be collected,
 sorted and displayed in an organized way.
 
 Org can select items based on various criteria and display them in
-a separate buffer.  Seven different view types are provided:
+a separate buffer.  Six different view types are provided:
 
 @itemize
 @item
@@ -20890,8 +20891,9 @@ Comment and un-comment each line of the table during edits.  The
 To wrap a source table in @LaTeX{}, use the @samp{comment} environment
 provided by @samp{comment.sty}@footnote{@uref{https://www.ctan.org/pkg/comment}}.  To activate it, put
 @code{\usepackage@{comment@}} in the document header.  Orgtbl mode inserts
-a radio table skeleton@footnote{Because @samp{LEVEL=2} has 3 stars, @samp{LEVEL=3} has 4 stars, and so
-on.} with the command @kbd{M-x orgtbl-insert-radio-table}, which prompts for a table name.  For
+a radio table skeleton@footnote{By default this works only for @LaTeX{}, HTML, and Texinfo.
+Configure the variable @code{orgtbl-radio-table-templates} to install
+templates for other modes.} with the command @kbd{M-x orgtbl-insert-radio-table}, which prompts for a table name.  For
 example, if @samp{salesfigures} is the name, the template inserts:
 
 @example
