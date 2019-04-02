@@ -1,3 +1,9 @@
+org-mode-doc (9.2.3-1) unstable; urgency=medium
+
+  * New upstream version 9.2.3
+
+ -- Sebastien Delafond <seb@debian.org>  Tue, 02 Apr 2019 16:24:37 +0200
+
 org-mode-doc (9.2.2-1) unstable; urgency=medium
 
   * New upstream version 9.2.2
