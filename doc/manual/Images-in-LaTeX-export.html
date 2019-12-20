@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.3.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Images in LaTeX export (The Org Manual)</title>
+
+<meta name="description" content="Images in LaTeX export (The Org Manual)">
+<meta name="keywords" content="Images in LaTeX export (The Org Manual)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="LaTeX-Export.html#LaTeX-Export" rel="up" title="LaTeX Export">
+<link href="Plain-lists-in-LaTeX-export.html#Plain-lists-in-LaTeX-export" rel="next" title="Plain lists in LaTeX export">
+<link href="Tables-in-LaTeX-export.html#Tables-in-LaTeX-export" rel="prev" title="Tables in LaTeX export">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Images-in-LaTeX-export"></a>
+<div class="header">
+<p>
+Next: <a href="Plain-lists-in-LaTeX-export.html#Plain-lists-in-LaTeX-export" accesskey="n" rel="next">Plain lists in LaTeX export</a>, Previous: <a href="Tables-in-LaTeX-export.html#Tables-in-LaTeX-export" accesskey="p" rel="prev">Tables in LaTeX export</a>, Up: <a href="LaTeX-Export.html#LaTeX-Export" accesskey="u" rel="up">LaTeX Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Images-in-LaTeX-export-1"></a>
+<h4 class="subsection">13.10.6 Images in LaTeX export</h4>
+
+<a name="index-images_002c-inline-in-LaTeX"></a>
+<a name="index-inlining-images-in-LaTeX"></a>
+<a name="index-ATTR_005fLATEX_002c-keyword"></a>
+
+<p>The LaTeX export back-end processes image links in Org files that do
+not have descriptions, such as these links &lsquo;<samp>[[file:img.jpg]]</samp>&rsquo; or
+&lsquo;<samp>[[./img.jpg]]</samp>&rsquo;, as direct image insertions in the final PDF output.  In
+the PDF, they are no longer links but actual images embedded on the
+page.  The LaTeX export back-end uses &lsquo;<samp>\includegraphics</samp>&rsquo; macro to
+insert the image.  But for TikZ (<a href="http://sourceforge.net/projects/pgf/">http://sourceforge.net/projects/pgf/</a>)
+images, the back-end uses an <code>\input</code> macro wrapped within
+a <code>tikzpicture</code> environment.
+</p>
+<p>For specifying image &lsquo;<samp>:width</samp>&rsquo;, &lsquo;<samp>:height</samp>&rsquo;, &lsquo;<samp>:scale</samp>&rsquo; and other &lsquo;<samp>:options</samp>&rsquo;,
+use this syntax:
+</p>
+<div class="example">
+<pre class="example">#+ATTR_LATEX: :width 5cm :options angle=90
+[[./img/sed-hr4049.pdf]]
+</pre></div>
+
+<p>A &lsquo;<samp>:scale</samp>&rsquo; attribute overrides both &lsquo;<samp>:width</samp>&rsquo; and &lsquo;<samp>:height</samp>&rsquo; attributes.
+</p>
+<p>For custom commands for captions, use the &lsquo;<samp>:caption</samp>&rsquo; attribute.  It
+overrides the default &lsquo;<samp>#+CAPTION</samp>&rsquo; value:
+</p>
+<div class="example">
+<pre class="example">#+ATTR_LATEX: :caption \bicaption{HeadingA}{HeadingB}
+[[./img/sed-hr4049.pdf]]
+</pre></div>
+
+<p>When captions follow the method as described in <a href="Captions.html#Captions">Captions</a>, the LaTeX
+export back-end wraps the picture in a floating &lsquo;<samp>figure</samp>&rsquo; environment.
+To float an image without specifying a caption, set the &lsquo;<samp>:float</samp>&rsquo;
+attribute to one of the following:
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>t</samp>&rsquo;</dt>
+<dd><p>For a standard &lsquo;<samp>figure</samp>&rsquo; environment; used by default whenever an
+image has a caption.
+</p>
+</dd>
+<dt>&lsquo;<samp>multicolumn</samp>&rsquo;</dt>
+<dd><p>To span the image across multiple columns of a page; the back-end
+wraps the image in a &lsquo;<samp>figure*</samp>&rsquo; environment.
+</p>
+</dd>
+<dt>&lsquo;<samp>wrap</samp>&rsquo;</dt>
+<dd><p>For text to flow around the image on the right; the figure occupies
+the left half of the page.
+</p>
+</dd>
+<dt>&lsquo;<samp>sideways</samp>&rsquo;</dt>
+<dd><p>For a new page with the image sideways, rotated ninety degrees, in
+a &lsquo;<samp>sidewaysfigure</samp>&rsquo; environment; overrides &lsquo;<samp>:placement</samp>&rsquo; setting.
+</p>
+</dd>
+<dt>&lsquo;<samp>nil</samp>&rsquo;</dt>
+<dd><p>To avoid a &lsquo;<samp>:float</samp>&rsquo; even if using a caption.
+</p></dd>
+</dl>
+
+<p>Use the &lsquo;<samp>placement</samp>&rsquo; attribute to modify a floating environment&rsquo;s
+placement.
+</p>
+<div class="example">
+<pre class="example">#+ATTR_LATEX: :float wrap :width 0.38\textwidth :placement {r}{0.4\textwidth}
+[[./img/hst.png]]
+</pre></div>
+
+<a name="index-org_002dlatex_002dimages_002dcentered"></a>
+<a name="index-center-image-in-LaTeX-export"></a>
+<a name="index-image_002c-centering-in-LaTeX-export"></a>
+<p>The LaTeX export back-end centers all images by default.  Setting
+&lsquo;<samp>:center</samp>&rsquo; to &lsquo;<samp>nil</samp>&rsquo; disables centering.  To disable centering globally,
+set <code>org-latex-images-centered</code> to &lsquo;<samp>t</samp>&rsquo;.
+</p>
+<p>Set the &lsquo;<samp>:comment-include</samp>&rsquo; attribute to non-<code>nil</code> value for the LaTeX
+export back-end to comment out the &lsquo;<samp>\includegraphics</samp>&rsquo; macro.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Plain-lists-in-LaTeX-export.html#Plain-lists-in-LaTeX-export" accesskey="n" rel="next">Plain lists in LaTeX export</a>, Previous: <a href="Tables-in-LaTeX-export.html#Tables-in-LaTeX-export" accesskey="p" rel="prev">Tables in LaTeX export</a>, Up: <a href="LaTeX-Export.html#LaTeX-Export" accesskey="u" rel="up">LaTeX Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

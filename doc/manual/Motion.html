@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.3.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Motion (The Org Manual)</title>
+
+<meta name="description" content="Motion (The Org Manual)">
+<meta name="keywords" content="Motion (The Org Manual)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Document-Structure.html#Document-Structure" rel="up" title="Document Structure">
+<link href="Structure-Editing.html#Structure-Editing" rel="next" title="Structure Editing">
+<link href="Catching-invisible-edits.html#Catching-invisible-edits" rel="prev" title="Catching invisible edits">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Motion"></a>
+<div class="header">
+<p>
+Next: <a href="Structure-Editing.html#Structure-Editing" accesskey="n" rel="next">Structure Editing</a>, Previous: <a href="Visibility-Cycling.html#Visibility-Cycling" accesskey="p" rel="prev">Visibility Cycling</a>, Up: <a href="Document-Structure.html#Document-Structure" accesskey="u" rel="up">Document Structure</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Motion-1"></a>
+<h3 class="section">2.3 Motion</h3>
+
+<a name="index-motion_002c-between-headlines"></a>
+<a name="index-jumping_002c-to-headlines"></a>
+<a name="index-headline-navigation"></a>
+
+<p>The following commands jump to other headlines in the buffer.
+</p>
+<dl compact="compact">
+<dt><kbd>C-c C-n</kbd> (<code>org-next-visible-heading</code>)</dt>
+<dd><a name="index-C_002dc-C_002dn"></a>
+<a name="index-org_002dnext_002dvisible_002dheading"></a>
+<p>Next heading.
+</p>
+</dd>
+<dt><kbd>C-c C-p</kbd> (<code>org-previous-visible-heading</code>)</dt>
+<dd><a name="index-C_002dc-C_002dp"></a>
+<a name="index-org_002dprevious_002dvisible_002dheading"></a>
+<p>Previous heading.
+</p>
+</dd>
+<dt><kbd>C-c C-f</kbd> (<code>org-forward-heading-same-level</code>)</dt>
+<dd><a name="index-C_002dc-C_002df"></a>
+<a name="index-org_002dforward_002dheading_002dsame_002dlevel"></a>
+<p>Next heading same level.
+</p>
+</dd>
+<dt><kbd>C-c C-b</kbd> (<code>org-backward-heading-same-level</code>)</dt>
+<dd><a name="index-C_002dc-C_002db"></a>
+<a name="index-org_002dbackward_002dheading_002dsame_002dlevel"></a>
+<p>Previous heading same level.
+</p>
+</dd>
+<dt><kbd>C-c C-u</kbd> (<code>outline-up-heading</code>)</dt>
+<dd><a name="index-C_002dc-C_002du"></a>
+<a name="index-outline_002dup_002dheading"></a>
+<p>Backward to higher level heading.
+</p>
+</dd>
+<dt><kbd>C-c C-j</kbd> (<code>org-goto</code>)</dt>
+<dd><a name="index-C_002dc-C_002dj"></a>
+<a name="index-org_002dgoto"></a>
+<a name="index-org_002dgoto_002dauto_002disearch"></a>
+<p>Jump to a different place without changing the current outline
+visibility.  Shows the document structure in a temporary buffer,
+where you can use the following keys to find your destination:
+</p>
+<table>
+<tr><td width="30%"><kbd><span class="key">TAB</span></kbd></td><td width="70%">Cycle visibility.</td></tr>
+<tr><td width="30%"><kbd><span class="key">DOWN</span></kbd> / <kbd><span class="key">UP</span></kbd></td><td width="70%">Next/previous visible headline.</td></tr>
+<tr><td width="30%"><kbd><span class="key">RET</span></kbd></td><td width="70%">Select this location.</td></tr>
+<tr><td width="30%"><kbd>/</kbd></td><td width="70%">Do a Sparse-tree search</td></tr>
+</table>
+
+<p>The following keys work if you turn off <code>org-goto-auto-isearch</code>
+</p>
+<table>
+<tr><td width="30%"><kbd>n</kbd> / <kbd>p</kbd></td><td width="70%">Next/previous visible headline.</td></tr>
+<tr><td width="30%"><kbd>f</kbd> / <kbd>b</kbd></td><td width="70%">Next/previous headline same level.</td></tr>
+<tr><td width="30%"><kbd>u</kbd></td><td width="70%">One level up.</td></tr>
+<tr><td width="30%"><kbd>0</kbd> &hellip; <kbd>9</kbd></td><td width="70%">Digit argument.</td></tr>
+<tr><td width="30%"><kbd>q</kbd></td><td width="70%">Quit.</td></tr>
+</table>
+
+<a name="index-org_002dgoto_002dinterface"></a>
+<p>See also the variable <code>org-goto-interface</code>.
+</p></dd>
+</dl>
+
+
+
+
+</body>
+</html>

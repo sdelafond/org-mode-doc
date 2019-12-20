@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.3.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>CSS support (The Org Manual)</title>
+
+<meta name="description" content="CSS support (The Org Manual)">
+<meta name="keywords" content="CSS support (The Org Manual)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="HTML-Export.html#HTML-Export" rel="up" title="HTML Export">
+<link href="JavaScript-support.html#JavaScript-support" rel="next" title="JavaScript support">
+<link href="Text-areas-in-HTML-export.html#Text-areas-in-HTML-export" rel="prev" title="Text areas in HTML export">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="CSS-support"></a>
+<div class="header">
+<p>
+Next: <a href="JavaScript-support.html#JavaScript-support" accesskey="n" rel="next">JavaScript support</a>, Previous: <a href="Text-areas-in-HTML-export.html#Text-areas-in-HTML-export" accesskey="p" rel="prev">Text areas in HTML export</a>, Up: <a href="HTML-Export.html#HTML-Export" accesskey="u" rel="up">HTML Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="CSS-support-1"></a>
+<h4 class="subsection">13.9.12 CSS support</h4>
+
+<a name="index-CSS_002c-for-HTML-export"></a>
+<a name="index-HTML-export_002c-CSS"></a>
+
+<a name="index-org_002dexport_002dhtml_002dtodo_002dkwd_002dclass_002dprefix"></a>
+<a name="index-org_002dexport_002dhtml_002dtag_002dclass_002dprefix"></a>
+<p>You can modify the CSS style definitions for the exported file.  The
+HTML exporter assigns the following special CSS classes<a name="DOCF131" href="#FOOT131"><sup>131</sup></a> to
+appropriate parts of the document&mdash;your style specifications may
+change these, in addition to any of the standard classes like for
+headlines, tables, etc.
+</p>
+<table>
+<tr><td><code>p.author</code></td><td>author information, including email</td></tr>
+<tr><td><code>p.date</code></td><td>publishing date</td></tr>
+<tr><td><code>p.creator</code></td><td>creator info, about org mode version</td></tr>
+<tr><td><code>.title</code></td><td>document title</td></tr>
+<tr><td><code>.subtitle</code></td><td>document subtitle</td></tr>
+<tr><td><code>.todo</code></td><td>TODO keywords, all not-done states</td></tr>
+<tr><td><code>.done</code></td><td>the DONE keywords, all states that count as done</td></tr>
+<tr><td><code>.WAITING</code></td><td>each TODO keyword also uses a class named after itself</td></tr>
+<tr><td><code>.timestamp</code></td><td>timestamp</td></tr>
+<tr><td><code>.timestamp-kwd</code></td><td>keyword associated with a timestamp, like &lsquo;<samp>SCHEDULED</samp>&rsquo;</td></tr>
+<tr><td><code>.timestamp-wrapper</code></td><td>span around keyword plus timestamp</td></tr>
+<tr><td><code>.tag</code></td><td>tag in a headline</td></tr>
+<tr><td><code>._HOME</code></td><td>each tag uses itself as a class, &ldquo;@&rdquo; replaced by &ldquo;_&rdquo;</td></tr>
+<tr><td><code>.target</code></td><td>target for links</td></tr>
+<tr><td><code>.linenr</code></td><td>the line number in a code example</td></tr>
+<tr><td><code>.code-highlighted</code></td><td>for highlighting referenced code lines</td></tr>
+<tr><td><code>div.outline-N</code></td><td>div for outline level N (headline plus text)</td></tr>
+<tr><td><code>div.outline-text-N</code></td><td>extra div for text at outline level N</td></tr>
+<tr><td><code>.section-number-N</code></td><td>section number in headlines, different for each level</td></tr>
+<tr><td><code>.figure-number</code></td><td>label like &ldquo;Figure 1:&rdquo;</td></tr>
+<tr><td><code>.table-number</code></td><td>label like &ldquo;Table 1:&rdquo;</td></tr>
+<tr><td><code>.listing-number</code></td><td>label like &ldquo;Listing 1:&rdquo;</td></tr>
+<tr><td><code>div.figure</code></td><td>how to format an in-lined image</td></tr>
+<tr><td><code>pre.src</code></td><td>formatted source code</td></tr>
+<tr><td><code>pre.example</code></td><td>normal example</td></tr>
+<tr><td><code>p.verse</code></td><td>verse paragraph</td></tr>
+<tr><td><code>div.footnotes</code></td><td>footnote section headline</td></tr>
+<tr><td><code>p.footnote</code></td><td>footnote definition paragraph, containing a footnote</td></tr>
+<tr><td><code>.footref</code></td><td>a footnote reference number (always a &lt;sup&gt;)</td></tr>
+<tr><td><code>.footnum</code></td><td>footnote number in footnote definition (always &lt;sup&gt;)</td></tr>
+<tr><td><code>.org-svg</code></td><td>default class for a linked &lsquo;<samp>.svg</samp>&rsquo; image</td></tr>
+</table>
+
+<a name="index-org_002dhtml_002dstyle_002ddefault"></a>
+<a name="index-org_002dhtml_002dhead-1"></a>
+<a name="index-org_002dhtml_002dhead_002dextra-1"></a>
+<a name="index-HTML_005fINCLUDE_005fSTYLE_002c-keyword"></a>
+<p>The HTML export back-end includes a compact default style in each
+exported HTML file.  To override the default style with another style,
+use these keywords in the Org file.  They will replace the global
+defaults the HTML exporter uses.
+</p>
+<a name="index-HTML_005fHEAD_002c-keyword-1"></a>
+<a name="index-HTML_005fHEAD_005fEXTRA_002c-keyword-1"></a>
+<div class="example">
+<pre class="example">#+HTML_HEAD: &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style1.css&quot; /&gt;
+#+HTML_HEAD_EXTRA: &lt;link rel=&quot;alternate stylesheet&quot; type=&quot;text/css&quot; href=&quot;style2.css&quot; /&gt;
+</pre></div>
+
+<a name="index-org_002dhtml_002dhead_002dinclude_002ddefault_002dstyle"></a>
+<p>To just turn off the default style, customize
+<code>org-html-head-include-default-style</code> variable, or use this option
+line in the Org file.
+</p>
+<a name="index-html_002dstyle_002c-OPTIONS-item"></a>
+<div class="example">
+<pre class="example">#+OPTIONS: html-style:nil
+</pre></div>
+
+
+<p>For longer style definitions, either use several &lsquo;<samp>HTML_HEAD</samp>&rsquo; and
+&lsquo;<samp>HTML_HEAD_EXTRA</samp>&rsquo; keywords, or use <code>&lt;style&gt; ... &lt;/style&gt;</code> blocks
+around them.  Both of these approaches can avoid referring to an
+external file.
+</p>
+<a name="index-HTML_005fCONTAINER_005fCLASS_002c-property"></a>
+<a name="index-HTML_005fHEADLINE_005fCLASS_002c-property"></a>
+<p>In order to add styles to a sub-tree, use the &lsquo;<samp>HTML_CONTAINER_CLASS</samp>&rsquo;
+property to assign a class to the tree.  In order to specify CSS
+styles for a particular headline, you can use the ID specified in
+a &lsquo;<samp>CUSTOM_ID</samp>&rsquo; property.  You can also assign a specific class to
+a headline with the &lsquo;<samp>HTML_HEADLINE_CLASS</samp>&rsquo; property.
+</p>
+<p>Never change the <code>org-html-style-default</code> constant.  Instead use other
+simpler ways of customizing as described above.
+</p>
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT131" href="#DOCF131">(131)</a></h3>
+<p>If the classes on TODO keywords and tags lead to conflicts,
+use the variables <code>org-html-todo-kwd-class-prefix</code> and
+<code>org-html-tag-class-prefix</code> to make them unique.</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="JavaScript-support.html#JavaScript-support" accesskey="n" rel="next">JavaScript support</a>, Previous: <a href="Text-areas-in-HTML-export.html#Text-areas-in-HTML-export" accesskey="p" rel="prev">Text areas in HTML export</a>, Up: <a href="HTML-Export.html#HTML-Export" accesskey="u" rel="up">HTML Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

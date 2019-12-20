@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+in the full Org manual, which is distributed together with this
+compact guide.
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Miscellaneous (Org Mode Compact Guide)</title>
+
+<meta name="description" content="Miscellaneous (Org Mode Compact Guide)">
+<meta name="keywords" content="Miscellaneous (Org Mode Compact Guide)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Working-with-Source-Code.html#Working-with-Source-Code" rel="prev" title="Working with Source Code">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Miscellaneous"></a>
+<div class="header">
+<p>
+Previous: <a href="Working-with-Source-Code.html#Working-with-Source-Code" accesskey="p" rel="prev">Working with Source Code</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<hr>
+<a name="Miscellaneous-1"></a>
+<h2 class="chapter">15 Miscellaneous</h2>
+
+
+
+<a name="Completion"></a><a name="Completion-1"></a>
+<h3 class="heading">Completion</h3>
+
+<p>Org has in-buffer completions with <kbd>M-<span class="key">TAB</span></kbd>.  No minibuffer is
+involved.  Type one or more letters and invoke the hot key to complete
+the text in-place.
+</p>
+<p>For example, this command will complete TeX symbols after &lsquo;<samp>\</samp>&rsquo;, TODO
+keywords at the beginning of a headline, and tags after &lsquo;<samp>:</samp>&rsquo; in
+a headline.
+</p>
+<a name="Structure-Templates"></a><a name="Structure-Templates-1"></a>
+<h3 class="heading">Structure Templates</h3>
+
+<p>To quickly insert empty structural blocks, such as &lsquo;<samp>#+BEGIN_SRC</samp>&rsquo;
+&hellip; &lsquo;<samp>#+END_SRC</samp>&rsquo;, or to wrap existing text in such a block, use
+</p>
+<dl compact="compact">
+<dt><kbd>C-c C-,</kbd></dt>
+<dd><p>Prompt for a type of block structure, and insert the block at point.
+If the region is active, it is wrapped in the block.
+</p></dd>
+</dl>
+
+<a name="Clean-view"></a><a name="Clean-view-1"></a>
+<h3 class="heading">Clean view</h3>
+
+<p>Org&rsquo;s default outline with stars and no indents can become too
+cluttered for short documents.  For <em>book-like</em> long documents, the
+effect is not as noticeable.  Org provides an alternate stars and
+indentation scheme, as shown on the right in the following table.  It
+uses only one star and indents text to line with the heading:
+</p>
+<div class="example">
+<pre class="example">* Top level headline             |    * Top level headline
+** Second level                  |      * Second level
+*** Third level                  |        * Third level
+    some text                    |          some text
+*** Third level                  |        * Third level
+    more text                    |          more text
+* Another top level headline     |    * Another top level headline
+</pre></div>
+
+<p>This kind of view can be achieved dynamically at display time using
+Org Indent mode (<kbd>M-x org-indent-mode <span class="key">RET</span></kbd>), which prepends
+intangible space to each line.  You can turn on Org Indent mode for
+all files by customizing the variable <code>org-startup-indented</code>, or you
+can turn it on for individual files using
+</p>
+<div class="example">
+<pre class="example">#+STARTUP: indent
+</pre></div>
+
+
+<p>If you want the indentation to be hard space characters so that the
+plain text file looks as similar as possible to the Emacs display, Org
+supports you by helping to indent (with <kbd><span class="key">TAB</span></kbd>) text below
+each headline, by hiding leading stars, and by only using levels 1, 3,
+etc to get two characters indentation for each level.  To get this
+support in a file, use
+</p>
+<div class="example">
+<pre class="example">#+STARTUP: hidestars odd
+</pre></div>
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Working-with-Source-Code.html#Working-with-Source-Code" accesskey="p" rel="prev">Working with Source Code</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+
+
+
+</body>
+</html>

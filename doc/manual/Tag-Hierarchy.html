@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.3.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Tag Hierarchy (The Org Manual)</title>
+
+<meta name="description" content="Tag Hierarchy (The Org Manual)">
+<meta name="keywords" content="Tag Hierarchy (The Org Manual)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tags.html#Tags" rel="up" title="Tags">
+<link href="Tag-Searches.html#Tag-Searches" rel="next" title="Tag Searches">
+<link href="Setting-Tags.html#Setting-Tags" rel="prev" title="Setting Tags">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Tag-Hierarchy"></a>
+<div class="header">
+<p>
+Next: <a href="Tag-Searches.html#Tag-Searches" accesskey="n" rel="next">Tag Searches</a>, Previous: <a href="Setting-Tags.html#Setting-Tags" accesskey="p" rel="prev">Setting Tags</a>, Up: <a href="Tags.html#Tags" accesskey="u" rel="up">Tags</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Tag-Hierarchy-1"></a>
+<h3 class="section">6.3 Tag Hierarchy</h3>
+
+<a name="index-group-tags"></a>
+<a name="index-tags_002c-groups"></a>
+<a name="index-tags-hierarchy"></a>
+
+<p>Tags can be defined in hierarchies.  A tag can be defined as a <em>group
+tag</em> for a set of other tags.  The group tag can be seen as the
+&ldquo;broader term&rdquo; for its set of tags.  Defining multiple group tags and
+nesting them creates a tag hierarchy.
+</p>
+<p>One use-case is to create a taxonomy of terms (tags) that can be used
+to classify nodes in a document or set of documents.
+</p>
+<p>When you search for a group tag, it return matches for all members in
+the group and its subgroups.  In an agenda view, filtering by a group
+tag displays or hide headlines tagged with at least one of the members
+of the group or any of its subgroups.  This makes tag searches and
+filters even more flexible.
+</p>
+<p>You can set group tags by using brackets and inserting a colon between
+the group tag and its related tags&mdash;beware that all whitespaces are
+mandatory so that Org can parse this line correctly:
+</p>
+<div class="example">
+<pre class="example">#+TAGS: [ GTD : Control Persp ]
+</pre></div>
+
+
+<p>In this example, &lsquo;<samp>GTD</samp>&rsquo; is the group tag and it is related to two other
+tags: &lsquo;<samp>Control</samp>&rsquo;, &lsquo;<samp>Persp</samp>&rsquo;.  Defining &lsquo;<samp>Control</samp>&rsquo; and &lsquo;<samp>Persp</samp>&rsquo; as group
+tags creates a hierarchy of tags:
+</p>
+<div class="example">
+<pre class="example">#+TAGS: [ Control : Context Task ]
+#+TAGS: [ Persp : Vision Goal AOF Project ]
+</pre></div>
+
+<p>That can conceptually be seen as a hierarchy of tags:
+</p>
+<ul>
+<li> &lsquo;<samp>GTD</samp>&rsquo;
+<ul>
+<li> &lsquo;<samp>Persp</samp>&rsquo;
+<ul>
+<li> &lsquo;<samp>Vision</samp>&rsquo;
+</li><li> &lsquo;<samp>Goal</samp>&rsquo;
+</li><li> &lsquo;<samp>AOF</samp>&rsquo;
+</li><li> &lsquo;<samp>Project</samp>&rsquo;
+</li></ul>
+</li><li> &lsquo;<samp>Control</samp>&rsquo;
+<ul>
+<li> &lsquo;<samp>Context</samp>&rsquo;
+</li><li> &lsquo;<samp>Task</samp>&rsquo;
+</li></ul>
+</li></ul>
+</li></ul>
+
+<p>You can use the <code>:startgrouptag</code>, <code>:grouptags</code> and <code>:endgrouptag</code>
+keyword directly when setting <code>org-tag-alist</code> directly:
+</p>
+<div class="lisp">
+<pre class="lisp">(setq org-tag-alist '((:startgrouptag)
+                      (&quot;GTD&quot;)
+                      (:grouptags)
+                      (&quot;Control&quot;)
+                      (&quot;Persp&quot;)
+                      (:endgrouptag)
+                      (:startgrouptag)
+                      (&quot;Control&quot;)
+                      (:grouptags)
+                      (&quot;Context&quot;)
+                      (&quot;Task&quot;)
+                      (:endgrouptag)))
+</pre></div>
+
+<p>The tags in a group can be mutually exclusive if using the same group
+syntax as is used for grouping mutually exclusive tags together; using
+curly brackets.
+</p>
+<div class="example">
+<pre class="example">#+TAGS: { Context : @Home @Work @Call }
+</pre></div>
+
+
+<p>When setting <code>org-tag-alist</code> you can use <code>:startgroup</code> and <code>:endgroup</code>
+instead of <code>:startgrouptag</code> and <code>:endgrouptag</code> to make the tags
+mutually exclusive.
+</p>
+<p>Furthermore, the members of a group tag can also be regular
+expressions, creating the possibility of a more dynamic and rule-based
+tag structure.  The regular expressions in the group must be specified
+within curly brackets.  Here is an expanded example:
+</p>
+<div class="example">
+<pre class="example">#+TAGS: [ Vision : {V@.+} ]
+#+TAGS: [ Goal : {G@.+} ]
+#+TAGS: [ AOF : {AOF@.+} ]
+#+TAGS: [ Project : {P@.+} ]
+</pre></div>
+
+<p>Searching for the tag &lsquo;<samp>Project</samp>&rsquo; now lists all tags also including
+regular expression matches for &lsquo;<samp>P@.+</samp>&rsquo;, and similarly for tag searches
+on &lsquo;<samp>Vision</samp>&rsquo;, &lsquo;<samp>Goal</samp>&rsquo; and &lsquo;<samp>AOF</samp>&rsquo;.  For example, this would work well for
+a project tagged with a common project-identifier, e.g.,
+&lsquo;<samp>P@2014_OrgTags</samp>&rsquo;.
+</p>
+<a name="index-C_002dc-C_002dx-q"></a>
+<a name="index-org_002dtoggle_002dtags_002dgroups"></a>
+<a name="index-org_002dgroup_002dtags"></a>
+<p>If you want to ignore group tags temporarily, toggle group tags
+support with <code>org-toggle-tags-groups</code>, bound to <kbd>C-c C-x q</kbd>.
+If you want to disable tag groups completely, set <code>org-group-tags</code> to
+<code>nil</code>.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Tag-Searches.html#Tag-Searches" accesskey="n" rel="next">Tag Searches</a>, Previous: <a href="Setting-Tags.html#Setting-Tags" accesskey="p" rel="prev">Setting Tags</a>, Up: <a href="Tags.html#Tags" accesskey="u" rel="up">Tags</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
