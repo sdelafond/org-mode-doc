@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.3.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Protocols (The Org Manual)</title>
+
+<meta name="description" content="Protocols (The Org Manual)">
+<meta name="keywords" content="Protocols (The Org Manual)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Miscellaneous.html#Miscellaneous" rel="up" title="Miscellaneous">
+<link href="The-store_002dlink-protocol.html#The-store_002dlink-protocol" rel="next" title="The store-link protocol">
+<link href="TTY-Keys.html#TTY-Keys" rel="prev" title="TTY Keys">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Protocols"></a>
+<div class="header">
+<p>
+Next: <a href="Org-Crypt.html#Org-Crypt" accesskey="n" rel="next">Org Crypt</a>, Previous: <a href="TTY-Keys.html#TTY-Keys" accesskey="p" rel="prev">TTY Keys</a>, Up: <a href="Miscellaneous.html#Miscellaneous" accesskey="u" rel="up">Miscellaneous</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Protocols-for-External-Access"></a>
+<h3 class="section">16.14 Protocols for External Access</h3>
+
+<a name="index-protocols_002c-for-external-access-1"></a>
+
+<p>Org protocol is a tool to trigger custom actions in Emacs from
+external applications.  Any application that supports calling external
+programs with an URL as argument may be used with this functionality.
+For example, you can configure bookmarks in your web browser to send a
+link to the current page to Org and create a note from it using
+capture (see <a href="Capture.html#Capture">Capture</a>).  You can also create a bookmark that tells
+Emacs to open the local source file of a remote website you are
+browsing.
+</p>
+<a name="index-Org-protocol_002c-set_002dup"></a>
+<a name="index-Installing-Org-protocol"></a>
+<p>In order to use Org protocol from an application, you need to register
+&lsquo;<samp>org-protocol://</samp>&rsquo; as a valid scheme-handler.  External calls are
+passed to Emacs through the &lsquo;<samp>emacsclient</samp>&rsquo; command, so you also need to
+ensure an Emacs server is running.  More precisely, when the
+application calls
+</p>
+<div class="example">
+<pre class="example">emacsclient org-protocol://PROTOCOL?key1=val1&amp;key2=val2
+</pre></div>
+
+
+<p>Emacs calls the handler associated to <var>PROTOCOL</var> with
+argument &lsquo;<samp>(:key1 val1 :key2 val2)</samp>&rsquo;.
+</p>
+<a name="index-protocol_002c-new-protocol"></a>
+<a name="index-defining-new-protocols"></a>
+<p>Org protocol comes with three predefined protocols, detailed in the
+following sections.  Configure <code>org-protocol-protocol-alist</code> to define
+your own.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="The-store_002dlink-protocol.html#The-store_002dlink-protocol" accesskey="1">The <code>store-link</code> protocol</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Store a link, push URL to kill-ring.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="The-capture-protocol.html#The-capture-protocol" accesskey="2">The <code>capture</code> protocol</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Fill a buffer with external information.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="The-open_002dsource-protocol.html#The-open_002dsource-protocol" accesskey="3">The <code>open-source</code> protocol</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Edit published contents.
+</td></tr>
+</table>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.3.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Template elements (The Org Manual)</title>
+
+<meta name="description" content="Template elements (The Org Manual)">
+<meta name="keywords" content="Template elements (The Org Manual)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Capture-templates.html#Capture-templates" rel="up" title="Capture templates">
+<link href="Template-expansion.html#Template-expansion" rel="next" title="Template expansion">
+<link href="Capture-templates.html#Capture-templates" rel="prev" title="Capture templates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Template-elements"></a>
+<div class="header">
+<p>
+Next: <a href="Template-expansion.html#Template-expansion" accesskey="n" rel="next">Template expansion</a>, Up: <a href="Capture-templates.html#Capture-templates" accesskey="u" rel="up">Capture templates</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Template-elements-1"></a>
+<h4 class="subsubsection">10.1.3.1 Template elements</h4>
+
+<p>Now lets look at the elements of a template definition.  Each entry in
+<code>org-capture-templates</code> is a list with the following items:
+</p>
+<dl compact="compact">
+<dt>keys</dt>
+<dd><p>The keys that selects the template, as a string, characters only,
+for example &lsquo;<samp>&quot;a&quot;</samp>&rsquo;, for a template to be selected with a single key,
+or &lsquo;<samp>&quot;bt&quot;</samp>&rsquo; for selection with two keys.  When using several keys,
+keys using the same prefix key must be sequential in the list and
+preceded by a 2-element entry explaining the prefix key, for
+example:
+</p>
+<div class="lisp">
+<pre class="lisp">(&quot;b&quot; &quot;Templates for marking stuff to buy&quot;)
+</pre></div>
+
+<p>If you do not define a template for the <kbd>C</kbd> key, this key
+opens the Customize buffer for this complex variable.
+</p>
+</dd>
+<dt>description</dt>
+<dd><p>A short string describing the template, shown during selection.
+</p>
+</dd>
+<dt>type</dt>
+<dd><p>The type of entry, a symbol.  Valid values are:
+</p>
+<dl compact="compact">
+<dt><code>entry</code></dt>
+<dd><p>An Org mode node, with a headline.  Will be filed as the child of
+the target entry or as a top-level entry.  The target file should
+be an Org file.
+</p>
+</dd>
+<dt><code>item</code></dt>
+<dd><p>A plain list item, placed in the first plain list at the target
+location.  Again the target file should be an Org file.
+</p>
+</dd>
+<dt><code>checkitem</code></dt>
+<dd><p>A checkbox item.  This only differs from the plain list item by
+the default template.
+</p>
+</dd>
+<dt><code>table-line</code></dt>
+<dd><p>A new line in the first table at the target location.  Where
+exactly the line will be inserted depends on the properties
+<code>:prepend</code> and <code>:table-line-pos</code> (see below).
+</p>
+</dd>
+<dt><code>plain</code></dt>
+<dd><p>Text to be inserted as it is.
+</p></dd>
+</dl>
+
+</dd>
+<dt>target</dt>
+<dd><a name="index-org_002ddefault_002dnotes_002dfile-1"></a>
+<a name="index-org_002ddirectory"></a>
+<p>Specification of where the captured item should be placed.  In Org
+files, targets usually define a node.  Entries will become children
+of this node.  Other types will be added to the table or list in the
+body of this node.  Most target specifications contain a file name.
+If that file name is the empty string, it defaults to
+<code>org-default-notes-file</code>.  A file can also be given as a variable or
+as a function called with no argument.  When an absolute path is not
+specified for a target, it is taken as relative to <code>org-directory</code>.
+</p>
+<p>Valid values are:
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>(file &quot;path/to/file&quot;)</samp>&rsquo;</dt>
+<dd><p>Text will be placed at the beginning or end of that file.
+</p>
+</dd>
+<dt>&lsquo;<samp>(id &quot;id of existing org entry&quot;)</samp>&rsquo;</dt>
+<dd><p>Filing as child of this entry, or in the body of the entry.
+</p>
+</dd>
+<dt>&lsquo;<samp>(file+headline &quot;filename&quot; &quot;node headline&quot;)</samp>&rsquo;</dt>
+<dd><p>Fast configuration if the target heading is unique in the file.
+</p>
+</dd>
+<dt>&lsquo;<samp>(file+olp &quot;filename&quot; &quot;Level 1 heading&quot; &quot;Level 2&quot; ...)</samp>&rsquo;</dt>
+<dd><p>For non-unique headings, the full path is safer.
+</p>
+</dd>
+<dt>&lsquo;<samp>(file+regexp &quot;filename&quot; &quot;regexp to find location&quot;)</samp>&rsquo;</dt>
+<dd><p>Use a regular expression to position point.
+</p>
+</dd>
+<dt>&lsquo;<samp>(file+olp+datetree &quot;filename&quot; [ &quot;Level 1 heading&quot; ...])</samp>&rsquo;</dt>
+<dd><p>This target<a name="DOCF83" href="#FOOT83"><sup>83</sup></a> creates a heading in a date tree<a name="DOCF84" href="#FOOT84"><sup>84</sup></a> for
+today&rsquo;s date.  If the optional outline path is given, the tree
+will be built under the node it is pointing to, instead of at top
+level.  Check out the <code>:time-prompt</code> and <code>:tree-type</code> properties
+below for additional options.
+</p>
+</dd>
+<dt>&lsquo;<samp>(file+function &quot;filename&quot; function-finding-location)</samp>&rsquo;</dt>
+<dd><p>A function to find the right location in the file.
+</p>
+</dd>
+<dt>&lsquo;<samp>(clock)</samp>&rsquo;</dt>
+<dd><p>File to the entry that is currently being clocked.
+</p>
+</dd>
+<dt>&lsquo;<samp>(function function-finding-location)</samp>&rsquo;</dt>
+<dd><p>Most general way: write your own function which both visits the
+file and moves point to the right location.
+</p></dd>
+</dl>
+
+</dd>
+<dt>template</dt>
+<dd><p>The template for creating the capture item.  If you leave this
+empty, an appropriate default template will be used.  Otherwise this
+is a string with escape codes, which will be replaced depending on
+time and context of the capture call.  The string with escapes may
+be loaded from a template file, using the special syntax &lsquo;<samp>(file
+  &quot;template filename&quot;)</samp>&rsquo;.  See below for more details.
+</p>
+</dd>
+<dt>properties</dt>
+<dd><p>The rest of the entry is a property list of additional options.
+Recognized properties are:
+</p>
+<dl compact="compact">
+<dt><code>:prepend</code></dt>
+<dd><p>Normally new captured information will be appended at the target
+location (last child, last table line, last list item, &hellip;).
+Setting this property changes that.
+</p>
+</dd>
+<dt><code>:immediate-finish</code></dt>
+<dd><p>When set, do not offer to edit the information, just file it away
+immediately.  This makes sense if the template only needs
+information that can be added automatically.
+</p>
+</dd>
+<dt><code>:empty-lines</code></dt>
+<dd><p>Set this to the number of lines to insert before and after the new
+item.  Default 0, and the only other common value is 1.
+</p>
+</dd>
+<dt><code>:clock-in</code></dt>
+<dd><p>Start the clock in this item.
+</p>
+</dd>
+<dt><code>:clock-keep</code></dt>
+<dd><p>Keep the clock running when filing the captured entry.
+</p>
+</dd>
+<dt><code>:clock-resume</code></dt>
+<dd><p>If starting the capture interrupted a clock, restart that clock
+when finished with the capture.  Note that <code>:clock-keep</code> has
+precedence over <code>:clock-resume</code>.  When setting both to non-<code>nil</code>,
+the current clock will run and the previous one will not be
+resumed.
+</p>
+</dd>
+<dt><code>:time-prompt</code></dt>
+<dd><p>Prompt for a date/time to be used for date/week trees and when
+filling the template.  Without this property, capture uses the
+current date and time.  Even if this property has not been set,
+you can force the same behavior by calling <code>org-capture</code> with
+a <kbd>C-1</kbd> prefix argument.
+</p>
+</dd>
+<dt><code>:tree-type</code></dt>
+<dd><p>When <code>week</code>, make a week tree instead of the month tree, i.e.,
+place the headings for each day under a heading with the current
+ISO week.
+</p>
+</dd>
+<dt><code>:unnarrowed</code></dt>
+<dd><p>Do not narrow the target buffer, simply show the full buffer.
+Default is to narrow it so that you only see the new material.
+</p>
+</dd>
+<dt><code>:table-line-pos</code></dt>
+<dd><p>Specification of the location in the table where the new line
+should be inserted.  It should be a string like &lsquo;<samp>II-3</samp>&rsquo; meaning
+that the new line should become the third line before the second
+horizontal separator line.
+</p>
+</dd>
+<dt><code>:kill-buffer</code></dt>
+<dd><p>If the target file was not yet visited when capture was invoked,
+kill the buffer again after capture is completed.
+</p>
+</dd>
+<dt><code>:no-save</code></dt>
+<dd><p>Do not save the target file after finishing the capture.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT83" href="#DOCF83">(83)</a></h3>
+<p>Org used to offer four different targets for date/week tree
+capture.  Now, Org automatically translates these to use
+<code>file+olp+datetree</code>, applying the <code>:time-prompt</code> and <code>:tree-type</code>
+properties.  Please rewrite your date/week-tree targets using
+<code>file+olp+datetree</code> since the older targets are now deprecated.</p>
+<h3><a name="FOOT84" href="#DOCF84">(84)</a></h3>
+<p>A date tree is an outline structure with years on the highest
+level, months or ISO weeks as sublevels and then dates on the lowest
+level.  Tags are allowed in the tree structure.</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Template-expansion.html#Template-expansion" accesskey="n" rel="next">Template expansion</a>, Up: <a href="Capture-templates.html#Capture-templates" accesskey="u" rel="up">Capture templates</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

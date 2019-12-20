@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.3.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Texinfo file header (The Org Manual)</title>
+
+<meta name="description" content="Texinfo file header (The Org Manual)">
+<meta name="keywords" content="Texinfo file header (The Org Manual)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Texinfo-Export.html#Texinfo-Export" rel="up" title="Texinfo Export">
+<link href="Texinfo-title-and-copyright-page.html#Texinfo-title-and-copyright-page" rel="next" title="Texinfo title and copyright page">
+<link href="Texinfo-specific-export-settings.html#Texinfo-specific-export-settings" rel="prev" title="Texinfo specific export settings">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Texinfo-file-header"></a>
+<div class="header">
+<p>
+Next: <a href="Texinfo-title-and-copyright-page.html#Texinfo-title-and-copyright-page" accesskey="n" rel="next">Texinfo title and copyright page</a>, Previous: <a href="Texinfo-specific-export-settings.html#Texinfo-specific-export-settings" accesskey="p" rel="prev">Texinfo specific export settings</a>, Up: <a href="Texinfo-Export.html#Texinfo-Export" accesskey="u" rel="up">Texinfo Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Texinfo-file-header-1"></a>
+<h4 class="subsection">13.14.3 Texinfo file header</h4>
+
+<a name="index-TEXINFO_005fFILENAME_002c-keyword-1"></a>
+<p>After creating the header for a Texinfo file, the Texinfo back-end
+automatically generates a name and destination path for the Info file.
+To override this default with a more sensible path and name, specify
+the &lsquo;<samp>TEXINFO_FILENAME</samp>&rsquo; keyword.
+</p>
+<a name="index-org_002dtexinfo_002dcoding_002dsystem"></a>
+<a name="index-TEXINFO_005fHEADER_002c-keyword-1"></a>
+<p>Along with the output&rsquo;s file name, the Texinfo header also contains
+language details (see <a href="Export-Settings.html#Export-Settings">Export Settings</a>) and encoding system as set in
+the <code>org-texinfo-coding-system</code> variable.  Insert &lsquo;<samp>TEXINFO_HEADER</samp>&rsquo;
+keywords for each additional command in the header, for example:
+</p>
+<div class="example">
+<pre class="example">#+TEXINFO_HEADER: @synindex
+</pre></div>
+
+
+<a name="index-TEXINFO_005fCLASS_002c-keyword-1"></a>
+<a name="index-org_002dtexinfo_002dclasses"></a>
+<p>Instead of repeatedly installing the same set of commands, define
+a class in <code>org-texinfo-classes</code> once, and then activate it in the
+document by setting the &lsquo;<samp>TEXINFO_CLASS</samp>&rsquo; keyword to that class.
+</p>
+
+
+
+</body>
+</html>

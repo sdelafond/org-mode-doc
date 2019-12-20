@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+in the full Org manual, which is distributed together with this
+compact guide.
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Structure Editing (Org Mode Compact Guide)</title>
+
+<meta name="description" content="Structure Editing (Org Mode Compact Guide)">
+<meta name="keywords" content="Structure Editing (Org Mode Compact Guide)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Document-Structure.html#Document-Structure" rel="up" title="Document Structure">
+<link href="Sparse-Trees.html#Sparse-Trees" rel="next" title="Sparse Trees">
+<link href="Motion.html#Motion" rel="prev" title="Motion">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Structure-Editing"></a>
+<div class="header">
+<p>
+Next: <a href="Sparse-Trees.html#Sparse-Trees" accesskey="n" rel="next">Sparse Trees</a>, Previous: <a href="Motion.html#Motion" accesskey="p" rel="prev">Motion</a>, Up: <a href="Document-Structure.html#Document-Structure" accesskey="u" rel="up">Document Structure</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<hr>
+<a name="Structure-Editing-1"></a>
+<h3 class="section">2.4 Structure Editing</h3>
+
+<dl compact="compact">
+<dt><kbd>M-<span class="key">RET</span></kbd></dt>
+<dd><p>Insert new heading with same level as current.  If point is in
+a plain list item, a new item is created (see <a href="Plain-Lists.html#Plain-Lists">Plain Lists</a>).  When
+this command is used in the middle of a line, the line is split and
+the rest of the line becomes the new headline<a name="DOCF2" href="#FOOT2"><sup>2</sup></a>.
+</p>
+</dd>
+<dt><kbd>M-S-<span class="key">RET</span></kbd></dt>
+<dd><p>Insert new TODO entry with same level as current heading.
+</p>
+</dd>
+<dt><kbd><span class="key">TAB</span></kbd> in new</dt>
+<dt>empty entry</dt>
+<dd><p>In a new entry with no text yet, <kbd><span class="key">TAB</span></kbd> cycles through
+reasonable levels.
+</p>
+</dd>
+<dt><kbd>M-<span class="key">LEFT</span></kbd></dt>
+<dt><kbd>M-<span class="key">RIGHT</span></kbd></dt>
+<dd><p>Promote or demote current heading by one level.
+</p>
+</dd>
+<dt><kbd>M-<span class="key">UP</span></kbd></dt>
+<dt><kbd>M-<span class="key">DOWN</span></kbd></dt>
+<dd><p>Move subtree up or down, i.e., swap with previous or next subtree of
+same level.
+</p>
+</dd>
+<dt><kbd>C-c C-w</kbd></dt>
+<dd><p>Refile entry or region to a different location.  See <a href="Refile-and-Copy.html#Refile-and-Copy">Refile and Copy</a>.
+</p>
+</dd>
+<dt><kbd>C-x n s</kbd></dt>
+<dt><kbd>C-x n w</kbd></dt>
+<dd><p>Narrow buffer to current subtree and widen it again.
+</p></dd>
+</dl>
+
+<p>When there is an active region (Transient Mark mode), promotion and
+demotion work on all headlines in the region.
+</p>
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT2" href="#DOCF2">(2)</a></h3>
+<p>If you do not want the line to be split, customize the variable
+<code>org-M-RET-may-split-line</code>.</p>
+</div>
+
+
+
+</body>
+</html>

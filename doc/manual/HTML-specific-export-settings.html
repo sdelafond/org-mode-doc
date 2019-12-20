@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.3.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>HTML specific export settings (The Org Manual)</title>
+
+<meta name="description" content="HTML specific export settings (The Org Manual)">
+<meta name="keywords" content="HTML specific export settings (The Org Manual)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="HTML-Export.html#HTML-Export" rel="up" title="HTML Export">
+<link href="HTML-doctypes.html#HTML-doctypes" rel="next" title="HTML doctypes">
+<link href="HTML-export-commands.html#HTML-export-commands" rel="prev" title="HTML export commands">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="HTML-specific-export-settings"></a>
+<div class="header">
+<p>
+Next: <a href="HTML-doctypes.html#HTML-doctypes" accesskey="n" rel="next">HTML doctypes</a>, Previous: <a href="HTML-export-commands.html#HTML-export-commands" accesskey="p" rel="prev">HTML export commands</a>, Up: <a href="HTML-Export.html#HTML-Export" accesskey="u" rel="up">HTML Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="HTML-specific-export-settings-1"></a>
+<h4 class="subsection">13.9.2 HTML specific export settings</h4>
+
+<p>HTML export has a number of keywords, similar to the general options
+settings described in <a href="Export-Settings.html#Export-Settings">Export Settings</a>.
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>DESCRIPTION</samp>&rsquo;</dt>
+<dd><a name="index-DESCRIPTION_002c-keyword-1"></a>
+<p>This is the document&rsquo;s description, which the HTML exporter inserts
+it as a HTML meta tag in the HTML file.  For long descriptions, use
+multiple &lsquo;<samp>DESCRIPTION</samp>&rsquo; lines.  The exporter takes care of wrapping
+the lines properly.
+</p>
+</dd>
+<dt>&lsquo;<samp>HTML_DOCTYPE</samp>&rsquo;</dt>
+<dd><a name="index-HTML_005fDOCTYPE_002c-keyword"></a>
+<a name="index-org_002dhtml_002ddoctype"></a>
+<p>Specify the document type, for example: HTML5 (<code>org-html-doctype</code>).
+</p>
+</dd>
+<dt>&lsquo;<samp>HTML_CONTAINER</samp>&rsquo;</dt>
+<dd><a name="index-HTML_005fCONTAINER_002c-keyword"></a>
+<a name="index-org_002dhtml_002dcontainer_002delement"></a>
+<p>Specify the HTML container, such as &lsquo;<samp>div</samp>&rsquo;, for wrapping sections and
+elements (<code>org-html-container-element</code>).
+</p>
+</dd>
+<dt>&lsquo;<samp>HTML_LINK_HOME</samp>&rsquo;</dt>
+<dd><a name="index-HTML_005fLINK_005fHOME_002c-keyword"></a>
+<a name="index-org_002dhtml_002dlink_002dhome"></a>
+<p>The URL for home link (<code>org-html-link-home</code>).
+</p>
+</dd>
+<dt>&lsquo;<samp>HTML_LINK_UP</samp>&rsquo;</dt>
+<dd><a name="index-HTML_005fLINK_005fUP_002c-keyword"></a>
+<a name="index-org_002dhtml_002dlink_002dup"></a>
+<p>The URL for the up link of exported HTML pages (<code>org-html-link-up</code>).
+</p>
+</dd>
+<dt>&lsquo;<samp>HTML_MATHJAX</samp>&rsquo;</dt>
+<dd><a name="index-HTML_005fMATHJAX_002c-keyword"></a>
+<a name="index-org_002dhtml_002dmathjax_002doptions"></a>
+<p>Options for MathJax (<code>org-html-mathjax-options</code>).  MathJax is used
+to typeset LaTeX math in HTML documents.  See <a href="Math-formatting-in-HTML-export.html#Math-formatting-in-HTML-export">Math formatting in HTML export</a>, for an example.
+</p>
+</dd>
+<dt>&lsquo;<samp>HTML_HEAD</samp>&rsquo;</dt>
+<dd><a name="index-HTML_005fHEAD_002c-keyword"></a>
+<a name="index-org_002dhtml_002dhead"></a>
+<p>Arbitrary lines for appending to the HTML document&rsquo;s head
+(<code>org-html-head</code>).
+</p>
+</dd>
+<dt>&lsquo;<samp>HTML_HEAD_EXTRA</samp>&rsquo;</dt>
+<dd><a name="index-HTML_005fHEAD_005fEXTRA_002c-keyword"></a>
+<a name="index-org_002dhtml_002dhead_002dextra"></a>
+<p>More arbitrary lines for appending to the HTML document&rsquo;s head
+(<code>org-html-head-extra</code>).
+</p>
+</dd>
+<dt>&lsquo;<samp>KEYWORDS</samp>&rsquo;</dt>
+<dd><a name="index-KEYWORDS_002c-keyword-1"></a>
+<p>Keywords to describe the document&rsquo;s content.  HTML exporter inserts
+these keywords as HTML meta tags.  For long keywords, use multiple
+&lsquo;<samp>KEYWORDS</samp>&rsquo; lines.
+</p>
+</dd>
+<dt>&lsquo;<samp>LATEX_HEADER</samp>&rsquo;</dt>
+<dd><a name="index-LATEX_005fHEADER_002c-keyword"></a>
+<p>Arbitrary lines for appending to the preamble; HTML exporter appends
+when transcoding LaTeX fragments to images (see <a href="Math-formatting-in-HTML-export.html#Math-formatting-in-HTML-export">Math formatting in HTML export</a>).
+</p>
+</dd>
+<dt>&lsquo;<samp>SUBTITLE</samp>&rsquo;</dt>
+<dd><a name="index-SUBTITLE_002c-keyword-2"></a>
+<p>The document&rsquo;s subtitle.  HTML exporter formats subtitle if document
+type is &lsquo;<samp>HTML5</samp>&rsquo; and the CSS has a &lsquo;<samp>subtitle</samp>&rsquo; class.
+</p></dd>
+</dl>
+
+<p>Some of these keywords are explained in more detail in the following
+sections of the manual.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="HTML-doctypes.html#HTML-doctypes" accesskey="n" rel="next">HTML doctypes</a>, Previous: <a href="HTML-export-commands.html#HTML-export-commands" accesskey="p" rel="prev">HTML export commands</a>, Up: <a href="HTML-Export.html#HTML-Export" accesskey="u" rel="up">HTML Export</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

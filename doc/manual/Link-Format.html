@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.3.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Link Format (The Org Manual)</title>
+
+<meta name="description" content="Link Format (The Org Manual)">
+<meta name="keywords" content="Link Format (The Org Manual)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Hyperlinks.html#Hyperlinks" rel="up" title="Hyperlinks">
+<link href="Internal-Links.html#Internal-Links" rel="next" title="Internal Links">
+<link href="Hyperlinks.html#Hyperlinks" rel="prev" title="Hyperlinks">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Link-Format"></a>
+<div class="header">
+<p>
+Next: <a href="Internal-Links.html#Internal-Links" accesskey="n" rel="next">Internal Links</a>, Up: <a href="Hyperlinks.html#Hyperlinks" accesskey="u" rel="up">Hyperlinks</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Link-Format-1"></a>
+<h3 class="section">4.1 Link Format</h3>
+
+<a name="index-link-format"></a>
+<a name="index-format_002c-of-links"></a>
+
+<a name="index-angle-bracket-links"></a>
+<a name="index-plain-links"></a>
+<p>Org recognizes plain URIs, possibly wrapped within angle
+brackets<a name="DOCF23" href="#FOOT23"><sup>23</sup></a>, and activate them as clickable links.
+</p>
+<a name="index-bracket-links"></a>
+<p>The general link format, however, looks like this:
+</p>
+<div class="example">
+<pre class="example">[[LINK][DESCRIPTION]]
+</pre></div>
+
+
+<p>or alternatively
+</p>
+<div class="example">
+<pre class="example">[[LINK]]
+</pre></div>
+
+
+<a name="index-escape-syntax_002c-for-links"></a>
+<a name="index-backslashes_002c-in-links"></a>
+<p>Some &lsquo;<samp>\</samp>&rsquo; and &lsquo;<samp>]</samp>&rsquo; characters in the <var>LINK</var> part need to be
+&ldquo;escaped&rdquo;, i.e., preceded by another &lsquo;<samp>\</samp>&rsquo; character.  More
+specifically, the following character categories, and only them, must
+be escaped, in order:
+</p>
+<ol>
+<li> all consecutive &lsquo;<samp>\</samp>&rsquo; characters at the end of the link,
+</li><li> any &lsquo;<samp>]</samp>&rsquo; character at the very end of the link,
+</li><li> all consecutive &lsquo;<samp>\</samp>&rsquo; characters preceding &lsquo;<samp>][</samp>&rsquo; or &lsquo;<samp>]]</samp>&rsquo; patterns,
+</li><li> any &lsquo;<samp>]</samp>&rsquo; character followed by either &lsquo;<samp>[</samp>&rsquo; or &lsquo;<samp>]</samp>&rsquo;.
+</li></ol>
+
+<a name="index-org_002dlink_002descape"></a>
+<p>Org takes for granted that such links are correctly escaped.
+Functions inserting links (see <a href="Handling-Links.html#Handling-Links">Handling Links</a>) take care of this.
+You only need to bother about those rules when inserting directly, or
+yanking, a URI within square brackets.  When in doubt, you may use the
+function <code>org-link-escape</code>, which turns a link string into its
+properly escaped form.
+</p>
+<p>Once a link in the buffer is complete, with all brackets present, Org
+changes the display so that &lsquo;<samp>DESCRIPTION</samp>&rsquo; is displayed instead of
+&lsquo;<samp>[[LINK][DESCRIPTION]]</samp>&rsquo; and &lsquo;<samp>LINK</samp>&rsquo; is displayed instead of &lsquo;<samp>[[LINK]]</samp>&rsquo;.
+Links are highlighted in the <code>org-link</code> face, which, by default, is an
+underlined face.
+</p>
+<p>You can directly edit the visible part of a link.  This can be either
+the <var>LINK</var> part, if there is no description, or the
+<var>DESCRIPTION</var> part otherwise.  To also edit the invisible
+<var>LINK</var> part, use <kbd>C-c C-l</kbd> with point on the link
+(see <a href="Handling-Links.html#Handling-Links">Handling Links</a>).
+</p>
+<p>If you place point at the beginning or just behind the end of the
+displayed text and press <kbd><span class="key">BS</span></kbd>, you remove
+the&mdash;invisible&mdash;bracket at that location<a name="DOCF24" href="#FOOT24"><sup>24</sup></a>.  This makes the link
+incomplete and the internals are again displayed as plain text.
+Inserting the missing bracket hides the link internals again.  To show
+the internal structure of all links, use the menu: Org &rarr; Hyperlinks &rarr;
+Literal links.
+</p>
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT23" href="#DOCF23">(23)</a></h3>
+<p>Plain URIs are recognized only for a well-defined set of
+schemes.  See <a href="External-Links.html#External-Links">External Links</a>.  Unlike URI syntax, they cannot contain
+parenthesis or white spaces, either.  URIs within angle brackets have
+no such limitation.</p>
+<h3><a name="FOOT24" href="#DOCF24">(24)</a></h3>
+<p>More accurately, the precise behavior depends on how point
+arrived there&mdash;see <a href="http://www.gnu.org/software/emacs/manual/html_node/elisp/Invisible-Text.html#Invisible-Text">(elisp)Invisible Text</a>.</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Internal-Links.html#Internal-Links" accesskey="n" rel="next">Internal Links</a>, Up: <a href="Hyperlinks.html#Hyperlinks" accesskey="u" rel="up">Hyperlinks</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

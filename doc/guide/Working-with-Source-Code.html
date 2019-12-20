@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+in the full Org manual, which is distributed together with this
+compact guide.
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Working with Source Code (Org Mode Compact Guide)</title>
+
+<meta name="description" content="Working with Source Code (Org Mode Compact Guide)">
+<meta name="keywords" content="Working with Source Code (Org Mode Compact Guide)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Miscellaneous.html#Miscellaneous" rel="next" title="Miscellaneous">
+<link href="Publishing.html#Publishing" rel="prev" title="Publishing">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Working-with-Source-Code"></a>
+<div class="header">
+<p>
+Next: <a href="Miscellaneous.html#Miscellaneous" accesskey="n" rel="next">Miscellaneous</a>, Previous: <a href="Publishing.html#Publishing" accesskey="p" rel="prev">Publishing</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<hr>
+<a name="Working-with-Source-Code-1"></a>
+<h2 class="chapter">14 Working with Source Code</h2>
+
+<p>Org mode provides a number of features for working with source code,
+including editing of code blocks in their native major mode,
+evaluation of code blocks, tangling of code blocks, and exporting code
+blocks and their results in several formats.
+</p>
+<p>A source code block conforms to this structure:
+</p>
+<div class="example">
+<pre class="example">#+NAME: &lt;name&gt;
+#+BEGIN_SRC &lt;language&gt; &lt;switches&gt; &lt;header arguments&gt;
+  &lt;body&gt;
+#+END_SRC
+</pre></div>
+
+<p>where:
+</p>
+<ul>
+<li> &lsquo;<samp>&lt;name&gt;</samp>&rsquo; is a string used to uniquely name the code block,
+
+</li><li> &lsquo;<samp>&lt;language&gt;</samp>&rsquo; specifies the language of the code block, e.g.,
+&lsquo;<samp>emacs-lisp</samp>&rsquo;, &lsquo;<samp>shell</samp>&rsquo;, &lsquo;<samp>R</samp>&rsquo;, &lsquo;<samp>python</samp>&rsquo;, etc.,
+
+</li><li> &lsquo;<samp>&lt;switches&gt;</samp>&rsquo; can be used to control export of the code block,
+
+</li><li> &lsquo;<samp>&lt;header arguments&gt;</samp>&rsquo; can be used to control many aspects of code
+block behavior as demonstrated below,
+
+</li><li> &lsquo;<samp>&lt;body&gt;</samp>&rsquo; contains the actual source code.
+</li></ul>
+
+<p>Use <kbd>C-c '</kbd> to edit the current code block.  It opens a new
+major mode edit buffer containing the body of the source code block,
+ready for any edits.  Use <kbd>C-c '</kbd> again to close the buffer
+and return to the Org buffer.
+</p>
+<a name="Using-header-arguments"></a><a name="Using-header-arguments-1"></a>
+<h3 class="heading">Using header arguments</h3>
+
+<p>A header argument is specified with an initial colon followed by the
+argument&rsquo;s name in lowercase.
+</p>
+<p>Header arguments can be set in several ways; Org prioritizes them in
+case of overlaps or conflicts by giving local settings a higher
+priority.
+</p>
+<dl compact="compact">
+<dt>System-wide header arguments</dt>
+<dd><p>Those are specified by customizing <code>org-babel-default-header-args</code>
+variable, or, for a specific language <var>LANG</var>
+<code>org-babel-default-header-args:LANG</code>.
+</p>
+</dd>
+<dt>Header arguments in properties</dt>
+<dd><p>You can set them using &lsquo;<samp>header-args</samp>&rsquo; property (see <a href="Properties.html#Properties">Properties</a>)&mdash;or
+&lsquo;<samp>header-args:LANG</samp>&rsquo; for language <var>LANG</var>.  Header arguments
+set through properties drawers apply at the sub-tree level on down.
+</p>
+</dd>
+<dt>Header arguments in code blocks</dt>
+<dd><p>Header arguments are most commonly set at the source code block
+level, on the &lsquo;<samp>BEGIN_SRC</samp>&rsquo; line:
+</p>
+<div class="example">
+<pre class="example">#+NAME: factorial
+#+BEGIN_SRC haskell :results silent :exports code :var n=0
+  fac 0 = 1
+  fac n = n * fac (n-1)
+#+END_SRC
+</pre></div>
+
+<p>Code block header arguments can span multiple lines using &lsquo;<samp>HEADER</samp>&rsquo;
+keyword on each line.
+</p></dd>
+</dl>
+
+<a name="Evaluating-code-blocks"></a><a name="Evaluating-code-blocks-1"></a>
+<h3 class="heading">Evaluating code blocks</h3>
+
+<p>Use <kbd>C-c C-c</kbd> to evaluate the current code block and insert
+its results in the Org document.  By default, evaluation is only
+turned on for &lsquo;<samp>emacs-lisp</samp>&rsquo; code blocks, however support exists for
+evaluating blocks in many languages.  For a complete list of supported
+languages see the manual.  The following shows a code block and its
+results.
+</p>
+<div class="example">
+<pre class="example">#+BEGIN_SRC emacs-lisp
+  (+ 1 2 3 4)
+#+END_SRC
+
+#+RESULTS:
+: 10
+</pre></div>
+
+<p>The following syntax is used to pass arguments to code blocks using
+the &lsquo;<samp>var</samp>&rsquo; header argument.
+</p>
+<div class="example">
+<pre class="example">:var NAME=ASSIGN
+</pre></div>
+
+
+<p><var>NAME</var> is the name of the variable bound in the code block
+body.  <var>ASSIGN</var> is a literal value, such as a string,
+a number, a reference to a table, a list, a literal example, another
+code block&mdash;with or without arguments&mdash;or the results of evaluating
+a code block.
+</p>
+<a name="Results-of-evaluation"></a><a name="Results-of-evaluation-1"></a>
+<h3 class="heading">Results of evaluation</h3>
+
+<p>How Org handles results of a code block execution depends on many
+header arguments working together.  The primary determinant, however,
+is the &lsquo;<samp>results</samp>&rsquo; header argument.  It controls the <em>collection</em>,
+<em>type</em>, <em>format</em>, and <em>handling</em> of code block results.
+</p>
+<dl compact="compact">
+<dt>Collection</dt>
+<dd><p>How the results should be collected from the code block.  You may
+choose either &lsquo;<samp>output</samp>&rsquo; or &lsquo;<samp>value</samp>&rsquo; (the default).
+</p>
+</dd>
+<dt>Type</dt>
+<dd><p>What result types to expect from the execution of the code block.
+You may choose among &lsquo;<samp>table</samp>&rsquo;, &lsquo;<samp>list</samp>&rsquo;, &lsquo;<samp>scalar</samp>&rsquo;, and &lsquo;<samp>file</samp>&rsquo;.  Org
+tries to guess it if you do not provide it.
+</p>
+</dd>
+<dt>Format</dt>
+<dd><p>How Org processes results.  Some possible values are &lsquo;<samp>code</samp>&rsquo;,
+&lsquo;<samp>drawer</samp>&rsquo;, &lsquo;<samp>html</samp>&rsquo;, &lsquo;<samp>latex</samp>&rsquo;, &lsquo;<samp>link</samp>&rsquo;, and &lsquo;<samp>raw</samp>&rsquo;.
+</p>
+</dd>
+<dt>Handling</dt>
+<dd><p>How to insert the results once properly formatted.  Allowed values
+are &lsquo;<samp>silent</samp>&rsquo;, &lsquo;<samp>replace</samp>&rsquo; (the default), &lsquo;<samp>append</samp>&rsquo;, or &lsquo;<samp>prepend</samp>&rsquo;.
+</p></dd>
+</dl>
+
+<p>Code blocks which output results to files&mdash;e.g.: graphs, diagrams and
+figures&mdash;can accept a &lsquo;<samp>:file FILENAME</samp>&rsquo; header argument, in which case
+the results are saved to the named file, and a link to the file is
+inserted into the buffer.
+</p>
+<a name="Exporting-code-blocks"></a><a name="Exporting-code-blocks-1"></a>
+<h3 class="heading">Exporting code blocks</h3>
+
+<p>It is possible to export the <em>code</em> of code blocks, the <em>results</em> of
+code block evaluation, <em>both</em> the code and the results of code block
+evaluation, or <em>none</em>.  Org defaults to exporting <em>code</em> for most
+languages.
+</p>
+<p>The &lsquo;<samp>exports</samp>&rsquo; header argument is to specify if that part of the Org
+file is exported to, say, HTML or LaTeX formats.  It can be set to
+either &lsquo;<samp>code</samp>&rsquo;, &lsquo;<samp>results</samp>&rsquo;, &lsquo;<samp>both</samp>&rsquo; or &lsquo;<samp>none</samp>&rsquo;.
+</p>
+<a name="Extracting-source-code"></a><a name="Extracting-source-code-1"></a>
+<h3 class="heading">Extracting source code</h3>
+
+<p>Use <kbd>C-c C-v t</kbd> to create pure source code files by
+extracting code from source blocks in the current buffer.  This is
+referred to as &ldquo;tangling&rdquo;&mdash;a term adopted from the literate
+programming community.  During tangling of code blocks their bodies
+are expanded using <code>org-babel-expand-src-block</code>, which can expand both
+variable and &ldquo;Noweb&rdquo; style references.  In order to tangle a code
+block it must have a &lsquo;<samp>tangle</samp>&rsquo; header argument, see the manual for
+details.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Miscellaneous.html#Miscellaneous" accesskey="n" rel="next">Miscellaneous</a>, Previous: <a href="Publishing.html#Publishing" accesskey="p" rel="prev">Publishing</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Org version 9.3.
+
+Copyright (C) 2004-2019  Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled "GNU Free Documentation License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual."
+ -->
+<!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Exporting Code Blocks (The Org Manual)</title>
+
+<meta name="description" content="Exporting Code Blocks (The Org Manual)">
+<meta name="keywords" content="Exporting Code Blocks (The Org Manual)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Main-Index.html#Main-Index" rel="index" title="Main Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Working-with-Source-Code.html#Working-with-Source-Code" rel="up" title="Working with Source Code">
+<link href="Extracting-Source-Code.html#Extracting-Source-Code" rel="next" title="Extracting Source Code">
+<link href="Results-of-Evaluation.html#Results-of-Evaluation" rel="prev" title="Results of Evaluation">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Exporting-Code-Blocks"></a>
+<div class="header">
+<p>
+Next: <a href="Extracting-Source-Code.html#Extracting-Source-Code" accesskey="n" rel="next">Extracting Source Code</a>, Previous: <a href="Results-of-Evaluation.html#Results-of-Evaluation" accesskey="p" rel="prev">Results of Evaluation</a>, Up: <a href="Working-with-Source-Code.html#Working-with-Source-Code" accesskey="u" rel="up">Working with Source Code</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Exporting-Code-Blocks-1"></a>
+<h3 class="section">15.6 Exporting Code Blocks</h3>
+
+<a name="index-code-block_002c-exporting"></a>
+<a name="index-source-code_002c-exporting"></a>
+
+<p>It is possible to export the <em>code</em> of code blocks, the <em>results</em> of
+code block evaluation, <em>both</em> the code and the results of code block
+evaluation, or <em>none</em>.  Org defaults to exporting <em>code</em> for most
+languages.  For some languages, such as ditaa, Org defaults to
+<em>results</em>.  To export just the body of code blocks, see <a href="Literal-Examples.html#Literal-Examples">Literal Examples</a>.  To selectively export sub-trees of an Org document, see
+<a href="Exporting.html#Exporting">Exporting</a>.
+</p>
+<a name="index-exports_002c-header-argument"></a>
+<p>The &lsquo;<samp>exports</samp>&rsquo; header argument is to specify if that part of the Org
+file is exported to, say, HTML or LaTeX formats.
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>code</samp>&rsquo;</dt>
+<dd><p>The default.  The body of code is included into the exported file.
+Example: &lsquo;<samp>:exports code</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>results</samp>&rsquo;</dt>
+<dd><p>The results of evaluation of the code is included in the exported
+file.  Example: &lsquo;<samp>:exports results</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>both</samp>&rsquo;</dt>
+<dd><p>Both the code and results of evaluation are included in the exported
+file.  Example: &lsquo;<samp>:exports both</samp>&rsquo;.
+</p>
+</dd>
+<dt>&lsquo;<samp>none</samp>&rsquo;</dt>
+<dd><p>Neither the code nor the results of evaluation is included in the
+exported file.  Whether the code is evaluated at all depends on
+other options.  Example: &lsquo;<samp>:exports none</samp>&rsquo;.
+</p></dd>
+</dl>
+
+<a name="index-org_002dexport_002duse_002dbabel"></a>
+<p>To stop Org from evaluating code blocks to speed exports, use the
+header argument &lsquo;<samp>:eval never-export</samp>&rsquo; (see <a href="Evaluating-Code-Blocks.html#Evaluating-Code-Blocks">Evaluating Code Blocks</a>).
+To stop Org from evaluating code blocks for greater security, set the
+<code>org-export-use-babel</code> variable to <code>nil</code>, but understand that header
+arguments will have no effect.
+</p>
+<p>Turning off evaluation comes in handy when batch processing.  For
+example, markup languages for wikis, which have a high risk of
+untrusted code.  Stopping code block evaluation also stops evaluation
+of all header arguments of the code block.  This may not be desirable
+in some circumstances.  So during export, to allow evaluation of just
+the header arguments but not any code evaluation in the source block,
+set &lsquo;<samp>:eval never-export</samp>&rsquo; (see <a href="Evaluating-Code-Blocks.html#Evaluating-Code-Blocks">Evaluating Code Blocks</a>).
+</p>
+<p>Org never evaluates code blocks in commented sub-trees when exporting
+(see <a href="Comment-Lines.html#Comment-Lines">Comment Lines</a>).  On the other hand, Org does evaluate code
+blocks in sub-trees excluded from export (see <a href="Export-Settings.html#Export-Settings">Export Settings</a>).
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Extracting-Source-Code.html#Extracting-Source-Code" accesskey="n" rel="next">Extracting Source Code</a>, Previous: <a href="Results-of-Evaluation.html#Results-of-Evaluation" accesskey="p" rel="prev">Results of Evaluation</a>, Up: <a href="Working-with-Source-Code.html#Working-with-Source-Code" accesskey="u" rel="up">Working with Source Code</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Main-Index.html#Main-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
