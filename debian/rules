@@ -6,43 +6,21 @@ DOC_TMP_FILES := doc/org.aux doc/org.cp doc/org.cps doc/org.fn \
 
 DOC_FILES := doc/*pdf doc/*html
 
-clean:
-	dh_testdir
-	dh_testroot
-	dh_clean
+%:
+	dh $@
+
+override_dh_auto_clean:
 	rm -f $(DOC_FILES) $(DOC_TMP_FILES) local.mk
 
-build build-indep build-arch:
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_prep
-	dh_installdirs
+override_dh_auto_build:
 	make ORG_MAKE_DOC="info html pdf card" doc
 	rm -f $(DOC_TMP_FILES)
-	# find $(CURDIR)/debian/org-mode-doc/usr/share/org-mode/ -type f -exec chmod 644 "{}" \;
-	# find $(CURDIR)/debian/org-mode-doc/usr/share/emacs/site-lisp/org-mode -type f -exec chmod 644 "{}" \;
-	# find $(CURDIR)/debian/org-mode-doc/usr/share/org-mode/ -name .DS_Store -exec rm -f "{}" \;
-	# find $(CURDIR)/debian/org-mode-doc/usr/share/org-mode/ -name .gitignore -exec rm -f "{}" \;
 
-binary-indep: install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs
+override_dh_installdocs:
 	dh_installdocs doc/*
 	rm -f $(CURDIR)/debian/org-mode-doc/usr/share/doc/org-mode-doc/*texi*
-	dh_installemacsen -v
-	dh_fixperms
+
+override_dh_installinfo:
 	dh_installinfo doc/org
-	dh_compress
-	dh_installdeb
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
 
-binary-arch: build-arch
-
-binary: binary-indep binary-arch
-
-.PHONY: build clean build-indep build-arch binary binary-indep binary-arch
+override_dh_auto_install override_dh_auto_test:

@@ -13,7 +13,7 @@ html:		org.html
 
 pdf:		org.pdf orgguide.pdf
 
-card:		orgcard.pdf orgcard_letter.pdf orgguide.pdf
+card:		orgcard.pdf
 
 ifneq ($(SERVERMK),)
 manual guide::
