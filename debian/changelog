@@ -1,3 +1,11 @@
+org-mode-doc (9.4.0-1) unstable; urgency=medium
+
+  * New upstream version 9.4.0
+  * Bump-up Standards-Version
+  * Switch to dh
+
+ -- Sebastien Delafond <seb@debian.org>  Thu, 24 Sep 2020 17:07:33 +0200
+
 org-mode-doc (9.3.1-1) unstable; urgency=medium
 
   * New upstream version 9.3.1
