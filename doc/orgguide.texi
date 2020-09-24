@@ -7,13 +7,13 @@
 @set txicodequoteundirected
 @set txicodequotebacktick
 @set MAINTAINERSITE @uref{https://orgmode.org,maintainers webpage}
-@set MAINTAINER Carsten Dominik
-@set MAINTAINEREMAIL @email{carsten at orgmode dot org}
-@set MAINTAINERCONTACT @uref{mailto:carsten at orgmode dot org,contact the maintainer}
+@set MAINTAINER Bastien Guerry
+@set MAINTAINEREMAIL @email{bzg@gnu.org}
+@set MAINTAINERCONTACT @uref{mailto:bzg@gnu.org,contact the maintainer}
 @c %**end of header
 
 @copying
-Copyright @copyright{} 2004--2019  Free Software Foundation, Inc.
+Copyright @copyright{} 2004--2020  Free Software Foundation, Inc.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -31,7 +31,7 @@ modify this GNU manual.''
 @end quotation
 @end copying
 
-@dircategory Emacs
+@dircategory Emacs editing modes
 @direntry
 * Org Guide: (orgguide). Abbreviated Org mode manual.
 @end direntry
@@ -39,7 +39,7 @@ modify this GNU manual.''
 @finalout
 @titlepage
 @title Org Mode Compact Guide
-@subtitle Release 9.3
+@subtitle Release 9.4
 @author The Org Mode Developers
 @page
 @vskip 0pt plus 1filll
@@ -186,16 +186,14 @@ make autoloads
 @anchor{Activation}
 @heading Activation
 
-Add the following lines to your Emacs init file.  The last four lines
-define @emph{global} keys for some commands---please choose suitable keys
-yourself.
+Add the following lines to your Emacs init file to define @emph{global}
+keys for three commands that are useful in any Emacs buffer, not just
+Org buffers.  Please choose suitable keys yourself.
 
 @lisp
-;; The following lines are always needed.  Choose your own keys.
-(global-set-key (kbd "C-l") 'org-store-link)
-(global-set-key (kbd "C-a") 'org-agenda)
-(global-set-key (kbd "C-c") 'org-capture)
-(global-set-key (kbd "C-b") 'org-switchb)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
 @end lisp
 
 Files with extension @samp{.org} will be put into Org mode automatically.
@@ -233,9 +231,9 @@ the entire show and hide functionalities into a single command,
 @section Headlines
 
 Headlines define the structure of an outline tree.  The headlines in
-Org start with one or more stars, on the left margin@footnote{See the variable @code{org-special-ctrl-a/e} to configure special
-behavior of @kbd{C-a} and @kbd{C-e} in headlines.}.  For
-example:
+Org start on the left margin@footnote{See the variable @code{org-special-ctrl-a/e} to configure special
+behavior of @kbd{C-a} and @kbd{C-e} in headlines.} with one or more stars followed by
+a space.  For example:
 
 @example
 * Top level headline
