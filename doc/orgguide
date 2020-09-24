@@ -1,6 +1,6 @@
 This is orgguide, produced by makeinfo version 6.5 from orgguide.texi.
 
-Copyright © 2004–2019 Free Software Foundation, Inc.
+Copyright © 2004–2020 Free Software Foundation, Inc.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -14,7 +14,7 @@ Copyright © 2004–2019 Free Software Foundation, Inc.
      (a) The FSF’s Back-Cover Text is: “You have the freedom to copy and
      modify this GNU manual.”
 
-INFO-DIR-SECTION Emacs
+INFO-DIR-SECTION Emacs editing modes
 START-INFO-DIR-ENTRY
 * Org Guide: (orgguide). Abbreviated Org mode manual.
 END-INFO-DIR-ENTRY
@@ -25,7 +25,7 @@ File: orgguide,  Node: Top,  Next: Introduction,  Up: (dir)
 Org Mode Compact Guide
 **********************
 
-Copyright © 2004–2019 Free Software Foundation, Inc.
+Copyright © 2004–2020 Free Software Foundation, Inc.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -164,15 +164,13 @@ following command to generate autoload information.
 Activation
 ==========
 
-Add the following lines to your Emacs init file.  The last four lines
-define _global_ keys for some commands—please choose suitable keys
-yourself.
+Add the following lines to your Emacs init file to define _global_ keys
+for three commands that are useful in any Emacs buffer, not just Org
+buffers.  Please choose suitable keys yourself.
 
-     ;; The following lines are always needed.  Choose your own keys.
-     (global-set-key (kbd "C-l") 'org-store-link)
-     (global-set-key (kbd "C-a") 'org-agenda)
-     (global-set-key (kbd "C-c") 'org-capture)
-     (global-set-key (kbd "C-b") 'org-switchb)
+     (global-set-key (kbd "C-c l") 'org-store-link)
+     (global-set-key (kbd "C-c a") 'org-agenda)
+     (global-set-key (kbd "C-c c") 'org-capture)
 
    Files with extension ‘.org’ will be put into Org mode automatically.
 
@@ -215,7 +213,8 @@ File: orgguide,  Node: Headlines,  Next: Visibility Cycling,  Up: Document Struc
 =============
 
 Headlines define the structure of an outline tree.  The headlines in Org
-start with one or more stars, on the left margin(1).  For example:
+start on the left margin(1) with one or more stars followed by a space.
+For example:
 
      * Top level headline
      ** Second level
@@ -2535,105 +2534,105 @@ file, use
 
 
 Tag Table:
-Node: Top903
-Node: Introduction5644
-Ref: Installation6325
-Ref: Activation7101
-Ref: Feedback7612
-Node: Document Structure7846
-Node: Headlines8912
-Ref: Headlines-Footnote-19771
-Node: Visibility Cycling9894
-Node: Motion11112
-Node: Structure Editing11529
-Ref: Structure Editing-Footnote-112718
-Node: Sparse Trees12822
-Ref: Sparse Trees-Footnote-113885
-Node: Plain Lists14000
-Node: Tables16501
-Ref: Creation and conversion18187
-Ref: Re-aligning and field motion18739
-Ref: Column and row editing19255
-Node: Hyperlinks20260
-Ref: Internal links21013
-Ref: External Links21466
-Ref: Handling Links23296
-Node: TODO Items24685
-Node: TODO Basics25657
-Node: Multi-state Workflow27047
-Node: Progress Logging28838
-Ref: Closing items29580
-Ref: Tracking TODO state changes30135
-Ref: Progress Logging-Footnote-131134
-Ref: Progress Logging-Footnote-231207
-Node: Priorities31285
-Node: Breaking Down Tasks32176
-Node: Checkboxes32974
-Node: Tags34029
-Ref: Tag inheritance34649
-Ref: Setting tags35387
-Ref: Tag groups37107
-Ref: Tag searches37903
-Ref: Tags-Footnote-138995
-Node: Properties39099
-Node: Dates and Times40853
-Node: Timestamps41450
-Node: Creating Timestamps43502
-Node: Deadlines and Scheduling45158
-Ref: Deadlines and Scheduling-Footnote-147177
-Ref: Deadlines and Scheduling-Footnote-247338
-Node: Clocking Work Time47501
-Node: Capture Refile Archive48809
-Node: Capture49612
-Ref: Setting up capture49909
-Ref: Using capture50180
-Ref: Capture templates50775
-Ref: Capture-Footnote-152191
-Ref: Capture-Footnote-252302
-Node: Refile and Copy52393
-Node: Archiving53586
-Node: Agenda Views54893
-Node: Agenda Files56343
-Node: Agenda Dispatcher56998
-Node: Built-in Agenda Views57923
-Node: Global TODO List59007
-Node: Matching Tags and Properties59719
-Node: Search View61683
-Node: Agenda Commands62788
-Ref: Motion (1)63369
-Ref: View/Go to Org file63510
-Ref: Change display63857
-Ref: Remote editing64945
-Ref: Quit and exit66136
-Node: Custom Agenda Views66342
-Node: Markup67813
-Node: Paragraphs68634
-Node: Emphasis and Monospace69751
-Node: Embedded LaTeX70164
-Node: Literal examples71028
-Node: Images72113
-Node: Creating Footnotes72709
-Node: Exporting73625
-Node: The Export Dispatcher74496
-Node: Export Settings75021
-Node: Table of Contents75841
-Node: Include Files76569
-Node: Comment Lines77250
-Node: ASCII/UTF-8 Export77943
-Node: HTML Export78637
-Node: LaTeX Export79649
-Node: iCalendar Export81283
-Node: Publishing81979
-Node: Working with Source Code83513
-Ref: Using header arguments84775
-Ref: Evaluating code blocks85953
-Ref: Results of evaluation86828
-Ref: Exporting code blocks88050
-Ref: Extracting source code88514
-Node: Miscellaneous89041
-Ref: Completion89159
-Ref: Structure Templates89496
-Ref: Clean view89822
+Node: Top917
+Node: Introduction5658
+Ref: Installation6339
+Ref: Activation7115
+Ref: Feedback7555
+Node: Document Structure7789
+Node: Headlines8855
+Ref: Headlines-Footnote-19732
+Node: Visibility Cycling9855
+Node: Motion11073
+Node: Structure Editing11490
+Ref: Structure Editing-Footnote-112679
+Node: Sparse Trees12783
+Ref: Sparse Trees-Footnote-113846
+Node: Plain Lists13961
+Node: Tables16462
+Ref: Creation and conversion18148
+Ref: Re-aligning and field motion18700
+Ref: Column and row editing19216
+Node: Hyperlinks20221
+Ref: Internal links20974
+Ref: External Links21427
+Ref: Handling Links23257
+Node: TODO Items24646
+Node: TODO Basics25618
+Node: Multi-state Workflow27008
+Node: Progress Logging28799
+Ref: Closing items29541
+Ref: Tracking TODO state changes30096
+Ref: Progress Logging-Footnote-131095
+Ref: Progress Logging-Footnote-231168
+Node: Priorities31246
+Node: Breaking Down Tasks32137
+Node: Checkboxes32935
+Node: Tags33990
+Ref: Tag inheritance34610
+Ref: Setting tags35348
+Ref: Tag groups37068
+Ref: Tag searches37864
+Ref: Tags-Footnote-138956
+Node: Properties39060
+Node: Dates and Times40814
+Node: Timestamps41411
+Node: Creating Timestamps43463
+Node: Deadlines and Scheduling45119
+Ref: Deadlines and Scheduling-Footnote-147138
+Ref: Deadlines and Scheduling-Footnote-247299
+Node: Clocking Work Time47462
+Node: Capture Refile Archive48770
+Node: Capture49573
+Ref: Setting up capture49870
+Ref: Using capture50141
+Ref: Capture templates50736
+Ref: Capture-Footnote-152152
+Ref: Capture-Footnote-252263
+Node: Refile and Copy52354
+Node: Archiving53547
+Node: Agenda Views54854
+Node: Agenda Files56304
+Node: Agenda Dispatcher56959
+Node: Built-in Agenda Views57884
+Node: Global TODO List58968
+Node: Matching Tags and Properties59680
+Node: Search View61644
+Node: Agenda Commands62749
+Ref: Motion (1)63330
+Ref: View/Go to Org file63471
+Ref: Change display63818
+Ref: Remote editing64906
+Ref: Quit and exit66097
+Node: Custom Agenda Views66303
+Node: Markup67774
+Node: Paragraphs68595
+Node: Emphasis and Monospace69712
+Node: Embedded LaTeX70125
+Node: Literal examples70989
+Node: Images72074
+Node: Creating Footnotes72670
+Node: Exporting73586
+Node: The Export Dispatcher74457
+Node: Export Settings74982
+Node: Table of Contents75802
+Node: Include Files76530
+Node: Comment Lines77211
+Node: ASCII/UTF-8 Export77904
+Node: HTML Export78598
+Node: LaTeX Export79610
+Node: iCalendar Export81244
+Node: Publishing81940
+Node: Working with Source Code83474
+Ref: Using header arguments84736
+Ref: Evaluating code blocks85914
+Ref: Results of evaluation86789
+Ref: Exporting code blocks88011
+Ref: Extracting source code88475
+Node: Miscellaneous89002
+Ref: Completion89120
+Ref: Structure Templates89457
+Ref: Clean view89783
 
 End Tag Table
 

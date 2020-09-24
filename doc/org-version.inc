@@ -1,3 +1,3 @@
 @c automatically generated, do not edit
-@set VERSION 9.3.1 (release_9.3.1)
-@set DATE 2019-12-26
+@set VERSION 9.4 (release_9.4)
+@set DATE 2020-09-14
